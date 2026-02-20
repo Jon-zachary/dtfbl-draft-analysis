@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
 """
 DTFBL Mock Auction Simulator
-Practice your auction strategy against AI opponents modeled on 16 years of draft data
+Proper nomination rotation + proper budget spending
 """
 
 import json
 import random
-import pandas as pd
 
 class Owner:
     """Represents an auction participant (human or AI)"""
@@ -24,7 +23,6 @@ class Owner:
         return self.roster_size - len(self.roster)
     
     def can_bid(self, amount):
-        # Must leave $1 for each remaining spot
         return self.budget - amount >= self.spots_left() - 1
     
     def add_player(self, player_name, price, position):
@@ -39,113 +37,133 @@ class Owner:
 class AIOwner(Owner):
     """AI opponent that mimics historical behavior"""
     
-    def should_bid(self, player_position, current_price, nomination_owner):
-        """Decide if AI should enter bidding"""
-        
-        # Don't bid if can't afford
-        if not self.can_bid(current_price + 1):
+    def should_bid(self, player_position, current_price, total_picks_so_far):
+        if not self.can_bid(current_price + 1) or not self.needs_players():
             return False
         
-        # Already have full roster
-        if not self.needs_players():
-            return False
+        # Calculate target spend per remaining slot
+        spots_left = self.spots_left()
+        money_left = self.budget
+        target_per_slot = money_left / spots_left if spots_left > 0 else 0
         
-        # Get position preference from profile (now uses premium_pct)
+        # Get position preference
         pos_prefs = self.profile.get('position_preferences', {})
         pos_data = pos_prefs.get(player_position, {})
         premium_pct = pos_data.get('premium_pct', 0)
         
-        # Base interest (0-1 scale)
-        # Owners who overpay for a position (+premium) are MORE interested
-        # Owners who underpay for a position (-premium) are LESS interested
-        base_interest = 0.5  # Neutral
-        
-        # Adjust based on historical premium/discount
-        # +50% premium = very interested (0.75)
-        # -50% premium = not interested (0.25)
+        base_interest = 0.5
         interest = base_interest + (premium_pct / 200)
         
-        # Modify based on current spending
-        budget_pct_left = self.budget / 260
-        spent_pct = 1 - budget_pct_left
+        # Progressive aggression as auction advances
+        total_slots = 14 * 8  # 8 owners (7 AI + 1 human)
+        pct_complete = total_picks_so_far / total_slots
         
-        # Stars & Scrubs players are more aggressive early
-        if spent_pct < 0.3:  # Early auction
-            interest *= 1.3
-        elif budget_pct_left < 0.2:  # Low budget, become conservative
-            interest *= 0.5
+        if pct_complete < 0.3:
+            interest *= 1.1
+        elif pct_complete < 0.7:
+            interest *= 1.0
+        else:
+            # Late auction: MUST SPEND
+            if current_price < target_per_slot * 0.8:
+                interest *= 2.0
+            else:
+                interest *= 1.3
         
-        # Heavy bargain hunters (high $1 pick rate) drop out faster
-        dollar_rate = self.profile.get('dollar_pick_rate', 0.2)
-        if dollar_rate > 0.23 and current_price > 8:
-            interest *= 0.6
+        # If we have lots of money left, be aggressive
+        if target_per_slot > 20:
+            if current_price < target_per_slot * 0.6:
+                interest *= 1.5
         
-        # Random factor (AI personality variance)
         interest *= random.uniform(0.8, 1.2)
-        
-        # Probabilistic decision
         return random.random() < interest
     
-    def get_max_bid(self, player_position, current_price):
-        """Determine maximum AI willing to pay"""
+    def get_max_bid(self, player_position, current_price, total_picks_so_far):
+        spots_left = self.spots_left()
+        money_left = self.budget
+        target_per_slot = money_left / spots_left if spots_left > 0 else 0
         
-        # Get historical avg for this position
         pos_prefs = self.profile.get('position_preferences', {})
         pos_data = pos_prefs.get(player_position, {})
         avg_price = pos_data.get('avg_price', 20)
         
-        # AI willing to pay around their historical average (with variance)
-        # This already reflects their over/underpaying tendencies
-        max_price = int(avg_price * random.uniform(0.9, 1.3))
+        total_slots = 14 * 8
+        pct_complete = total_picks_so_far / total_slots
         
-        # Clamp to budget constraints
+        # Early: historical average
+        if pct_complete < 0.4:
+            max_price = int(avg_price * random.uniform(0.9, 1.3))
+        
+        # Mid: blend historical with target
+        elif pct_complete < 0.7:
+            blended = (avg_price * 0.6) + (target_per_slot * 0.4)
+            max_price = int(blended * random.uniform(0.9, 1.2))
+        
+        # Late: MUST SPEND
+        else:
+            if target_per_slot > 20:
+                max_price = int(target_per_slot * random.uniform(0.9, 1.4))
+            else:
+                max_price = int(avg_price * random.uniform(1.0, 1.5))
+        
         max_affordable = self.budget - self.spots_left() + 1
         max_price = min(max_price, max_affordable)
-        
-        # Must be more than current price
         max_price = max(max_price, current_price + 1)
         
         return max_price
     
     def decide_bid_increment(self, current_price, max_bid):
-        """Decide how much to increase bid"""
-        
         gap = max_bid - current_price
-        
         if gap > 20:
-            # Jump aggressively if way below max
             return random.choice([2, 3, 5])
         elif gap > 5:
             return random.choice([1, 2])
         else:
             return 1
+    
+    def nominate_player(self):
+        players = [
+            ("Shohei Ohtani", "DH"), ("Juan Soto", "OF"), ("Francisco Lindor", "SS"),
+            ("Kyle Tucker", "OF"), ("Elly De La Cruz", "SS"), ("William Contreras", "C"),
+            ("Bryce Harper", "1B"), ("Fernando Tatis", "OF"), ("Trea Turner", "SS"),
+            ("Pete Alonso", "1B"), ("Kyle Schwarber", "DH"), ("Matt Olson", "1B"),
+            ("Corbin Carroll", "OF"), ("Mookie Betts", "SS"), ("Paul Skenes", "SP"),
+            ("Zack Wheeler", "SP"), ("Edwin Diaz", "RP"), ("Chris Sale", "SP"),
+            ("Freddie Freeman", "1B"), ("Ketel Marte", "2B"), ("Manny Machado", "3B"),
+            ("Nolan Arenado", "3B"), ("Willson Contreras", "C"), ("Ozzie Albies", "2B"),
+        ]
+        return random.choice(players)
 
 
 class MockAuction:
-    """Runs the mock auction"""
+    """Runs the mock auction with proper nomination rotation"""
     
-    def __init__(self, profiles_file='/home/claude/owner_profiles_corrected.json'):
-        # Load profiles
+    def __init__(self, profiles_file='owner_profiles.json'):
         with open(profiles_file, 'r') as f:
             self.profiles = json.load(f)
         
-        # Create AI owners
         self.owners = []
         for name, profile in self.profiles.items():
             self.owners.append(AIOwner(name, profile=profile))
         
-        # Add human player
         self.human = Owner("YOU (Practice)", budget=260)
         self.owners.append(self.human)
         
-        # Track auction state
-        self.auction_log = []
-        self.current_player = None
-        self.current_price = 0
-        self.current_bidder = None
+        random.shuffle(self.owners)
+        self.nomination_index = 0
+        self.total_picks = 0
         
+    def get_next_nominator(self):
+        attempts = 0
+        while attempts < len(self.owners):
+            nominator = self.owners[self.nomination_index]
+            self.nomination_index = (self.nomination_index + 1) % len(self.owners)
+            
+            if nominator.needs_players():
+                return nominator
+            attempts += 1
+        return None
+    
     def display_status(self):
-        """Show current auction state"""
         print("\n" + "="*80)
         print("AUCTION STATUS")
         print("="*80)
@@ -153,70 +171,60 @@ class MockAuction:
         for owner in sorted(self.owners, key=lambda x: x.budget, reverse=True):
             roster_str = f"{len(owner.roster)}/{owner.roster_size}"
             budget_str = f"${owner.budget}"
-            marker = " ← YOU" if owner == self.human else ""
-            print(f"{owner.name:20s} | Roster: {roster_str:5s} | Budget: {budget_str:>6s}{marker}")
+            avg_per_slot = owner.budget / owner.spots_left() if owner.spots_left() > 0 else 0
+            marker = " <- YOU" if owner == self.human else ""
+            print(f"{owner.name:20s} | Roster: {roster_str:5s} | Budget: {budget_str:>6s} | "
+                  f"$/slot: ${avg_per_slot:5.1f}{marker}")
     
-    def nominate_player(self, player_name, position, opening_bid=1):
-        """Start bidding on a player"""
+    def run_bidding(self, player_name, position, nominator, opening_bid=1):
         print(f"\n{'='*80}")
-        print(f"NOMINATED: {player_name} ({position}) - Opening bid: ${opening_bid}")
+        print(f"{nominator.name} nominates: {player_name} ({position}) - Opening: ${opening_bid}")
         print('='*80)
         
-        self.current_player = player_name
-        self.current_price = opening_bid
-        self.current_bidder = None
+        current_price = opening_bid
+        current_bidder = None
         
-        # Simulate bidding
+        # AI bidding
         interested_owners = []
-        
         for owner in self.owners:
-            if owner == self.human:
-                continue  # Human decides separately
+            if owner == self.human or owner == nominator:
+                continue
             
-            if isinstance(owner, AIOwner) and owner.should_bid(position, self.current_price, None):
-                max_bid = owner.get_max_bid(position, self.current_price)
+            if isinstance(owner, AIOwner) and owner.should_bid(position, current_price, self.total_picks):
+                max_bid = owner.get_max_bid(position, current_price, self.total_picks)
                 interested_owners.append((owner, max_bid))
         
-        # Sort by max bid (most interested first)
         interested_owners.sort(key=lambda x: x[1], reverse=True)
         
-        # Bidding war
-        bidding_active = len(interested_owners) > 0
-        last_bidder = None
-        
-        while bidding_active:
-            # Highest interested owner bids
-            if interested_owners:
-                owner, max_bid = interested_owners[0]
+        while interested_owners:
+            owner, max_bid = interested_owners[0]
+            
+            if max_bid > current_price and owner.can_bid(max_bid):
+                increment = owner.decide_bid_increment(current_price, max_bid)
+                new_bid = min(current_price + increment, max_bid)
                 
-                if max_bid > self.current_price and owner.can_bid(max_bid):
-                    increment = owner.decide_bid_increment(self.current_price, max_bid)
-                    new_bid = min(self.current_price + increment, max_bid)
-                    
-                    if owner.can_bid(new_bid):
-                        self.current_price = new_bid
-                        self.current_bidder = owner
-                        print(f"  {owner.name} bids ${new_bid}")
-                        last_bidder = owner
-                        
-                        # Remove this owner, they've bid
-                        interested_owners.pop(0)
-                        
-                        # Check if others still interested
-                        interested_owners = [(o, m) for o, m in interested_owners if m > self.current_price]
-                    else:
-                        interested_owners.pop(0)
+                if owner.can_bid(new_bid):
+                    current_price = new_bid
+                    current_bidder = owner
+                    print(f"  {owner.name} bids ${new_bid}")
+                    interested_owners.pop(0)
+                    interested_owners = [(o, m) for o, m in interested_owners if m > current_price]
                 else:
                     interested_owners.pop(0)
             else:
-                bidding_active = False
+                interested_owners.pop(0)
         
-        # Ask human if they want to bid
-        if self.human.needs_players():
-            print(f"\nCurrent bid: ${self.current_price} by {self.current_bidder.name if self.current_bidder else 'NOBODY'}")
-            print(f"Your budget: ${self.human.budget} | Spots left: {self.human.spots_left()}")
-            
+        # Human bidding
+        if self.human.needs_players() and self.human != nominator:
             while True:
+                bidder_name = current_bidder.name if current_bidder else 'NOBODY'
+                print(f"\nCurrent bid: ${current_price} by {bidder_name}")
+                print(f"Your budget: ${self.human.budget} | Spots left: {self.human.spots_left()}")
+                
+                if self.human.spots_left() > 0:
+                    target = self.human.budget / self.human.spots_left()
+                    print(f"Your target per remaining slot: ${target:.1f}")
+                
                 response = input("\nYour bid (or 'pass'): ").strip().lower()
                 
                 if response == 'pass':
@@ -224,106 +232,104 @@ class MockAuction:
                 
                 try:
                     bid_amount = int(response)
-                    if bid_amount <= self.current_price:
-                        print(f"Must bid more than ${self.current_price}")
+                    if bid_amount <= current_price:
+                        print(f"Must bid more than ${current_price}")
                         continue
                     
                     if not self.human.can_bid(bid_amount):
                         print(f"Can't afford! Need ${self.human.spots_left()} for remaining spots.")
                         continue
                     
-                    self.current_price = bid_amount
-                    self.current_bidder = self.human
+                    current_price = bid_amount
+                    current_bidder = self.human
                     print(f"  YOU bid ${bid_amount}")
                     
-                    # AI responses
+                    # AI counter?
                     for owner in self.owners:
-                        if owner == self.human:
+                        if owner == self.human or not isinstance(owner, AIOwner):
                             continue
                         
-                        if isinstance(owner, AIOwner):
-                            max_bid = owner.get_max_bid(position, self.current_price)
-                            
-                            if max_bid > self.current_price and owner.can_bid(max_bid) and random.random() < 0.4:
-                                counter_bid = self.current_price + random.choice([1, 2])
-                                if owner.can_bid(counter_bid):
-                                    self.current_price = counter_bid
-                                    self.current_bidder = owner
-                                    print(f"  {owner.name} bids ${counter_bid}")
+                        max_bid = owner.get_max_bid(position, current_price, self.total_picks)
+                        
+                        if max_bid > current_price and owner.can_bid(max_bid) and random.random() < 0.4:
+                            counter_bid = current_price + random.choice([1, 2])
+                            if owner.can_bid(counter_bid):
+                                current_price = counter_bid
+                                current_bidder = owner
+                                print(f"  {owner.name} bids ${counter_bid}")
                     
-                    # Ask human again if outbid
-                    if self.current_bidder != self.human:
-                        continue
-                    else:
+                    if current_bidder == self.human:
+                        print("\nNo counter-bids. Player is yours!")
                         break
                         
                 except ValueError:
                     print("Invalid bid")
         
         # Finalize
-        if self.current_bidder:
-            print(f"\n🎯 SOLD to {self.current_bidder.name} for ${self.current_price}")
-            self.current_bidder.add_player(self.current_player, self.current_price, position)
+        if current_bidder:
+            print(f"\n[SOLD] {current_bidder.name} wins {player_name} for ${current_price}")
+            current_bidder.add_player(player_name, current_price, position)
+            self.total_picks += 1
         else:
-            print(f"\n❌ No bids for {self.current_player}")
+            print(f"\n[NO SALE] No bids for {player_name}")
     
-    def run_interactive(self):
-        """Run interactive auction"""
+    def run_auction(self):
         print("\n" + "="*80)
         print("DTFBL MOCK AUCTION SIMULATOR")
         print("="*80)
-        print("\nPractice your auction strategy against AI opponents!")
-        print("AI behavior based on 16 years of historical draft data.")
-        print("\nCommands:")
-        print("  nominate <player> <pos> [price] - Start bidding")
-        print("  status - Show current standings")
-        print("  roster <team> - View a team's roster")
-        print("  quit - Exit simulator")
+        print("\nEach owner takes turns nominating players.")
+        print("FIXED: AI will spend money properly!\n")
+        print("\nNomination order (randomized):")
+        for i, owner in enumerate(self.owners, 1):
+            marker = " <- YOU" if owner == self.human else ""
+            print(f"  {i}. {owner.name}{marker}")
         
+        input("\nPress Enter to start the auction...")
         self.display_status()
         
-        while True:
-            cmd = input("\n> ").strip().lower()
+        round_num = 0
+        
+        while any(o.needs_players() for o in self.owners):
+            round_num += 1
+            nominator = self.get_next_nominator()
             
-            if cmd == 'quit':
-                print("\nThanks for practicing!")
+            if not nominator:
                 break
             
-            elif cmd == 'status':
-                self.display_status()
+            print(f"\n{'='*80}")
+            print(f"ROUND {round_num}: {nominator.name}'s turn to nominate")
+            print('='*80)
             
-            elif cmd.startswith('roster'):
-                parts = cmd.split()
-                if len(parts) > 1:
-                    team_name = ' '.join(parts[1:])
-                    owner = next((o for o in self.owners if team_name.lower() in o.name.lower()), None)
-                    if owner:
-                        print(f"\n{owner.name}'s Roster:")
-                        for i, pick in enumerate(owner.roster, 1):
-                            print(f"  {i}. {pick['player']:25s} {pick['position']:6s} ${pick['price']}")
-                        print(f"  Budget remaining: ${owner.budget}")
-                    else:
-                        print("Team not found")
-            
-            elif cmd.startswith('nominate'):
-                parts = cmd.split()
-                if len(parts) >= 3:
-                    player = ' '.join(parts[1:-1])
-                    position = parts[-1]
-                    opening = 1
-                    
-                    if len(parts) >= 4 and parts[-2].isdigit():
-                        opening = int(parts[-2])
-                        position = parts[-1]
-                    
-                    self.nominate_player(player, position, opening)
-                else:
-                    print("Usage: nominate <player> <position> [opening_bid]")
-            
+            if nominator == self.human:
+                print("\nYour turn to nominate!")
+                player_name = input("Player name: ").strip()
+                position = input("Position (C/1B/2B/SS/3B/OF/SP/RP/DH): ").strip().upper()
+                opening_str = input("Opening bid (default 1): ").strip()
+                opening = int(opening_str) if opening_str else 1
             else:
-                print("Unknown command. Try: nominate, status, roster, quit")
+                player_name, position = nominator.nominate_player()
+                opening = 1
+            
+            self.run_bidding(player_name, position, nominator, opening)
+            
+            if round_num % 14 == 0:
+                self.display_status()
+        
+        print(f"\n\n{'='*80}")
+        print("AUCTION COMPLETE!")
+        print('='*80)
+        self.display_status()
+        
+        print("\n\nYOUR FINAL ROSTER:")
+        if self.human.roster:
+            for i, pick in enumerate(sorted(self.human.roster, key=lambda x: x['price'], reverse=True), 1):
+                print(f"  {i}. ${pick['price']:3d} - {pick['player']:25s} ({pick['position']})")
+            print(f"\nTotal spent: ${260 - self.human.budget}")
+            print(f"Remaining: ${self.human.budget}")
+        else:
+            print("  No players drafted!")
 
 
 if __name__ == '__main__':
     auction = MockAuction()
-    auction.run_interactive()
+    auction.run_auction()
