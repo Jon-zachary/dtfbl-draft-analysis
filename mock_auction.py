@@ -1,11 +1,25 @@
 #!/usr/bin/env python3
 """
 DTFBL Mock Auction Simulator
-Proper nomination rotation + proper budget spending
+Proper nomination rotation + proper budget spending + roster enforcement
 """
 
 import json
 import random
+
+# Roster slot requirements
+ROSTER_SLOTS = {
+    "C": 1,
+    "1B": 1,
+    "2B": 1,
+    "SS": 1,
+    "3B": 1,
+    "OF": 3,
+    "SP": 3,
+    "RP": 1,
+    "SP/RP": 1,  # Flex slot - can be filled by SP or RP
+}
+
 
 class Owner:
     """Represents an auction participant (human or AI)"""
@@ -15,23 +29,76 @@ class Owner:
         self.roster = []
         self.roster_size = 14
         self.profile = profile or {}
-        
+        # Track how many of each position have been filled
+        self.position_counts = {pos: 0 for pos in ROSTER_SLOTS}
+
     def needs_players(self):
         return len(self.roster) < self.roster_size
-    
+
     def spots_left(self):
         return self.roster_size - len(self.roster)
-    
+
     def can_bid(self, amount):
         return self.budget - amount >= self.spots_left() - 1
-    
+
+    def needs_position(self, position):
+        """Check if this owner still needs a player at this position"""
+        # Normalize position name
+        pos = position.upper().strip()
+        if pos == "SP / RP":
+            pos = "SP/RP"
+
+        # Direct slot available?
+        if pos in self.position_counts:
+            if self.position_counts[pos] < ROSTER_SLOTS[pos]:
+                return True
+
+        # SP or RP can also fill the SP/RP flex slot
+        if pos in ("SP", "RP"):
+            if self.position_counts["SP/RP"] < ROSTER_SLOTS["SP/RP"]:
+                # Check if primary slots are full
+                if self.position_counts[pos] >= ROSTER_SLOTS[pos]:
+                    return True
+
+        return False
+
+    def get_slot_for_position(self, position):
+        """Determine which roster slot a position fills"""
+        pos = position.upper().strip()
+        if pos == "SP / RP":
+            pos = "SP/RP"
+
+        # Try direct slot first
+        if pos in self.position_counts:
+            if self.position_counts[pos] < ROSTER_SLOTS[pos]:
+                return pos
+
+        # SP or RP overflow to SP/RP flex slot
+        if pos in ("SP", "RP"):
+            if self.position_counts["SP/RP"] < ROSTER_SLOTS["SP/RP"]:
+                return "SP/RP"
+
+        return None
+
     def add_player(self, player_name, price, position):
+        slot = self.get_slot_for_position(position)
+        if slot:
+            self.position_counts[slot] += 1
         self.roster.append({
             'player': player_name,
             'price': price,
-            'position': position
+            'position': position,
+            'slot': slot
         })
         self.budget -= price
+
+    def positions_needed(self):
+        """Return list of positions this owner still needs"""
+        needed = []
+        for pos, max_count in ROSTER_SLOTS.items():
+            if self.position_counts[pos] < max_count:
+                needed.append(pos)
+        return needed
 
 
 class AIOwner(Owner):
@@ -39,6 +106,10 @@ class AIOwner(Owner):
     
     def should_bid(self, player_position, current_price, total_picks_so_far):
         if not self.can_bid(current_price + 1) or not self.needs_players():
+            return False
+
+        # ROSTER ENFORCEMENT: Don't bid if we don't need this position
+        if not self.needs_position(player_position):
             return False
 
         # Calculate target spend per remaining slot
@@ -149,17 +220,53 @@ class AIOwner(Owner):
             return 1
     
     def nominate_player(self):
-        players = [
-            ("Shohei Ohtani", "DH"), ("Juan Soto", "OF"), ("Francisco Lindor", "SS"),
-            ("Kyle Tucker", "OF"), ("Elly De La Cruz", "SS"), ("William Contreras", "C"),
-            ("Bryce Harper", "1B"), ("Fernando Tatis", "OF"), ("Trea Turner", "SS"),
-            ("Pete Alonso", "1B"), ("Kyle Schwarber", "DH"), ("Matt Olson", "1B"),
-            ("Corbin Carroll", "OF"), ("Mookie Betts", "SS"), ("Paul Skenes", "SP"),
-            ("Zack Wheeler", "SP"), ("Edwin Diaz", "RP"), ("Chris Sale", "SP"),
-            ("Freddie Freeman", "1B"), ("Ketel Marte", "2B"), ("Manny Machado", "3B"),
-            ("Nolan Arenado", "3B"), ("Willson Contreras", "C"), ("Ozzie Albies", "2B"),
-        ]
-        return random.choice(players)
+        """Nominate a player at a position the AI still needs"""
+        # Player pool organized by position (NL-only players)
+        player_pool = {
+            "C": ["J.T. Realmuto", "William Contreras", "Willson Contreras", "Travis d'Arnaud",
+                  "Gabriel Moreno", "Will Smith", "Patrick Bailey", "Yasmani Grandal"],
+            "1B": ["Freddie Freeman", "Pete Alonso", "Matt Olson", "Bryce Harper",
+                   "Cody Bellinger", "Christian Walker", "Josh Bell", "LaMonte Wade Jr."],
+            "2B": ["Ketel Marte", "Ozzie Albies", "Luis Arraez", "Gavin Lux",
+                   "Brendan Rodgers", "Jake Cronenworth", "Brandon Lowe", "Bryson Stott"],
+            "SS": ["Francisco Lindor", "Trea Turner", "Elly De La Cruz", "Mookie Betts",
+                   "Dansby Swanson", "CJ Abrams", "Ha-Seong Kim", "Ezequiel Tovar"],
+            "3B": ["Manny Machado", "Nolan Arenado", "Austin Riley", "Ryan McMahon",
+                   "Matt Chapman", "Ke'Bryan Hayes", "Alec Bohm", "Max Muncy"],
+            "OF": ["Juan Soto", "Fernando Tatis Jr.", "Kyle Tucker", "Corbin Carroll",
+                   "Ronald Acuna Jr.", "Mookie Betts", "Ian Happ", "Jackson Chourio",
+                   "Lars Nootbaar", "Bryan De La Cruz", "Brandon Marsh", "Michael Harris II"],
+            "SP": ["Zack Wheeler", "Spencer Strider", "Chris Sale", "Paul Skenes",
+                   "Logan Webb", "Shota Imanaga", "Yu Darvish", "Blake Snell",
+                   "Ranger Suarez", "Dylan Cease", "Miles Mikolas", "Sonny Gray"],
+            "RP": ["Edwin Diaz", "Ryan Helsley", "Josh Hader", "Camilo Doval",
+                   "Alexis Diaz", "Robert Suarez", "Tanner Scott", "A.J. Minter"],
+        }
+
+        # Get positions we still need
+        needed = self.positions_needed()
+
+        # Map SP/RP flex to actual pitcher positions
+        available_positions = []
+        for pos in needed:
+            if pos == "SP/RP":
+                # Flex slot can be filled by SP or RP
+                available_positions.extend(["SP", "RP"])
+            else:
+                available_positions.append(pos)
+
+        # Remove duplicates while preserving some order
+        available_positions = list(dict.fromkeys(available_positions))
+
+        if not available_positions:
+            # Fallback if somehow we need nothing (shouldn't happen)
+            available_positions = list(player_pool.keys())
+
+        # Pick a random position we need, then a random player at that position
+        position = random.choice(available_positions)
+        player = random.choice(player_pool.get(position, ["Unknown Player"]))
+
+        return (player, position)
 
 
 class MockAuction:
@@ -314,9 +421,18 @@ class MockAuction:
                 except ValueError:
                     print("Invalid bid")
         
-        # Finalize - if no one bid, nominator gets player at opening price
+        # Finalize - if no one bid, nominator gets player
+        # But they should spend appropriately based on their budget pressure
         if not current_bidder and nominator.can_bid(current_price):
             current_bidder = nominator
+            # Calculate what nominator should pay based on budget pressure
+            spots = nominator.spots_left()
+            if spots > 0:
+                target = nominator.budget / spots
+                max_affordable = nominator.budget - spots + 1
+                fair_price = min(int(target), max_affordable)
+                fair_price = max(fair_price, current_price)
+                current_price = fair_price
             print(f"\n  (no bids) {nominator.name} takes at ${current_price}")
 
         if current_bidder:
