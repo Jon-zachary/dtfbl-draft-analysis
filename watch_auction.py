@@ -395,17 +395,13 @@ def run_auto_auction():
         # Finalize - if no one bid, nominator gets player (if they need the position)
         if not current_bidder and nominator.can_bid(current_price) and nominator.needs_position(position):
             current_bidder = nominator
-            # Calculate what nominator should pay based on budget pressure
             spots = nominator.spots_left()
             if spots == 1:
                 # Last pick - spend entire remaining budget (can't carry it over)
                 current_price = nominator.budget
-            elif spots > 1:
-                target = nominator.budget / spots
-                max_affordable = nominator.budget - spots + 1
-                fair_price = min(int(target), max_affordable)
-                fair_price = max(fair_price, current_price)
-                current_price = fair_price
+            else:
+                # Not last pick and no competition - take at $1 (save money for contested positions)
+                current_price = 1
             if auction_round % 10 == 0 or auction_round <= 5:
                 print(f"  (no bids) {nominator.name} takes at ${current_price}")
 
