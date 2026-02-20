@@ -1,0 +1,436 @@
+{
+  "Bert's Bombers": {
+    "name": "Bert's Bombers",
+    "archetype": "Stars & Scrubs",
+    "avg_price": 19.56989247311828,
+    "median_price": 15.0,
+    "std_price": 16.547326296291587,
+    "max_price_ever": 67.0,
+    "big_spender_count": 14,
+    "dollar_pick_rate": 0.14516129032258066,
+    "position_preferences": {
+      "1B": {
+        "pct_budget": 8.626373626373626,
+        "avg_price": 22.428571428571427,
+        "count": 14
+      },
+      "2B": {
+        "pct_budget": 6.7032967032967035,
+        "avg_price": 17.428571428571427,
+        "count": 14
+      },
+      "3B": {
+        "pct_budget": 7.554945054945055,
+        "avg_price": 19.642857142857142,
+        "count": 14
+      },
+      "C": {
+        "pct_budget": 4.34065934065934,
+        "avg_price": 11.285714285714286,
+        "count": 14
+      },
+      "DH": {
+        "pct_budget": 1.8131868131868134,
+        "avg_price": 16.5,
+        "count": 4
+      },
+      "OF": {
+        "pct_budget": 23.48901098901099,
+        "avg_price": 20.357142857142858,
+        "count": 42
+      },
+      "RP": {
+        "pct_budget": 10.192307692307692,
+        "avg_price": 26.5,
+        "count": 14
+      },
+      "SP": {
+        "pct_budget": 25.90659340659341,
+        "avg_price": 22.452380952380953,
+        "count": 42
+      },
+      "SP / RP": {
+        "pct_budget": 4.78021978021978,
+        "avg_price": 12.428571428571429,
+        "count": 14
+      },
+      "SS": {
+        "pct_budget": 6.593406593406594,
+        "avg_price": 17.142857142857142,
+        "count": 14
+      }
+    }
+  },
+  "Charlie's Stars": {
+    "name": "Charlie's Stars",
+    "archetype": "Stars & Scrubs",
+    "avg_price": 19.56989247311828,
+    "median_price": 9.0,
+    "std_price": 22.661264891326386,
+    "max_price_ever": 88.0,
+    "big_spender_count": 24,
+    "dollar_pick_rate": 0.21505376344086022,
+    "position_preferences": {
+      "1B": {
+        "pct_budget": 10.934065934065934,
+        "avg_price": 28.428571428571427,
+        "count": 14
+      },
+      "2B": {
+        "pct_budget": 5.21978021978022,
+        "avg_price": 13.571428571428571,
+        "count": 14
+      },
+      "3B": {
+        "pct_budget": 9.313186813186814,
+        "avg_price": 24.214285714285715,
+        "count": 14
+      },
+      "C": {
+        "pct_budget": 3.5989010989010985,
+        "avg_price": 9.357142857142858,
+        "count": 14
+      },
+      "DH": {
+        "pct_budget": 2.9670329670329667,
+        "avg_price": 27.0,
+        "count": 4
+      },
+      "OF": {
+        "pct_budget": 33.65384615384615,
+        "avg_price": 29.166666666666668,
+        "count": 42
+      },
+      "RP": {
+        "pct_budget": 6.648351648351649,
+        "avg_price": 17.285714285714285,
+        "count": 14
+      },
+      "SP": {
+        "pct_budget": 17.63736263736264,
+        "avg_price": 15.285714285714286,
+        "count": 42
+      },
+      "SP / RP": {
+        "pct_budget": 1.8406593406593408,
+        "avg_price": 4.785714285714286,
+        "count": 14
+      },
+      "SS": {
+        "pct_budget": 8.186813186813186,
+        "avg_price": 21.285714285714285,
+        "count": 14
+      }
+    }
+  },
+  "David's Devils": {
+    "name": "David's Devils",
+    "archetype": "Stars & Scrubs",
+    "avg_price": 19.56989247311828,
+    "median_price": 11.0,
+    "std_price": 20.975093518182074,
+    "max_price_ever": 83.0,
+    "big_spender_count": 22,
+    "dollar_pick_rate": 0.25268817204301075,
+    "position_preferences": {
+      "1B": {
+        "pct_budget": 16.016483516483518,
+        "avg_price": 41.642857142857146,
+        "count": 14
+      },
+      "2B": {
+        "pct_budget": 8.901098901098901,
+        "avg_price": 23.142857142857142,
+        "count": 14
+      },
+      "3B": {
+        "pct_budget": 9.065934065934066,
+        "avg_price": 23.571428571428573,
+        "count": 14
+      },
+      "C": {
+        "pct_budget": 7.362637362637363,
+        "avg_price": 19.142857142857142,
+        "count": 14
+      },
+      "DH": {
+        "pct_budget": 3.2692307692307696,
+        "avg_price": 29.75,
+        "count": 4
+      },
+      "OF": {
+        "pct_budget": 17.747252747252748,
+        "avg_price": 15.380952380952381,
+        "count": 42
+      },
+      "RP": {
+        "pct_budget": 11.895604395604394,
+        "avg_price": 30.928571428571427,
+        "count": 14
+      },
+      "SP": {
+        "pct_budget": 17.664835164835164,
+        "avg_price": 15.30952380952381,
+        "count": 42
+      },
+      "SP / RP": {
+        "pct_budget": 3.708791208791209,
+        "avg_price": 9.642857142857142,
+        "count": 14
+      },
+      "SS": {
+        "pct_budget": 4.368131868131868,
+        "avg_price": 11.357142857142858,
+        "count": 14
+      }
+    }
+  },
+  "Forest Rangers": {
+    "name": "Forest Rangers",
+    "archetype": "Stars & Scrubs",
+    "avg_price": 19.56989247311828,
+    "median_price": 11.5,
+    "std_price": 22.19466595254662,
+    "max_price_ever": 85.0,
+    "big_spender_count": 26,
+    "dollar_pick_rate": 0.26344086021505375,
+    "position_preferences": {
+      "1B": {
+        "pct_budget": 8.461538461538462,
+        "avg_price": 22.0,
+        "count": 14
+      },
+      "2B": {
+        "pct_budget": 5.604395604395605,
+        "avg_price": 14.571428571428571,
+        "count": 14
+      },
+      "3B": {
+        "pct_budget": 12.912087912087914,
+        "avg_price": 33.57142857142857,
+        "count": 14
+      },
+      "C": {
+        "pct_budget": 3.571428571428571,
+        "avg_price": 9.285714285714286,
+        "count": 14
+      },
+      "DH": {
+        "pct_budget": 1.1813186813186813,
+        "avg_price": 10.75,
+        "count": 4
+      },
+      "OF": {
+        "pct_budget": 35.57692307692308,
+        "avg_price": 30.833333333333332,
+        "count": 42
+      },
+      "RP": {
+        "pct_budget": 6.181318681318682,
+        "avg_price": 16.071428571428573,
+        "count": 14
+      },
+      "SP": {
+        "pct_budget": 9.58791208791209,
+        "avg_price": 8.30952380952381,
+        "count": 42
+      },
+      "SP / RP": {
+        "pct_budget": 4.065934065934066,
+        "avg_price": 10.571428571428571,
+        "count": 14
+      },
+      "SS": {
+        "pct_budget": 12.857142857142856,
+        "avg_price": 33.42857142857143,
+        "count": 14
+      }
+    }
+  },
+  "Jake's Snakes": {
+    "name": "Jake's Snakes",
+    "archetype": "Stars & Scrubs",
+    "avg_price": 19.56989247311828,
+    "median_price": 12.0,
+    "std_price": 21.360432149420504,
+    "max_price_ever": 91.0,
+    "big_spender_count": 19,
+    "dollar_pick_rate": 0.25268817204301075,
+    "position_preferences": {
+      "1B": {
+        "pct_budget": 9.285714285714286,
+        "avg_price": 24.142857142857142,
+        "count": 14
+      },
+      "2B": {
+        "pct_budget": 2.6923076923076925,
+        "avg_price": 7.0,
+        "count": 14
+      },
+      "3B": {
+        "pct_budget": 9.368131868131869,
+        "avg_price": 24.357142857142858,
+        "count": 14
+      },
+      "C": {
+        "pct_budget": 8.873626373626374,
+        "avg_price": 23.071428571428573,
+        "count": 14
+      },
+      "DH": {
+        "pct_budget": 0.7967032967032966,
+        "avg_price": 7.25,
+        "count": 4
+      },
+      "OF": {
+        "pct_budget": 24.56043956043956,
+        "avg_price": 21.285714285714285,
+        "count": 42
+      },
+      "RP": {
+        "pct_budget": 3.8461538461538463,
+        "avg_price": 10.0,
+        "count": 14
+      },
+      "SP": {
+        "pct_budget": 23.736263736263734,
+        "avg_price": 20.571428571428573,
+        "count": 42
+      },
+      "SP / RP": {
+        "pct_budget": 3.543956043956044,
+        "avg_price": 9.214285714285714,
+        "count": 14
+      },
+      "SS": {
+        "pct_budget": 13.296703296703297,
+        "avg_price": 34.57142857142857,
+        "count": 14
+      }
+    }
+  },
+  "Jon's Generals": {
+    "name": "Jon's Generals",
+    "archetype": "Stars & Scrubs",
+    "avg_price": 19.56989247311828,
+    "median_price": 15.5,
+    "std_price": 18.554170711707552,
+    "max_price_ever": 81.0,
+    "big_spender_count": 19,
+    "dollar_pick_rate": 0.11827956989247312,
+    "position_preferences": {
+      "1B": {
+        "pct_budget": 17.032967032967033,
+        "avg_price": 44.285714285714285,
+        "count": 14
+      },
+      "2B": {
+        "pct_budget": 4.945054945054945,
+        "avg_price": 12.857142857142858,
+        "count": 14
+      },
+      "3B": {
+        "pct_budget": 7.362637362637363,
+        "avg_price": 19.142857142857142,
+        "count": 14
+      },
+      "C": {
+        "pct_budget": 3.543956043956044,
+        "avg_price": 9.214285714285714,
+        "count": 14
+      },
+      "DH": {
+        "pct_budget": 0.8791208791208791,
+        "avg_price": 8.0,
+        "count": 4
+      },
+      "OF": {
+        "pct_budget": 31.978021978021975,
+        "avg_price": 27.714285714285715,
+        "count": 42
+      },
+      "RP": {
+        "pct_budget": 5.302197802197802,
+        "avg_price": 13.785714285714286,
+        "count": 14
+      },
+      "SP": {
+        "pct_budget": 15.247252747252748,
+        "avg_price": 13.214285714285714,
+        "count": 42
+      },
+      "SP / RP": {
+        "pct_budget": 4.478021978021978,
+        "avg_price": 11.642857142857142,
+        "count": 14
+      },
+      "SS": {
+        "pct_budget": 9.230769230769232,
+        "avg_price": 24.0,
+        "count": 14
+      }
+    }
+  },
+  "Ryan's Lions": {
+    "name": "Ryan's Lions",
+    "archetype": "Stars & Scrubs",
+    "avg_price": 19.56989247311828,
+    "median_price": 10.0,
+    "std_price": 20.82716409674394,
+    "max_price_ever": 90.0,
+    "big_spender_count": 23,
+    "dollar_pick_rate": 0.1935483870967742,
+    "position_preferences": {
+      "1B": {
+        "pct_budget": 6.373626373626373,
+        "avg_price": 16.571428571428573,
+        "count": 14
+      },
+      "2B": {
+        "pct_budget": 4.615384615384616,
+        "avg_price": 12.0,
+        "count": 14
+      },
+      "3B": {
+        "pct_budget": 5.384615384615385,
+        "avg_price": 14.0,
+        "count": 14
+      },
+      "C": {
+        "pct_budget": 5.7967032967032965,
+        "avg_price": 15.071428571428571,
+        "count": 14
+      },
+      "DH": {
+        "pct_budget": 2.3626373626373627,
+        "avg_price": 21.5,
+        "count": 4
+      },
+      "OF": {
+        "pct_budget": 28.5989010989011,
+        "avg_price": 24.785714285714285,
+        "count": 42
+      },
+      "RP": {
+        "pct_budget": 5.1923076923076925,
+        "avg_price": 13.5,
+        "count": 14
+      },
+      "SP": {
+        "pct_budget": 27.390109890109894,
+        "avg_price": 23.738095238095237,
+        "count": 42
+      },
+      "SP / RP": {
+        "pct_budget": 3.159340659340659,
+        "avg_price": 8.214285714285714,
+        "count": 14
+      },
+      "SS": {
+        "pct_budget": 11.126373626373626,
+        "avg_price": 28.928571428571427,
+        "count": 14
+      }
+    }
+  }
+}
