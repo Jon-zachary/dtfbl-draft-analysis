@@ -165,6 +165,11 @@ class AIOwner(Owner):
     def get_max_bid(self, player_position, current_price, total_picks_so_far):
         spots_left = self.spots_left()
         money_left = self.budget
+
+        # Last pick - spend entire remaining budget (can't carry it over)
+        if spots_left == 1:
+            return money_left
+
         target_per_slot = money_left / spots_left if spots_left > 0 else 0
 
         pos_prefs = self.profile.get('position_preferences', {})
@@ -215,6 +220,10 @@ class AIOwner(Owner):
         return max_price
     
     def decide_bid_increment(self, current_price, max_bid):
+        # Last pick - jump straight to max bid to spend entire budget
+        if self.spots_left() == 1:
+            return max_bid - current_price
+
         gap = max_bid - current_price
         if gap > 20:
             return random.choice([2, 3, 5])
@@ -432,7 +441,10 @@ class MockAuction:
             current_bidder = nominator
             # Calculate what nominator should pay based on budget pressure
             spots = nominator.spots_left()
-            if spots > 0:
+            if spots == 1:
+                # Last pick - spend entire remaining budget (can't carry it over)
+                current_price = nominator.budget
+            elif spots > 1:
                 target = nominator.budget / spots
                 max_affordable = nominator.budget - spots + 1
                 fair_price = min(int(target), max_affordable)

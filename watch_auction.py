@@ -163,6 +163,11 @@ class AIOwner:
 
         spots_left = self.spots_left()
         money_left = self.budget
+
+        # Last pick - spend entire remaining budget (can't carry it over)
+        if spots_left == 1:
+            return money_left
+
         target_per_slot = money_left / spots_left if spots_left > 0 else 0
 
         # Get historical avg for this position
@@ -215,8 +220,12 @@ class AIOwner:
     
     def decide_bid_increment(self, current_price, max_bid):
         """Decide how much to increase bid"""
+        # Last pick - jump straight to max bid to spend entire budget
+        if self.spots_left() == 1:
+            return max_bid - current_price
+
         gap = max_bid - current_price
-        
+
         if gap > 20:
             return random.choice([2, 3, 5])
         elif gap > 5:
@@ -388,12 +397,14 @@ def run_auto_auction():
             current_bidder = nominator
             # Calculate what nominator should pay based on budget pressure
             spots = nominator.spots_left()
-            if spots > 0:
+            if spots == 1:
+                # Last pick - spend entire remaining budget (can't carry it over)
+                current_price = nominator.budget
+            elif spots > 1:
                 target = nominator.budget / spots
-                # Pay at least target to ensure budget gets spent, but cap at affordable
                 max_affordable = nominator.budget - spots + 1
                 fair_price = min(int(target), max_affordable)
-                fair_price = max(fair_price, current_price)  # At least opening bid
+                fair_price = max(fair_price, current_price)
                 current_price = fair_price
             if auction_round % 10 == 0 or auction_round <= 5:
                 print(f"  (no bids) {nominator.name} takes at ${current_price}")
