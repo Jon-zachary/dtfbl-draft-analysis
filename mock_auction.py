@@ -50,13 +50,20 @@ class AIOwner(Owner):
         if not self.needs_players():
             return False
         
-        # Get position preference from profile
+        # Get position preference from profile (now uses premium_pct)
         pos_prefs = self.profile.get('position_preferences', {})
         pos_data = pos_prefs.get(player_position, {})
-        position_interest = pos_data.get('pct_budget', 10) / 100  # Convert to 0-1
+        premium_pct = pos_data.get('premium_pct', 0)
         
         # Base interest (0-1 scale)
-        interest = position_interest
+        # Owners who overpay for a position (+premium) are MORE interested
+        # Owners who underpay for a position (-premium) are LESS interested
+        base_interest = 0.5  # Neutral
+        
+        # Adjust based on historical premium/discount
+        # +50% premium = very interested (0.75)
+        # -50% premium = not interested (0.25)
+        interest = base_interest + (premium_pct / 200)
         
         # Modify based on current spending
         budget_pct_left = self.budget / 260
@@ -87,8 +94,9 @@ class AIOwner(Owner):
         pos_data = pos_prefs.get(player_position, {})
         avg_price = pos_data.get('avg_price', 20)
         
-        # AI willing to pay around historical average (with variance)
-        max_price = int(avg_price * random.uniform(0.8, 1.4))
+        # AI willing to pay around their historical average (with variance)
+        # This already reflects their over/underpaying tendencies
+        max_price = int(avg_price * random.uniform(0.9, 1.3))
         
         # Clamp to budget constraints
         max_affordable = self.budget - self.spots_left() + 1
@@ -116,7 +124,7 @@ class AIOwner(Owner):
 class MockAuction:
     """Runs the mock auction"""
     
-    def __init__(self, profiles_file='/home/claude/owner_profiles.json'):
+    def __init__(self, profiles_file='/home/claude/owner_profiles_corrected.json'):
         # Load profiles
         with open(profiles_file, 'r') as f:
             self.profiles = json.load(f)
