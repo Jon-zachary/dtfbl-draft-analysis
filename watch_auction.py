@@ -7,7 +7,7 @@ FIXED: Ensures owners spend their money properly + roster enforcement
 import json
 import random
 
-# Roster slot requirements
+# Roster slot requirements (14 players total)
 ROSTER_SLOTS = {
     "C": 1,
     "1B": 1,
@@ -15,6 +15,7 @@ ROSTER_SLOTS = {
     "SS": 1,
     "3B": 1,
     "OF": 3,
+    "DH": 1,
     "SP": 3,
     "RP": 1,
     "SP/RP": 1,  # Flex slot - can be filled by SP or RP
@@ -79,8 +80,11 @@ class AIOwner:
 
     def add_player(self, player_name, price, position):
         slot = self.get_slot_for_position(position)
-        if slot:
-            self.position_counts[slot] += 1
+        if not slot:
+            # No valid slot - this shouldn't happen if bidding logic is correct
+            # but guard against it anyway
+            return False
+        self.position_counts[slot] += 1
         self.roster.append({
             'player': player_name,
             'price': price,
@@ -88,6 +92,7 @@ class AIOwner:
             'slot': slot
         })
         self.budget -= price
+        return True
 
     def positions_needed(self):
         """Return list of positions this owner still needs"""
@@ -236,6 +241,8 @@ class AIOwner:
             "OF": ["Juan Soto", "Fernando Tatis Jr.", "Kyle Tucker", "Corbin Carroll",
                    "Ronald Acuna Jr.", "Mookie Betts", "Ian Happ", "Jackson Chourio",
                    "Lars Nootbaar", "Bryan De La Cruz", "Brandon Marsh", "Michael Harris II"],
+            "DH": ["Shohei Ohtani", "Kyle Schwarber", "Marcell Ozuna", "Jesse Winker",
+                   "Spencer Steer", "JD Martinez", "Jorge Soler", "Rhys Hoskins"],
             "SP": ["Zack Wheeler", "Spencer Strider", "Chris Sale", "Paul Skenes",
                    "Logan Webb", "Shota Imanaga", "Yu Darvish", "Blake Snell",
                    "Ranger Suarez", "Dylan Cease", "Miles Mikolas", "Sonny Gray"],
@@ -376,9 +383,8 @@ def run_auto_auction():
             if stalled_rounds > 10 or bid_count > 50:
                 break
         
-        # Finalize - if no one bid, nominator gets player
-        # But they should spend appropriately based on their budget pressure
-        if not current_bidder and nominator.can_bid(current_price):
+        # Finalize - if no one bid, nominator gets player (if they need the position)
+        if not current_bidder and nominator.can_bid(current_price) and nominator.needs_position(position):
             current_bidder = nominator
             # Calculate what nominator should pay based on budget pressure
             spots = nominator.spots_left()
@@ -410,17 +416,32 @@ def run_auto_auction():
     print(f"\n\n{'='*80}")
     print("FINAL RESULTS")
     print('='*80)
-    
-    for owner in sorted(owners, key=lambda x: len(owner.roster), reverse=True):
+
+    # Define position order for display
+    position_order = ["C", "1B", "2B", "SS", "3B", "OF", "DH", "SP", "RP", "SP/RP"]
+
+    for owner in sorted(owners, key=lambda x: 260 - x.budget, reverse=True):
         print(f"\n{owner.name}")
         print(f"  Budget used: ${260 - owner.budget} | Remaining: ${owner.budget}")
         print(f"  Roster ({len(owner.roster)}/14):")
-        
-        for pick in sorted(owner.roster, key=lambda x: x['price'], reverse=True)[:5]:
-            print(f"    ${pick['price']:3d} - {pick['player']:25s} ({pick['position']})")
-        
-        if len(owner.roster) > 5:
-            print(f"    ... and {len(owner.roster) - 5} more players")
+        print(f"  {'Slot':<6} {'Pos':<4} {'Player':<25} {'Price':>6}")
+        print(f"  {'-'*45}")
+
+        # Sort roster by position order, then by price within position
+        def sort_key(pick):
+            slot = pick.get('slot') or pick['position']
+            try:
+                pos_idx = position_order.index(slot)
+            except ValueError:
+                pos_idx = 99
+            return (pos_idx, -pick['price'])
+
+        for pick in sorted(owner.roster, key=sort_key):
+            slot = pick.get('slot') or pick['position']
+            print(f"  {slot:<6} {pick['position']:<4} {pick['player']:<25} ${pick['price']:>5}")
+
+        print(f"  {'-'*45}")
+        print(f"  {'TOTAL':<36} ${sum(p['price'] for p in owner.roster):>5}")
 
 
 if __name__ == '__main__':

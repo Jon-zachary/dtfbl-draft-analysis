@@ -7,7 +7,7 @@ Proper nomination rotation + proper budget spending + roster enforcement
 import json
 import random
 
-# Roster slot requirements
+# Roster slot requirements (14 players total)
 ROSTER_SLOTS = {
     "C": 1,
     "1B": 1,
@@ -15,6 +15,7 @@ ROSTER_SLOTS = {
     "SS": 1,
     "3B": 1,
     "OF": 3,
+    "DH": 1,
     "SP": 3,
     "RP": 1,
     "SP/RP": 1,  # Flex slot - can be filled by SP or RP
@@ -82,8 +83,10 @@ class Owner:
 
     def add_player(self, player_name, price, position):
         slot = self.get_slot_for_position(position)
-        if slot:
-            self.position_counts[slot] += 1
+        if not slot:
+            # No valid slot - this shouldn't happen if bidding logic is correct
+            return False
+        self.position_counts[slot] += 1
         self.roster.append({
             'player': player_name,
             'price': price,
@@ -91,6 +94,7 @@ class Owner:
             'slot': slot
         })
         self.budget -= price
+        return True
 
     def positions_needed(self):
         """Return list of positions this owner still needs"""
@@ -236,6 +240,8 @@ class AIOwner(Owner):
             "OF": ["Juan Soto", "Fernando Tatis Jr.", "Kyle Tucker", "Corbin Carroll",
                    "Ronald Acuna Jr.", "Mookie Betts", "Ian Happ", "Jackson Chourio",
                    "Lars Nootbaar", "Bryan De La Cruz", "Brandon Marsh", "Michael Harris II"],
+            "DH": ["Shohei Ohtani", "Kyle Schwarber", "Marcell Ozuna", "Jesse Winker",
+                   "Spencer Steer", "JD Martinez", "Jorge Soler", "Rhys Hoskins"],
             "SP": ["Zack Wheeler", "Spencer Strider", "Chris Sale", "Paul Skenes",
                    "Logan Webb", "Shota Imanaga", "Yu Darvish", "Blake Snell",
                    "Ranger Suarez", "Dylan Cease", "Miles Mikolas", "Sonny Gray"],
@@ -421,9 +427,8 @@ class MockAuction:
                 except ValueError:
                     print("Invalid bid")
         
-        # Finalize - if no one bid, nominator gets player
-        # But they should spend appropriately based on their budget pressure
-        if not current_bidder and nominator.can_bid(current_price):
+        # Finalize - if no one bid, nominator gets player (if they need the position)
+        if not current_bidder and nominator.can_bid(current_price) and nominator.needs_position(position):
             current_bidder = nominator
             # Calculate what nominator should pay based on budget pressure
             spots = nominator.spots_left()
