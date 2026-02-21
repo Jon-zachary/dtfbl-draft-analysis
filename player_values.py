@@ -2,14 +2,27 @@
 """
 DTFBL Player Values Calculator
 Based on 2026 ATC Projections from FanGraphs
-Calculates fantasy points and VORP-based auction values
+
+TWO VALUATIONS:
+---------------
+1. VORP VALUE: What a player is theoretically "worth" (rational market)
+2. EXPECTED PRICE: What they'll actually cost based on 16 years of DTFBL history
+
+Your league has STAR INFLATION:
+- Top 5 players: avg $72 (vs $38 VORP value) - 90% overpay!
+- Picks 70-98: avg $1-3 (subsidize the stars)
+
+STRATEGY INSIGHT:
+- If Expected Price > VORP Value: Let someone else overpay
+- If Expected Price < VORP Value: Target this player!
 """
 
 # Scoring system
 # Hitters: 1B(+1), 2B(+2), 3B(+4), HR(+4), R(+1), RBI(+1), SB(+1), BB(+1), E(-1)
 # Pitchers: W(+12), L(-3), SV(+8), K(+1), BB(-1), CG(+5), ShO(+5), QS(+2)
 
-# Replacement levels (from user's VORP analysis)
+# Replacement levels - the projected points of the LAST starter at each position
+# These define the "free" baseline - value comes from exceeding this
 REPLACEMENT_LEVELS = {
     "C": 170,
     "1B": 399,
@@ -17,42 +30,82 @@ REPLACEMENT_LEVELS = {
     "SS": 211,
     "3B": 225,
     "OF": 352,
-    "DH": 399,  # Use 1B replacement level
+    "DH": 399,  # Same as 1B
     "SP": 202,
     "RP": 131,
 }
 
-# VORP to dollars conversion
-DOLLARS_PER_VORP = 0.3206
-BASE_SALARY = 1
+# League structure
+TEAMS = 7
+BUDGET_PER_TEAM = 260
+TOTAL_BUDGET = TEAMS * BUDGET_PER_TEAM  # $1,820
+
+# Roster slots per team
+ROSTER_SLOTS = {
+    "C": 1,   # 7 total
+    "1B": 1,  # 7 total
+    "2B": 1,  # 7 total
+    "SS": 1,  # 7 total
+    "3B": 1,  # 7 total
+    "OF": 3,  # 21 total
+    "DH": 1,  # 7 total
+    "SP": 3,  # 21 total
+    "RP": 1,  # 7 total
+    "SP/RP": 1,  # 7 total (assume RP)
+}
+TOTAL_ROSTER_SPOTS = sum(ROSTER_SLOTS.values()) * TEAMS  # 98
+
+# Historical price curve from 16 years of DTFBL data (2009-2025)
+# This is what players ACTUALLY sell for based on their rank
+# Rank 1 = most expensive pick, Rank 98 = cheapest
+HISTORICAL_PRICE_BY_RANK = {
+    1: 81, 2: 76, 3: 71, 4: 68, 5: 64,
+    6: 61, 7: 58, 8: 56, 9: 54, 10: 52,
+    11: 49, 12: 47, 13: 45, 14: 44, 15: 42,
+    16: 40, 17: 39, 18: 37, 19: 36, 20: 36,
+    21: 34, 22: 33, 23: 32, 24: 31, 25: 30,
+    26: 29, 27: 28, 28: 27, 29: 26, 30: 27,
+    31: 25, 32: 24, 33: 23, 34: 22, 35: 22,
+    36: 21, 37: 20, 38: 19, 39: 18, 40: 18,
+    41: 17, 42: 16, 43: 15, 44: 15, 45: 14,
+    46: 13, 47: 12, 48: 12, 49: 11, 50: 12,
+    51: 10, 52: 10, 53: 9, 54: 9, 55: 8,
+    56: 8, 57: 7, 58: 7, 59: 7, 60: 7,
+    61: 6, 62: 5, 63: 5, 64: 5, 65: 4,
+    66: 4, 67: 4, 68: 3, 69: 3, 70: 3,
+    71: 3, 72: 2, 73: 2, 74: 2, 75: 2,
+    76: 2, 77: 1, 78: 1, 79: 1, 80: 1,
+    81: 1, 82: 1, 83: 1, 84: 1, 85: 1,
+    86: 1, 87: 1, 88: 1, 89: 1, 90: 1,
+    91: 1, 92: 1, 93: 1, 94: 1, 95: 1,
+    96: 1, 97: 1, 98: 1,
+}
+
 
 def calc_hitter_points(singles, doubles, triples, hr, runs, rbi, sb, bb):
     """Calculate fantasy points for a hitter"""
     return (singles * 1) + (doubles * 2) + (triples * 4) + (hr * 4) + runs + rbi + sb + bb
 
+
 def calc_pitcher_points(wins, losses, saves, strikeouts, walks, ip):
     """Calculate fantasy points for a pitcher"""
-    # Estimate quality starts: roughly 60% of starts for good pitchers
-    # A start is roughly every 5 days, so starts ≈ IP / 6
+    # Estimate quality starts: ~55% of starts for good pitchers
     estimated_starts = ip / 6
-    estimated_qs = estimated_starts * 0.55  # Conservative QS rate
+    estimated_qs = estimated_starts * 0.55
 
     points = (wins * 12) + (losses * -3) + (saves * 8) + strikeouts + (walks * -1) + (estimated_qs * 2)
     return points
 
-def calc_dollar_value(points, position):
-    """Calculate auction dollar value from points"""
+
+def calc_vorp(points, position):
+    """Calculate Value Over Replacement Player"""
     replacement = REPLACEMENT_LEVELS.get(position, 300)
-    vorp = points - replacement
-    if vorp < 0:
-        return 1  # Minimum $1
-    dollars = (vorp * DOLLARS_PER_VORP) + BASE_SALARY
-    return max(1, round(dollars))
+    return max(0, points - replacement)
+
 
 # 2026 ATC Projections - Hitters
 # Format: (name, position, singles, doubles, triples, hr, runs, rbi, sb, bb)
 HITTER_PROJECTIONS = [
-    # Elite tier
     ("Shohei Ohtani", "DH", 79, 27, 5, 46, 120, 107, 24, 91),
     ("Juan Soto", "OF", 84, 25, 1, 38, 107, 98, 21, 123),
     ("Ketel Marte", "2B", 86, 29, 2, 29, 88, 87, 5, 67),
@@ -83,7 +136,6 @@ HITTER_PROJECTIONS = [
     ("Brice Turang", "2B", 102, 25, 3, 15, 79, 67, 30, 57),
     ("Andy Pages", "OF", 82, 28, 2, 22, 73, 75, 10, 35),
     ("Manny Machado", "3B", 95, 26, 0, 26, 77, 87, 9, 50),
-    # Additional key players (estimated based on typical production)
     ("Ozzie Albies", "2B", 85, 28, 3, 24, 85, 80, 12, 45),
     ("Pete Alonso", "1B", 70, 25, 1, 38, 85, 100, 2, 65),
     ("Matt Olson", "1B", 72, 30, 1, 35, 90, 95, 2, 80),
@@ -120,12 +172,16 @@ HITTER_PROJECTIONS = [
     ("JD Martinez", "DH", 70, 28, 1, 25, 70, 85, 1, 55),
     ("Jorge Soler", "DH", 60, 22, 1, 30, 75, 85, 2, 60),
     ("Brandon Lowe", "2B", 60, 22, 2, 22, 70, 70, 5, 55),
+    # Additional depth
+    ("Jackson Chourio", "OF", 85, 25, 3, 22, 78, 72, 15, 42),
+    ("Teoscar Hernandez", "OF", 78, 26, 2, 28, 82, 88, 6, 48),
+    ("Randy Arozarena", "OF", 80, 25, 3, 22, 78, 72, 18, 52),
+    ("Nick Castellanos", "DH", 85, 30, 1, 22, 75, 80, 3, 45),
 ]
 
 # 2026 ATC Projections - Pitchers
 # Format: (name, position, wins, losses, saves, strikeouts, walks, ip)
 PITCHER_PROJECTIONS = [
-    # Elite starters
     ("Paul Skenes", "SP", 12, 8, 0, 221, 45, 184),
     ("Logan Webb", "SP", 13, 10, 0, 183, 44, 193),
     ("Cristopher Sanchez", "SP", 12, 7, 0, 179, 45, 185),
@@ -135,7 +191,7 @@ PITCHER_PROJECTIONS = [
     ("Hunter Greene", "SP", 10, 8, 0, 198, 53, 164),
     ("Zack Wheeler", "SP", 9, 5, 0, 143, 33, 124),
     ("Freddy Peralta", "SP", 12, 9, 0, 183, 60, 164),
-    ("Spencer Strider", "SP", 10, 6, 0, 180, 45, 145),  # Estimated post-injury
+    ("Spencer Strider", "SP", 10, 6, 0, 180, 45, 145),
     ("Yu Darvish", "SP", 10, 8, 0, 165, 45, 160),
     ("Blake Snell", "SP", 10, 8, 0, 175, 70, 150),
     ("Ranger Suarez", "SP", 11, 7, 0, 145, 45, 170),
@@ -146,7 +202,10 @@ PITCHER_PROJECTIONS = [
     ("Mitch Keller", "SP", 10, 8, 0, 165, 55, 175),
     ("Zac Gallen", "SP", 11, 7, 0, 170, 45, 175),
     ("Tyler Glasnow", "SP", 10, 6, 0, 185, 50, 145),
-    # Relievers (estimated save totals for closers)
+    ("Joe Musgrove", "SP", 9, 8, 0, 145, 40, 155),
+    ("MacKenzie Gore", "SP", 9, 7, 0, 155, 55, 150),
+    ("Merrill Kelly", "SP", 10, 9, 0, 140, 40, 175),
+    # Relievers
     ("Ryan Helsley", "RP", 4, 3, 38, 85, 20, 65),
     ("Edwin Diaz", "RP", 4, 3, 32, 95, 25, 60),
     ("Josh Hader", "RP", 4, 3, 35, 90, 22, 62),
@@ -162,81 +221,196 @@ PITCHER_PROJECTIONS = [
     ("Yuki Matsui", "RP", 4, 3, 25, 70, 22, 58),
     ("Jeff Hoffman", "RP", 5, 4, 12, 85, 28, 65),
     ("Pierce Johnson", "RP", 4, 3, 20, 70, 25, 55),
+    ("Evan Phillips", "RP", 4, 3, 22, 72, 22, 58),
 ]
 
 
-def calculate_all_values():
-    """Calculate fantasy points and dollar values for all players"""
-    players = {}
+def calculate_all_players():
+    """Calculate points and VORP for all players"""
+    players = []
 
     # Process hitters
     for name, pos, s, d, t, hr, r, rbi, sb, bb in HITTER_PROJECTIONS:
         points = calc_hitter_points(s, d, t, hr, r, rbi, sb, bb)
-        dollars = calc_dollar_value(points, pos)
-        players[name] = {
+        vorp = calc_vorp(points, pos)
+        players.append({
+            "name": name,
             "position": pos,
             "points": round(points),
-            "dollars": dollars,
-        }
+            "vorp": round(vorp),
+        })
 
     # Process pitchers
     for name, pos, w, l, sv, k, bb, ip in PITCHER_PROJECTIONS:
         points = calc_pitcher_points(w, l, sv, k, bb, ip)
-        dollars = calc_dollar_value(points, pos)
-        players[name] = {
+        vorp = calc_vorp(points, pos)
+        players.append({
+            "name": name,
             "position": pos,
             "points": round(points),
-            "dollars": dollars,
-        }
+            "vorp": round(vorp),
+        })
 
     return players
 
 
-def print_values_by_position():
-    """Print all player values grouped by position"""
-    players = calculate_all_values()
-
+def select_drafted_players(players):
+    """Select the players who will be drafted based on roster requirements"""
     # Group by position
     by_pos = {}
-    for name, data in players.items():
-        pos = data["position"]
+    for p in players:
+        pos = p["position"]
         if pos not in by_pos:
             by_pos[pos] = []
-        by_pos[pos].append((name, data["points"], data["dollars"]))
+        by_pos[pos].append(p)
 
-    # Sort each position by dollars
+    # Sort each position by VORP (descending)
     for pos in by_pos:
-        by_pos[pos].sort(key=lambda x: x[2], reverse=True)
+        by_pos[pos].sort(key=lambda x: x["vorp"], reverse=True)
 
-    # Print
+    # Select top N at each position based on roster needs
+    # 7 teams, so multiply slots by 7
+    drafted = []
+
+    slots_needed = {
+        "C": 7,
+        "1B": 7,
+        "2B": 7,
+        "SS": 7,
+        "3B": 7,
+        "OF": 21,  # 3 per team
+        "DH": 7,
+        "SP": 21,  # 3 per team
+        "RP": 14,  # 1 RP + 1 SP/RP flex (assuming RP)
+    }
+
+    for pos, count in slots_needed.items():
+        if pos in by_pos:
+            drafted.extend(by_pos[pos][:count])
+
+    return drafted
+
+
+def calculate_dollar_values(players):
+    """
+    Calculate TWO values:
+    1. VORP Value: Theoretical "rational" value
+    2. Expected Price: What they'll actually cost based on historical behavior
+    """
+    # Get drafted players
+    drafted = select_drafted_players(players)
+
+    # Calculate VORP-based values
+    total_vorp = sum(p["vorp"] for p in drafted)
+    base_salaries = len(drafted) * 1
+    vorp_pool = TOTAL_BUDGET - base_salaries
+    multiplier = vorp_pool / total_vorp if total_vorp > 0 else 0
+
+    # Calculate VORP value for ALL players
+    for p in players:
+        dollar_value = (p["vorp"] * multiplier) + 1
+        p["vorp_value"] = max(1, round(dollar_value))
+
+    # Now rank ALL players by VORP and assign expected price
+    players.sort(key=lambda x: x["vorp"], reverse=True)
+    for rank, p in enumerate(players, 1):
+        if rank <= 98:
+            p["expected_price"] = HISTORICAL_PRICE_BY_RANK[rank]
+        else:
+            p["expected_price"] = 1
+        p["rank"] = rank
+        # Delta: positive = bargain (expected < value), negative = overpay
+        p["delta"] = p["vorp_value"] - p["expected_price"]
+
+    return players, multiplier
+
+
+def print_draft_board(players):
+    """Print the master draft board ranked by VORP with both valuations"""
+    print("=" * 85)
+    print("2026 DTFBL DRAFT BOARD")
+    print("=" * 85)
+    print(f"{'Rank':<5} {'Player':<22} {'Pos':<4} {'Pts':<5} {'VORP':<5} {'Value':<6} {'Expect':<7} {'Delta':<6}")
+    print("-" * 85)
+
+    for p in players[:50]:  # Top 50
+        delta_str = f"+{p['delta']}" if p['delta'] > 0 else str(p['delta'])
+        signal = "BUY!" if p['delta'] >= 10 else "AVOID" if p['delta'] <= -15 else ""
+        print(f"{p['rank']:<5} {p['name']:<22} {p['position']:<4} {p['points']:<5} {p['vorp']:<5} ${p['vorp_value']:<5} ${p['expected_price']:<6} {delta_str:<6} {signal}")
+
+    print("-" * 85)
+    print("\nLEGEND:")
+    print("  Value  = What player is WORTH (VORP-based)")
+    print("  Expect = What they'll COST (based on 16 years of data)")
+    print("  Delta  = Value - Expected (positive = bargain)")
+    print("  BUY!   = Expected to be significantly underpriced")
+    print("  AVOID  = Expected to be significantly overpriced")
+
+
+def print_bargains_and_avoids(players):
+    """Show the best bargains and worst overpays"""
+    # Only consider draftable players (top 98)
+    draftable = [p for p in players if p['rank'] <= 98]
+
+    print("\n" + "=" * 85)
+    print("STRATEGY GUIDE: BARGAINS & AVOIDS")
+    print("=" * 85)
+
+    print("\nBEST BARGAINS (high value, low expected cost):")
+    print("-" * 60)
+    bargains = sorted(draftable, key=lambda x: x['delta'], reverse=True)[:10]
+    for p in bargains:
+        print(f"  {p['name']:<22} {p['position']:<4} Value ${p['vorp_value']:<3} → Expect ${p['expected_price']:<3} = +${p['delta']} savings")
+
+    print("\nWORST OVERPAYS (low value, high expected cost):")
+    print("-" * 60)
+    overpays = sorted(draftable, key=lambda x: x['delta'])[:10]
+    for p in overpays:
+        print(f"  {p['name']:<22} {p['position']:<4} Value ${p['vorp_value']:<3} → Expect ${p['expected_price']:<3} = ${p['delta']} overpay")
+
+
+def print_by_position(players):
+    """Print values by position for position-specific targeting"""
+    by_pos = {}
+    for p in players:
+        pos = p["position"]
+        if pos not in by_pos:
+            by_pos[pos] = []
+        by_pos[pos].append(p)
+
+    for pos in by_pos:
+        by_pos[pos].sort(key=lambda x: x["vorp"], reverse=True)
+
+    print("\n" + "=" * 85)
+    print("BY POSITION (sorted by VORP)")
+    print("=" * 85)
+
     for pos in ["C", "1B", "2B", "SS", "3B", "OF", "DH", "SP", "RP"]:
         if pos in by_pos:
-            print(f"\n{'='*50}")
-            print(f"{pos} (Replacement: {REPLACEMENT_LEVELS[pos]} pts)")
-            print(f"{'='*50}")
-            for name, pts, dollars in by_pos[pos]:
-                print(f"  ${dollars:3d}  {name:25s}  ({pts} pts)")
-
-
-def export_player_values_dict():
-    """Export as a simple {name: dollar_value} dict for the auction sim"""
-    players = calculate_all_values()
-    return {name: data["dollars"] for name, data in players.items()}
+            print(f"\n{pos} (Replacement: {REPLACEMENT_LEVELS[pos]} pts)")
+            print("-" * 70)
+            for p in by_pos[pos][:8]:  # Top 8 at each position
+                delta_str = f"+{p['delta']}" if p['delta'] > 0 else str(p['delta'])
+                print(f"  #{p['rank']:<3} {p['name']:<22} {p['points']} pts  Val ${p['vorp_value']:<3} Exp ${p['expected_price']:<3} ({delta_str})")
 
 
 if __name__ == "__main__":
-    print("DTFBL 2026 Player Values")
-    print("Based on ATC Projections + VORP Analysis")
-    print_values_by_position()
+    print("DTFBL 2026 DRAFT VALUES")
+    print("Based on ATC Projections + 16 Years of Historical Pricing")
+    print("=" * 85)
+    print()
 
-    print("\n\n" + "="*50)
-    print("PLAYER_VALUES dict for auction sim:")
-    print("="*50)
-    values = export_player_values_dict()
-    # Sort by value descending
-    sorted_vals = sorted(values.items(), key=lambda x: x[1], reverse=True)
-    print("PLAYER_VALUES = {")
-    for name, val in sorted_vals[:20]:
-        print(f'    "{name}": {val},')
-    print("    # ... etc")
-    print("}")
+    # Calculate all players
+    players = calculate_all_players()
+
+    # Calculate both valuations
+    players, multiplier = calculate_dollar_values(players)
+
+    # Print draft board
+    print_draft_board(players)
+
+    # Print bargains and avoids
+    print_bargains_and_avoids(players)
+
+    # Print by position
+    print_by_position(players)
