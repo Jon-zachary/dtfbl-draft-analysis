@@ -7,162 +7,163 @@ FIXED: Ensures owners spend their money properly + roster enforcement
 import json
 import random
 
-# PLAYER VALUES - Based on 2026 ATC Projections + VORP analysis
-# Formula: (Projected Points - Replacement Level) * $0.3206 + $1
+# PLAYER VALUES - Calibrated to historical DTFBL auction data
+# Historical max: $91, top 50 avg: $76, overall avg: $19.59
+# Only 13 players ever went $81+ in 16 years of drafts
 PLAYER_VALUES = {
-    # Catchers (Replacement: 170 pts) - SCARCE!
-    "William Contreras": 92,
-    "Will Smith": 73,
-    "Willson Contreras": 72,
-    "J.T. Realmuto": 60,
-    "Gabriel Moreno": 47,
-    "Travis d'Arnaud": 45,
-    "Patrick Bailey": 41,
-    "Yasmani Grandal": 38,
-    "Austin Nola": 20,
-    "Tucker Barnhart": 10,
-    "Carson Kelly": 15,
-    "Elias Diaz": 12,
+    # Catchers - scarce position, elite catchers valuable
+    "William Contreras": 55,  # Elite C
+    "Will Smith": 48,
+    "Willson Contreras": 45,
+    "J.T. Realmuto": 40,
+    "Gabriel Moreno": 28,
+    "Travis d'Arnaud": 18,
+    "Patrick Bailey": 15,
+    "Yasmani Grandal": 12,
+    "Austin Nola": 8,
+    "Tucker Barnhart": 3,
+    "Carson Kelly": 5,
+    "Elias Diaz": 4,
 
-    # First Base (Replacement: 399 pts) - DEEP
-    "Matt Olson": 47,
-    "Pete Alonso": 42,
-    "Bryce Harper": 34,
-    "Freddie Freeman": 30,
-    "Christian Walker": 28,
-    "Rhys Hoskins": 18,
-    "Josh Bell": 10,
-    "LaMonte Wade Jr.": 1,
-    "Cody Bellinger": 33,  # OF/1B eligible
-    "Rowdy Tellez": 8,
-    "CJ Cron": 5,
-    "Jake Bauers": 3,
-    "Brandon Belt": 5,
+    # First Base - deep position, compressed value
+    "Matt Olson": 38,
+    "Pete Alonso": 35,
+    "Bryce Harper": 45,  # MVP caliber
+    "Freddie Freeman": 42,
+    "Christian Walker": 22,
+    "Rhys Hoskins": 15,
+    "Josh Bell": 8,
+    "LaMonte Wade Jr.": 2,
+    "Cody Bellinger": 28,
+    "Rowdy Tellez": 5,
+    "CJ Cron": 3,
+    "Jake Bauers": 1,
+    "Brandon Belt": 2,
 
-    # Second Base (Replacement: 299 pts)
-    "Ketel Marte": 70,
-    "Ozzie Albies": 56,
-    "Brice Turang": 52,
-    "Bryson Stott": 37,
-    "Brandon Lowe": 33,
-    "Jake Cronenworth": 31,
-    "Luis Arraez": 24,
-    "Gavin Lux": 20,
-    "Brendan Rodgers": 15,
-    "Nico Hoerner": 45,
-    "Jonathan India": 35,
-    "Grae Kessinger": 5,
-    "David Fry": 25,
+    # Second Base
+    "Ketel Marte": 50,
+    "Ozzie Albies": 42,
+    "Brice Turang": 18,
+    "Bryson Stott": 22,
+    "Brandon Lowe": 18,
+    "Jake Cronenworth": 15,
+    "Luis Arraez": 25,
+    "Gavin Lux": 12,
+    "Brendan Rodgers": 8,
+    "Nico Hoerner": 28,
+    "Jonathan India": 20,
+    "Grae Kessinger": 2,
+    "David Fry": 12,
 
-    # Shortstop (Replacement: 211 pts) - SCARCE!
-    "Elly De La Cruz": 101,
-    "Francisco Lindor": 91,
-    "Trea Turner": 89,
-    "Willy Adames": 89,
-    "Geraldo Perdomo": 81,
-    "CJ Abrams": 80,
-    "Dansby Swanson": 78,
-    "Bo Bichette": 73,
-    "Ezequiel Tovar": 67,
-    "Ha-Seong Kim": 56,
-    "Mookie Betts": 43,  # Also OF eligible
-    "Nick Ahmed": 8,
-    "Paul DeJong": 12,
+    # Shortstop - premium position
+    "Elly De La Cruz": 78,  # Elite young talent
+    "Francisco Lindor": 65,
+    "Trea Turner": 58,
+    "Willy Adames": 45,
+    "Geraldo Perdomo": 18,
+    "CJ Abrams": 35,
+    "Dansby Swanson": 32,
+    "Bo Bichette": 38,
+    "Ezequiel Tovar": 25,
+    "Ha-Seong Kim": 18,
+    "Mookie Betts": 70,  # Elite OF/SS
+    "Nick Ahmed": 2,
+    "Paul DeJong": 4,
 
-    # Third Base (Replacement: 225 pts)
-    "Rafael Devers": 99,
-    "Manny Machado": 81,
-    "Austin Riley": 79,
-    "Alex Bregman": 77,
-    "Matt Chapman": 75,
-    "Nolan Arenado": 75,
-    "Alec Bohm": 72,
-    "Spencer Steer": 67,
-    "Max Muncy": 65,
-    "Ryan McMahon": 64,
-    "Ke'Bryan Hayes": 49,
-    "Eugenio Suarez": 40,
-    "Christopher Morel": 28,
-    "Patrick Wisdom": 18,
+    # Third Base
+    "Rafael Devers": 55,
+    "Manny Machado": 48,
+    "Austin Riley": 45,
+    "Alex Bregman": 42,
+    "Matt Chapman": 32,
+    "Nolan Arenado": 35,
+    "Alec Bohm": 28,
+    "Spencer Steer": 22,
+    "Max Muncy": 25,
+    "Ryan McMahon": 18,
+    "Ke'Bryan Hayes": 15,
+    "Eugenio Suarez": 12,
+    "Christopher Morel": 10,
+    "Patrick Wisdom": 5,
 
-    # Outfield (Replacement: 352 pts)
-    "Juan Soto": 93,
-    "Kyle Schwarber": 72,
-    "Ronald Acuna Jr.": 65,
-    "Kyle Tucker": 64,
-    "Fernando Tatis Jr.": 62,
-    "Corbin Carroll": 62,
-    "Pete Crow-Armstrong": 39,
-    "Jackson Merrill": 37,
-    "Jackson Chourio": 35,
-    "Ian Happ": 32,
-    "Michael Harris II": 30,
-    "Andy Pages": 25,
-    "Bryan De La Cruz": 20,
-    "Jesse Winker": 16,
-    "Lars Nootbaar": 14,
-    "Brandon Marsh": 13,
-    "Teoscar Hernandez": 38,
-    "Lourdes Gurriel Jr.": 28,
-    "Randy Arozarena": 35,
-    "TJ Friedl": 22,
-    "Jake McCarthy": 18,
-    "Jordan Walker": 25,
-    "Mark Canha": 12,
-    "Mike Yastrzemski": 15,
+    # Outfield - 3 slots needed, good depth
+    "Juan Soto": 85,  # Top 3 player
+    "Kyle Schwarber": 45,
+    "Ronald Acuna Jr.": 75,  # Elite when healthy
+    "Kyle Tucker": 55,
+    "Fernando Tatis Jr.": 60,
+    "Corbin Carroll": 50,
+    "Pete Crow-Armstrong": 22,
+    "Jackson Merrill": 28,
+    "Jackson Chourio": 32,
+    "Ian Happ": 25,
+    "Michael Harris II": 35,
+    "Andy Pages": 15,
+    "Bryan De La Cruz": 12,
+    "Jesse Winker": 8,
+    "Lars Nootbaar": 10,
+    "Brandon Marsh": 8,
+    "Teoscar Hernandez": 28,
+    "Lourdes Gurriel Jr.": 18,
+    "Randy Arozarena": 25,
+    "TJ Friedl": 15,
+    "Jake McCarthy": 10,
+    "Jordan Walker": 18,
+    "Mark Canha": 6,
+    "Mike Yastrzemski": 8,
 
-    # DH (Replacement: 399 pts)
-    "Shohei Ohtani": 91,
-    "Marcell Ozuna": 35,
-    "Jorge Soler": 17,
-    "JD Martinez": 14,
-    "Wilmer Flores": 8,
-    "Daniel Vogelbach": 5,
-    "Nick Castellanos": 22,
+    # DH
+    "Shohei Ohtani": 88,  # Generational talent (historical: $88 in 2025)
+    "Marcell Ozuna": 32,
+    "Jorge Soler": 15,
+    "JD Martinez": 12,
+    "Wilmer Flores": 5,
+    "Daniel Vogelbach": 3,
+    "Nick Castellanos": 18,
 
-    # Starting Pitchers (Replacement: 202 pts)
-    "Paul Skenes": 42,
-    "Logan Webb": 33,
-    "Cristopher Sanchez": 30,
-    "Chris Sale": 29,
-    "Jesus Luzardo": 28,
-    "Yoshinobu Yamamoto": 26,
-    "Hunter Greene": 23,
-    "Freddy Peralta": 23,
-    "Zac Gallen": 22,
-    "Spencer Strider": 21,
-    "Tyler Glasnow": 21,
-    "Yu Darvish": 15,
-    "Ranger Suarez": 14,
-    "Shota Imanaga": 14,
-    "Dylan Cease": 13,
-    "Sonny Gray": 13,
-    "Mitch Keller": 13,
-    "Zack Wheeler": 9,
-    "Blake Snell": 9,
-    "Miles Mikolas": 3,
-    "Joe Musgrove": 18,
-    "Adam Wainwright": 5,
+    # Starting Pitchers - wins are +12!
+    "Paul Skenes": 45,  # Elite young arm
+    "Logan Webb": 35,
+    "Cristopher Sanchez": 28,
+    "Chris Sale": 32,
+    "Jesus Luzardo": 30,
+    "Yoshinobu Yamamoto": 35,
+    "Hunter Greene": 28,
+    "Freddy Peralta": 25,
+    "Zac Gallen": 30,
+    "Spencer Strider": 35,  # When healthy
+    "Tyler Glasnow": 30,
+    "Yu Darvish": 22,
+    "Ranger Suarez": 20,
+    "Shota Imanaga": 22,
+    "Dylan Cease": 20,
+    "Sonny Gray": 18,
+    "Mitch Keller": 15,
+    "Zack Wheeler": 35,
+    "Blake Snell": 25,
+    "Miles Mikolas": 8,
+    "Joe Musgrove": 22,
+    "Adam Wainwright": 3,
     "MacKenzie Gore": 15,
     "Merrill Kelly": 12,
 
-    # Relief Pitchers (Replacement: 131 pts) - CLOSERS VALUABLE!
-    "Ryan Helsley": 94,
-    "Josh Hader": 87,
-    "Edwin Diaz": 80,
-    "Raisel Iglesias": 74,
-    "Robert Suarez": 73,
-    "Tanner Scott": 73,
-    "Devin Williams": 73,
-    "Camilo Doval": 66,
-    "Kenley Jansen": 63,
-    "Alexis Diaz": 61,
-    "A.J. Minter": 55,
-    "Yuki Matsui": 54,
-    "Evan Phillips": 45,
-    "Daniel Hudson": 21,
-    "Jeff Hoffman": 27,
-    "Pierce Johnson": 40,
+    # Relief Pitchers - saves are +8, elite closers valuable
+    "Ryan Helsley": 45,
+    "Josh Hader": 40,
+    "Edwin Diaz": 35,
+    "Raisel Iglesias": 28,
+    "Robert Suarez": 25,
+    "Tanner Scott": 25,
+    "Devin Williams": 32,
+    "Camilo Doval": 28,
+    "Kenley Jansen": 22,
+    "Alexis Diaz": 22,
+    "A.J. Minter": 18,
+    "Yuki Matsui": 20,
+    "Evan Phillips": 18,
+    "Daniel Hudson": 8,
+    "Jeff Hoffman": 12,
+    "Pierce Johnson": 15,
 }
 
 # Default value for unknown players
@@ -290,36 +291,39 @@ class AIOwner:
         pct_complete = total_picks_so_far / total_slots
 
         # Get position preference (owner's historical tendency)
+        # Positive = likes this position, negative = avoids this position
         pos_prefs = self.profile.get('position_preferences', {})
         pos_data = pos_prefs.get(player_position, {})
         premium_pct = pos_data.get('premium_pct', 0)
 
-        # Adjust player value by owner's position preference
-        adjusted_value = player_value * (1 + premium_pct / 100)
+        # Premium affects INTEREST, not value - owners who like a position bid more often
+        # Cap the adjustment to prevent extreme behavior
+        position_interest_modifier = max(-0.3, min(0.3, premium_pct / 100))
 
-        # If player is worth more than current price, be interested
-        if current_price < adjusted_value * 0.9:
-            # Good value - high interest
-            interest = 0.85
-        elif current_price < adjusted_value:
-            # Fair value - moderate interest
-            interest = 0.65
-        elif current_price < adjusted_value * 1.1:
-            # Slight overpay - lower interest
-            interest = 0.35
+        # Base interest on price vs value
+        if current_price < player_value * 0.7:
+            interest = 0.85  # Great value
+        elif current_price < player_value * 0.9:
+            interest = 0.70  # Good value
+        elif current_price < player_value:
+            interest = 0.55  # Fair value
+        elif current_price < player_value * 1.1:
+            interest = 0.30  # Slight overpay
         else:
-            # Too expensive - minimal interest
-            interest = 0.15
+            interest = 0.10  # Too expensive
 
-        # Late auction budget pressure: bid more aggressively to spend money
+        # Apply position preference (capped modifier)
+        interest += position_interest_modifier
+
+        # Late auction budget pressure
         if pct_complete >= 0.7 and target_per_slot >= 15 and current_price < target_per_slot:
-            interest = max(interest, 0.75)  # Force engagement
+            interest = max(interest, 0.70)
 
         if pct_complete >= 0.85 and target_per_slot >= 10:
-            interest = max(interest, 0.85)  # Must spend mode
+            interest = max(interest, 0.80)
 
         interest *= random.uniform(0.9, 1.1)
-        return random.random() < min(interest, 0.95)
+        return random.random() < max(0.05, min(interest, 0.90))
     
     def get_max_bid(self, player_name, player_position, current_price, total_picks_so_far):
         """Determine maximum AI willing to pay based on player value"""
@@ -336,33 +340,39 @@ class AIOwner:
         # Get player's actual value
         player_value = get_player_value(player_name)
 
-        # Get owner's position preference
+        # Get owner's position preference - small adjustment, not multiplier
+        # Historical max is $91, so we cap any bonus to prevent exceeding that
         pos_prefs = self.profile.get('position_preferences', {})
         pos_data = pos_prefs.get(player_position, {})
         premium_pct = pos_data.get('premium_pct', 0)
 
-        # Adjust value by owner's historical tendency
-        # If owner historically overpays for this position, they'll pay more
-        adjusted_value = player_value * (1 + premium_pct / 100)
+        # Position preference adds a SMALL bonus (max +15% for extreme cases)
+        # This reflects that some owners slightly overpay for positions they like
+        position_bonus = player_value * max(-0.10, min(0.15, premium_pct / 200))
 
         total_slots = 14 * 7
         pct_complete = total_picks_so_far / total_slots
 
-        # Base max bid on adjusted player value with some variance
+        # Base max bid on player value with variance
         if pct_complete < 0.4:
-            # Early auction: Bid up to player value with conservative variance
-            max_price = adjusted_value * random.uniform(0.85, 1.05)
+            # Early auction: conservative
+            max_price = player_value * random.uniform(0.85, 1.05) + position_bonus
         elif pct_complete < 0.7:
-            # Mid auction: Blend player value with budget pressure
-            budget_factor = target_per_slot / 20  # Scale by typical target
-            max_price = adjusted_value * random.uniform(0.9, 1.1) * max(1.0, budget_factor * 0.3 + 0.7)
+            # Mid auction: blend with budget pressure
+            max_price = player_value * random.uniform(0.90, 1.10) + position_bonus
+            if target_per_slot > player_value:
+                max_price = max(max_price, target_per_slot * 0.85)
         else:
-            # Late auction: Player value is floor, budget pressure can push higher
-            max_price = max(adjusted_value, target_per_slot) * random.uniform(1.0, 1.15)
+            # Late auction: budget pressure matters more
+            max_price = max(player_value, target_per_slot * 0.9) * random.uniform(0.95, 1.10)
 
-        # Very late auction: ensure we spend money
+        # Very late: spend money
         if pct_complete >= 0.85 and target_per_slot >= 10:
-            max_price = max(max_price, target_per_slot * 1.1)
+            max_price = max(max_price, target_per_slot)
+
+        # Cap at historical max ($91) unless late auction forces spending
+        if pct_complete < 0.8:
+            max_price = min(max_price, 91)
 
         max_affordable = self.budget - self.spots_left() + 1
         max_price = min(int(max_price), max_affordable)
