@@ -7,6 +7,172 @@ FIXED: Ensures owners spend their money properly + roster enforcement
 import json
 import random
 
+# PLAYER VALUES - Based on 2026 ATC Projections + VORP analysis
+# Formula: (Projected Points - Replacement Level) * $0.3206 + $1
+PLAYER_VALUES = {
+    # Catchers (Replacement: 170 pts) - SCARCE!
+    "William Contreras": 92,
+    "Will Smith": 73,
+    "Willson Contreras": 72,
+    "J.T. Realmuto": 60,
+    "Gabriel Moreno": 47,
+    "Travis d'Arnaud": 45,
+    "Patrick Bailey": 41,
+    "Yasmani Grandal": 38,
+    "Austin Nola": 20,
+    "Tucker Barnhart": 10,
+    "Carson Kelly": 15,
+    "Elias Diaz": 12,
+
+    # First Base (Replacement: 399 pts) - DEEP
+    "Matt Olson": 47,
+    "Pete Alonso": 42,
+    "Bryce Harper": 34,
+    "Freddie Freeman": 30,
+    "Christian Walker": 28,
+    "Rhys Hoskins": 18,
+    "Josh Bell": 10,
+    "LaMonte Wade Jr.": 1,
+    "Cody Bellinger": 33,  # OF/1B eligible
+    "Rowdy Tellez": 8,
+    "CJ Cron": 5,
+    "Jake Bauers": 3,
+    "Brandon Belt": 5,
+
+    # Second Base (Replacement: 299 pts)
+    "Ketel Marte": 70,
+    "Ozzie Albies": 56,
+    "Brice Turang": 52,
+    "Bryson Stott": 37,
+    "Brandon Lowe": 33,
+    "Jake Cronenworth": 31,
+    "Luis Arraez": 24,
+    "Gavin Lux": 20,
+    "Brendan Rodgers": 15,
+    "Nico Hoerner": 45,
+    "Jonathan India": 35,
+    "Grae Kessinger": 5,
+    "David Fry": 25,
+
+    # Shortstop (Replacement: 211 pts) - SCARCE!
+    "Elly De La Cruz": 101,
+    "Francisco Lindor": 91,
+    "Trea Turner": 89,
+    "Willy Adames": 89,
+    "Geraldo Perdomo": 81,
+    "CJ Abrams": 80,
+    "Dansby Swanson": 78,
+    "Bo Bichette": 73,
+    "Ezequiel Tovar": 67,
+    "Ha-Seong Kim": 56,
+    "Mookie Betts": 43,  # Also OF eligible
+    "Nick Ahmed": 8,
+    "Paul DeJong": 12,
+
+    # Third Base (Replacement: 225 pts)
+    "Rafael Devers": 99,
+    "Manny Machado": 81,
+    "Austin Riley": 79,
+    "Alex Bregman": 77,
+    "Matt Chapman": 75,
+    "Nolan Arenado": 75,
+    "Alec Bohm": 72,
+    "Spencer Steer": 67,
+    "Max Muncy": 65,
+    "Ryan McMahon": 64,
+    "Ke'Bryan Hayes": 49,
+    "Eugenio Suarez": 40,
+    "Christopher Morel": 28,
+    "Patrick Wisdom": 18,
+
+    # Outfield (Replacement: 352 pts)
+    "Juan Soto": 93,
+    "Kyle Schwarber": 72,
+    "Ronald Acuna Jr.": 65,
+    "Kyle Tucker": 64,
+    "Fernando Tatis Jr.": 62,
+    "Corbin Carroll": 62,
+    "Pete Crow-Armstrong": 39,
+    "Jackson Merrill": 37,
+    "Jackson Chourio": 35,
+    "Ian Happ": 32,
+    "Michael Harris II": 30,
+    "Andy Pages": 25,
+    "Bryan De La Cruz": 20,
+    "Jesse Winker": 16,
+    "Lars Nootbaar": 14,
+    "Brandon Marsh": 13,
+    "Teoscar Hernandez": 38,
+    "Lourdes Gurriel Jr.": 28,
+    "Randy Arozarena": 35,
+    "TJ Friedl": 22,
+    "Jake McCarthy": 18,
+    "Jordan Walker": 25,
+    "Mark Canha": 12,
+    "Mike Yastrzemski": 15,
+
+    # DH (Replacement: 399 pts)
+    "Shohei Ohtani": 91,
+    "Marcell Ozuna": 35,
+    "Jorge Soler": 17,
+    "JD Martinez": 14,
+    "Wilmer Flores": 8,
+    "Daniel Vogelbach": 5,
+    "Nick Castellanos": 22,
+
+    # Starting Pitchers (Replacement: 202 pts)
+    "Paul Skenes": 42,
+    "Logan Webb": 33,
+    "Cristopher Sanchez": 30,
+    "Chris Sale": 29,
+    "Jesus Luzardo": 28,
+    "Yoshinobu Yamamoto": 26,
+    "Hunter Greene": 23,
+    "Freddy Peralta": 23,
+    "Zac Gallen": 22,
+    "Spencer Strider": 21,
+    "Tyler Glasnow": 21,
+    "Yu Darvish": 15,
+    "Ranger Suarez": 14,
+    "Shota Imanaga": 14,
+    "Dylan Cease": 13,
+    "Sonny Gray": 13,
+    "Mitch Keller": 13,
+    "Zack Wheeler": 9,
+    "Blake Snell": 9,
+    "Miles Mikolas": 3,
+    "Joe Musgrove": 18,
+    "Adam Wainwright": 5,
+    "MacKenzie Gore": 15,
+    "Merrill Kelly": 12,
+
+    # Relief Pitchers (Replacement: 131 pts) - CLOSERS VALUABLE!
+    "Ryan Helsley": 94,
+    "Josh Hader": 87,
+    "Edwin Diaz": 80,
+    "Raisel Iglesias": 74,
+    "Robert Suarez": 73,
+    "Tanner Scott": 73,
+    "Devin Williams": 73,
+    "Camilo Doval": 66,
+    "Kenley Jansen": 63,
+    "Alexis Diaz": 61,
+    "A.J. Minter": 55,
+    "Yuki Matsui": 54,
+    "Evan Phillips": 45,
+    "Daniel Hudson": 21,
+    "Jeff Hoffman": 27,
+    "Pierce Johnson": 40,
+}
+
+# Default value for unknown players
+DEFAULT_PLAYER_VALUE = 10
+
+def get_player_value(player_name):
+    """Get player's auction value, with fallback for unknown players"""
+    return PLAYER_VALUES.get(player_name, DEFAULT_PLAYER_VALUE)
+
+
 # Roster slot requirements (14 players total)
 ROSTER_SLOTS = {
     "C": 1,
@@ -102,8 +268,8 @@ class AIOwner:
                 needed.append(pos)
         return needed
 
-    def should_bid(self, player_position, current_price, total_picks_so_far):
-        """Decide if AI should enter bidding"""
+    def should_bid(self, player_name, player_position, current_price, total_picks_so_far):
+        """Decide if AI should enter bidding based on player value"""
 
         if not self.can_bid(current_price + 1) or not self.needs_players():
             return False
@@ -111,6 +277,9 @@ class AIOwner:
         # ROSTER ENFORCEMENT: Don't bid if we don't need this position
         if not self.needs_position(player_position):
             return False
+
+        # Get player's actual value
+        player_value = get_player_value(player_name)
 
         # Calculate target spend per remaining slot
         spots_left = self.spots_left()
@@ -120,46 +289,40 @@ class AIOwner:
         total_slots = 14 * 7  # 7 teams * 14 slots = 98 picks
         pct_complete = total_picks_so_far / total_slots
 
-        # CRITICAL FIX: Force bidding when sitting on money in late auction
-        # If we have significant $/slot and price is below target, MUST BID
-        if pct_complete >= 0.6 and target_per_slot >= 15 and current_price < target_per_slot:
-            return True  # Can't let cheap players go when sitting on cash
-
-        # Very late auction: even more aggressive
-        if pct_complete >= 0.8 and target_per_slot >= 10 and current_price < target_per_slot * 1.2:
-            return True  # Must spend mode
-
-        # Get position preference for normal interest-based bidding
+        # Get position preference (owner's historical tendency)
         pos_prefs = self.profile.get('position_preferences', {})
         pos_data = pos_prefs.get(player_position, {})
         premium_pct = pos_data.get('premium_pct', 0)
 
-        base_interest = 0.5
-        interest = base_interest + (premium_pct / 200)
+        # Adjust player value by owner's position preference
+        adjusted_value = player_value * (1 + premium_pct / 100)
 
-        # Progressive aggression as auction advances
-        if pct_complete < 0.3:
-            interest *= 1.1
-        elif pct_complete < 0.6:
-            interest *= 1.0
+        # If player is worth more than current price, be interested
+        if current_price < adjusted_value * 0.9:
+            # Good value - high interest
+            interest = 0.85
+        elif current_price < adjusted_value:
+            # Fair value - moderate interest
+            interest = 0.65
+        elif current_price < adjusted_value * 1.1:
+            # Slight overpay - lower interest
+            interest = 0.35
         else:
-            # Late auction: more aggressive even for non-forced bids
-            if current_price < target_per_slot * 0.8:
-                interest *= 1.8
-            else:
-                interest *= 1.3
+            # Too expensive - minimal interest
+            interest = 0.15
 
-        # Budget pressure bonus
-        if target_per_slot > 25:
-            interest *= 1.4
-        elif target_per_slot > 18:
-            interest *= 1.2
+        # Late auction budget pressure: bid more aggressively to spend money
+        if pct_complete >= 0.7 and target_per_slot >= 15 and current_price < target_per_slot:
+            interest = max(interest, 0.75)  # Force engagement
+
+        if pct_complete >= 0.85 and target_per_slot >= 10:
+            interest = max(interest, 0.85)  # Must spend mode
 
         interest *= random.uniform(0.9, 1.1)
         return random.random() < min(interest, 0.95)
     
-    def get_max_bid(self, player_position, current_price, total_picks_so_far):
-        """Determine maximum AI willing to pay"""
+    def get_max_bid(self, player_name, player_position, current_price, total_picks_so_far):
+        """Determine maximum AI willing to pay based on player value"""
 
         spots_left = self.spots_left()
         money_left = self.budget
@@ -170,45 +333,34 @@ class AIOwner:
 
         target_per_slot = money_left / spots_left if spots_left > 0 else 0
 
-        # Get historical avg for this position
+        # Get player's actual value
+        player_value = get_player_value(player_name)
+
+        # Get owner's position preference
         pos_prefs = self.profile.get('position_preferences', {})
         pos_data = pos_prefs.get(player_position, {})
-        avg_price = pos_data.get('avg_price', 20)
         premium_pct = pos_data.get('premium_pct', 0)
 
-        # Position-adjusted historical price (what this owner typically pays)
-        position_adjusted = avg_price * (1 + premium_pct / 100)
+        # Adjust value by owner's historical tendency
+        # If owner historically overpays for this position, they'll pay more
+        adjusted_value = player_value * (1 + premium_pct / 100)
 
         total_slots = 14 * 7
         pct_complete = total_picks_so_far / total_slots
 
-        # Early auction: Use position-adjusted historical average (conservative)
+        # Base max bid on adjusted player value with some variance
         if pct_complete < 0.4:
-            max_price = position_adjusted * random.uniform(0.8, 1.15)
-
-        # Mid auction: Blend historical with budget reality
+            # Early auction: Bid up to player value with conservative variance
+            max_price = adjusted_value * random.uniform(0.85, 1.05)
         elif pct_complete < 0.7:
-            # Weight shifts toward target as auction progresses
-            blend_factor = (pct_complete - 0.4) / 0.3  # 0 at 40%, 1 at 70%
-            historical_weight = 1 - (blend_factor * 0.5)  # 1.0 -> 0.5
-            target_weight = blend_factor * 0.5  # 0 -> 0.5
-            blended = (position_adjusted * historical_weight) + (target_per_slot * target_weight)
-            max_price = blended * random.uniform(0.95, 1.2)
-
-        # Late auction: Budget reality takes priority
+            # Mid auction: Blend player value with budget pressure
+            budget_factor = target_per_slot / 20  # Scale by typical target
+            max_price = adjusted_value * random.uniform(0.9, 1.1) * max(1.0, budget_factor * 0.3 + 0.7)
         else:
-            # CRITICAL FIX: target_per_slot is the FLOOR, not a random multiplier
-            if target_per_slot >= 15:
-                # Pay between target and 1.3x target - never below target
-                max_price = target_per_slot * random.uniform(1.0, 1.3)
-            elif target_per_slot >= 8:
-                # Moderate budget - blend but ensure floor
-                max_price = max(position_adjusted * random.uniform(1.0, 1.3), target_per_slot)
-            else:
-                # Everyone is winding down - use historical with small boost
-                max_price = position_adjusted * random.uniform(1.0, 1.2)
+            # Late auction: Player value is floor, budget pressure can push higher
+            max_price = max(adjusted_value, target_per_slot) * random.uniform(1.0, 1.15)
 
-        # Very late auction: guarantee we hit target to force spending
+        # Very late auction: ensure we spend money
         if pct_complete >= 0.85 and target_per_slot >= 10:
             max_price = max(max_price, target_per_slot * 1.1)
 
@@ -233,30 +385,48 @@ class AIOwner:
         else:
             return 1
     
-    def nominate_player(self):
+    def nominate_player(self, drafted_players=None):
         """Nominate a player at a position the AI still needs"""
+        if drafted_players is None:
+            drafted_players = set()
+
         # Player pool organized by position (NL-only players)
+        # Need 98 total (14 players × 7 teams)
         player_pool = {
             "C": ["J.T. Realmuto", "William Contreras", "Willson Contreras", "Travis d'Arnaud",
-                  "Gabriel Moreno", "Will Smith", "Patrick Bailey", "Yasmani Grandal"],
+                  "Gabriel Moreno", "Will Smith", "Patrick Bailey", "Yasmani Grandal",
+                  "Austin Nola", "Tucker Barnhart", "Carson Kelly", "Elias Diaz"],
             "1B": ["Freddie Freeman", "Pete Alonso", "Matt Olson", "Bryce Harper",
-                   "Cody Bellinger", "Christian Walker", "Josh Bell", "LaMonte Wade Jr."],
+                   "Cody Bellinger", "Christian Walker", "Josh Bell", "LaMonte Wade Jr.",
+                   "Rowdy Tellez", "CJ Cron", "Jake Bauers", "Brandon Belt"],
             "2B": ["Ketel Marte", "Ozzie Albies", "Luis Arraez", "Gavin Lux",
-                   "Brendan Rodgers", "Jake Cronenworth", "Brandon Lowe", "Bryson Stott"],
-            "SS": ["Francisco Lindor", "Trea Turner", "Elly De La Cruz", "Mookie Betts",
-                   "Dansby Swanson", "CJ Abrams", "Ha-Seong Kim", "Ezequiel Tovar"],
+                   "Brendan Rodgers", "Jake Cronenworth", "Brandon Lowe", "Bryson Stott",
+                   "Nico Hoerner", "Jonathan India", "Grae Kessinger", "David Fry"],
+            "SS": ["Francisco Lindor", "Trea Turner", "Elly De La Cruz",
+                   "Dansby Swanson", "CJ Abrams", "Ha-Seong Kim", "Ezequiel Tovar",
+                   "Willy Adames", "Geraldo Perdomo", "Bo Bichette", "Nick Ahmed", "Paul DeJong"],
             "3B": ["Manny Machado", "Nolan Arenado", "Austin Riley", "Ryan McMahon",
-                   "Matt Chapman", "Ke'Bryan Hayes", "Alec Bohm", "Max Muncy"],
+                   "Matt Chapman", "Ke'Bryan Hayes", "Alec Bohm", "Max Muncy",
+                   "Rafael Devers", "Eugenio Suarez", "Christopher Morel", "Patrick Wisdom"],
             "OF": ["Juan Soto", "Fernando Tatis Jr.", "Kyle Tucker", "Corbin Carroll",
                    "Ronald Acuna Jr.", "Mookie Betts", "Ian Happ", "Jackson Chourio",
-                   "Lars Nootbaar", "Bryan De La Cruz", "Brandon Marsh", "Michael Harris II"],
-            "DH": ["Shohei Ohtani", "Kyle Schwarber", "Marcell Ozuna", "Jesse Winker",
-                   "Spencer Steer", "JD Martinez", "Jorge Soler", "Rhys Hoskins"],
+                   "Lars Nootbaar", "Bryan De La Cruz", "Brandon Marsh", "Michael Harris II",
+                   "Kyle Schwarber", "Pete Crow-Armstrong", "Jackson Merrill", "Andy Pages",
+                   "Teoscar Hernandez", "Lourdes Gurriel Jr.", "Randy Arozarena", "TJ Friedl",
+                   "Jake McCarthy", "Jordan Walker", "Mark Canha", "Mike Yastrzemski"],
+            "DH": ["Shohei Ohtani", "Marcell Ozuna", "Jesse Winker",
+                   "Spencer Steer", "JD Martinez", "Jorge Soler", "Rhys Hoskins",
+                   "Wilmer Flores", "Daniel Vogelbach", "Nick Castellanos"],
             "SP": ["Zack Wheeler", "Spencer Strider", "Chris Sale", "Paul Skenes",
                    "Logan Webb", "Shota Imanaga", "Yu Darvish", "Blake Snell",
-                   "Ranger Suarez", "Dylan Cease", "Miles Mikolas", "Sonny Gray"],
+                   "Ranger Suarez", "Dylan Cease", "Miles Mikolas", "Sonny Gray",
+                   "Zac Gallen", "Tyler Glasnow", "Mitch Keller", "Hunter Greene",
+                   "Freddy Peralta", "Cristopher Sanchez", "Jesus Luzardo", "Yoshinobu Yamamoto",
+                   "Joe Musgrove", "Adam Wainwright", "MacKenzie Gore", "Merrill Kelly"],
             "RP": ["Edwin Diaz", "Ryan Helsley", "Josh Hader", "Camilo Doval",
-                   "Alexis Diaz", "Robert Suarez", "Tanner Scott", "A.J. Minter"],
+                   "Alexis Diaz", "Robert Suarez", "Tanner Scott", "A.J. Minter",
+                   "Devin Williams", "Kenley Jansen", "Raisel Iglesias", "Daniel Hudson",
+                   "Yuki Matsui", "Jeff Hoffman", "Pierce Johnson", "Evan Phillips"],
         }
 
         # Get positions we still need
@@ -276,11 +446,37 @@ class AIOwner:
         if not available_positions:
             available_positions = list(player_pool.keys())
 
-        # Pick a random position we need, then a random player at that position
-        position = random.choice(available_positions)
-        player = random.choice(player_pool.get(position, ["Unknown Player"]))
+        # Try to find an available player at a position we need
+        # Prefer higher-value players (more realistic - you want elite players)
+        random.shuffle(available_positions)
 
-        return (player, position)
+        best_player = None
+        best_position = None
+        best_value = -1
+
+        for position in available_positions:
+            available_players = [p for p in player_pool.get(position, [])
+                                 if p not in drafted_players]
+            for player in available_players:
+                value = get_player_value(player)
+                # Add some randomness so it's not always the top player
+                adjusted_value = value * random.uniform(0.7, 1.3)
+                if adjusted_value > best_value:
+                    best_value = adjusted_value
+                    best_player = player
+                    best_position = position
+
+        if best_player:
+            return (best_player, best_position)
+
+        # Fallback: any available player
+        for position in player_pool:
+            available_players = [p for p in player_pool[position]
+                                 if p not in drafted_players]
+            if available_players:
+                return (random.choice(available_players), position)
+
+        return ("Unknown Player", "DH")
 
 
 def run_auto_auction():
@@ -309,10 +505,11 @@ def run_auto_auction():
         print(f"  {i}. {owner.name}")
     
     print("\n" + "="*80)
-    
+
     auction_round = 0
     nomination_index = 0
-    
+    drafted_players = set()  # Track who's been drafted
+
     while any(o.needs_players() for o in owners) and auction_round < 98:
         # Get next nominator
         nominator = None
@@ -330,9 +527,9 @@ def run_auto_auction():
             break
         
         auction_round += 1
-        
-        # Nominate
-        player_name, position = nominator.nominate_player()
+
+        # Nominate (pass drafted_players to avoid duplicates)
+        player_name, position = nominator.nominate_player(drafted_players)
         
         if auction_round % 10 == 0 or auction_round <= 5:
             print(f"\n{'='*80}")
@@ -345,8 +542,8 @@ def run_auto_auction():
         # Collect interested bidders with their max bids
         bidders = {}
         for owner in owners:
-            if owner.should_bid(position, current_price, auction_round):
-                max_bid = owner.get_max_bid(position, current_price, auction_round)
+            if owner.should_bid(player_name, position, current_price, auction_round):
+                max_bid = owner.get_max_bid(player_name, position, current_price, auction_round)
                 if max_bid > current_price:
                     bidders[owner] = max_bid
 
@@ -409,6 +606,7 @@ def run_auto_auction():
             if auction_round % 10 == 0 or auction_round <= 5:
                 print(f"  → SOLD to {current_bidder.name} for ${current_price}")
             current_bidder.add_player(player_name, current_price, position)
+            drafted_players.add(player_name)  # Track as drafted
         
         # Show standings periodically
         if auction_round % 14 == 0:
