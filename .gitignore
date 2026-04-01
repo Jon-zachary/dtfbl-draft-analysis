@@ -1,0 +1,19 @@
+# Credentials — never commit
+.env
+
+# Local data logs — live in the cloud repo instead
+data/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Excel / Word working files
+*.xlsx
+*.docx
+
+# OS
+.DS_Store
+Thumbs.db

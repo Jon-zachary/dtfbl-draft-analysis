@@ -110,28 +110,36 @@ HITTER_PROJECTIONS = [
     ("Juan Soto", "OF", 84, 25, 1, 38, 107, 98, 21, 123),
     ("Ketel Marte", "2B", 86, 29, 2, 29, 88, 87, 5, 67),
     ("Fernando Tatis Jr.", "OF", 94, 28, 2, 28, 97, 78, 26, 70),
-    ("Ronald Acuna Jr.", "OF", 93, 25, 2, 28, 104, 76, 24, 84),
+    # Acuna: Multiple knee surgeries + calf 2025; SB outlook greatly reduced
+    ("Ronald Acuna Jr.", "OF", 88, 24, 2, 24, 90, 72, 14, 80),
+    # Tucker: Signed with Dodgers (NL) as top FA
     ("Kyle Tucker", "OF", 81, 28, 2, 29, 93, 87, 23, 84),
-    ("Francisco Lindor", "SS", 88, 27, 1, 25, 91, 76, 23, 55),
+    # Lindor: Hamate stress fracture surgery Feb 2026; spring debut 3/15, on track OD
+    ("Francisco Lindor", "SS", 85, 26, 1, 22, 85, 72, 20, 52),
     ("Will Smith", "C", 70, 21, 1, 20, 69, 69, 2, 58),
-    ("Corbin Carroll", "OF", 73, 27, 10, 26, 98, 77, 32, 64),
+    # Carroll: Hamate bone injury; back in Cactus League, on track OD
+    ("Corbin Carroll", "OF", 73, 26, 8, 22, 88, 71, 26, 60),
     ("William Contreras", "C", 92, 27, 1, 19, 76, 77, 6, 69),
     ("Trea Turner", "SS", 111, 29, 4, 18, 90, 71, 28, 40),
-    ("Mookie Betts", "OF", 92, 30, 2, 21, 88, 78, 9, 65),
+    # Betts: Playing SS full-time in 2026
+    ("Mookie Betts", "SS", 92, 30, 2, 21, 88, 78, 9, 65),
     ("Elly De La Cruz", "SS", 88, 30, 5, 22, 91, 75, 40, 60),
     ("Geraldo Perdomo", "SS", 99, 27, 4, 12, 87, 63, 20, 74),
     ("Jackson Merrill", "OF", 92, 31, 4, 22, 77, 81, 8, 40),
     ("Pete Crow-Armstrong", "OF", 81, 28, 5, 22, 83, 76, 33, 35),
-    ("Alex Bregman", "3B", 91, 27, 1, 22, 79, 79, 2, 64),
+    # Bregman: Signed with CHC (NL) -- WAS incorrectly removed
+    ("Alex Bregman", "3B", 88, 26, 1, 22, 78, 78, 2, 63),
+    # Devers: Signed with SF Giants (NL) as 1B (plays 1B now, not 3B!)
+    ("Rafael Devers", "1B", 88, 30, 1, 33, 90, 95, 3, 88),
     ("Bryce Harper", "1B", 83, 31, 1, 26, 82, 83, 9, 74),
     ("Matt Chapman", "3B", 72, 27, 2, 23, 80, 72, 9, 69),
     ("Gabriel Moreno", "C", 75, 20, 1, 11, 53, 54, 4, 41),
     ("Willy Adames", "SS", 77, 26, 1, 27, 83, 83, 11, 69),
-    ("Rafael Devers", "3B", 82, 28, 1, 31, 87, 92, 2, 83),
     ("Dansby Swanson", "SS", 87, 24, 2, 22, 77, 74, 16, 52),
     ("Austin Riley", "3B", 86, 28, 2, 27, 80, 84, 2, 45),
     ("Freddie Freeman", "1B", 92, 32, 2, 22, 83, 83, 8, 64),
-    ("Bo Bichette", "SS", 109, 29, 2, 17, 74, 75, 5, 38),
+    # Bichette: Signed with NYM (NL) -- WAS incorrectly removed; ~119G projection
+    ("Bo Bichette", "SS", 95, 25, 2, 16, 68, 68, 5, 36),
     ("Kyle Schwarber", "OF", 63, 20, 1, 41, 97, 104, 6, 96),
     ("Brice Turang", "2B", 102, 25, 3, 15, 79, 67, 30, 57),
     ("Andy Pages", "OF", 82, 28, 2, 22, 73, 75, 10, 35),
@@ -149,11 +157,13 @@ HITTER_PROJECTIONS = [
     ("Brandon Marsh", "OF", 75, 22, 3, 15, 70, 60, 12, 55),
     ("Lars Nootbaar", "OF", 65, 20, 2, 18, 70, 60, 8, 70),
     ("Bryan De La Cruz", "OF", 80, 25, 2, 22, 70, 75, 5, 35),
-    ("Spencer Steer", "3B", 80, 28, 2, 20, 75, 75, 8, 50),
+    # Steer: Playing 1B in 2026 per manager's sheet
+    ("Spencer Steer", "1B", 80, 28, 2, 20, 75, 75, 8, 50),
     ("Jesse Winker", "OF", 70, 22, 1, 18, 65, 65, 3, 75),
     ("Travis d'Arnaud", "C", 70, 18, 1, 14, 50, 55, 1, 35),
     ("Patrick Bailey", "C", 65, 18, 1, 12, 50, 50, 3, 40),
     ("Yasmani Grandal", "C", 55, 15, 0, 12, 45, 50, 1, 55),
+    # Arraez: Now with Giants (NL) on 1-year deal
     ("Luis Arraez", "2B", 120, 25, 1, 5, 70, 55, 3, 50),
     ("Gavin Lux", "2B", 80, 22, 2, 12, 65, 55, 8, 50),
     ("Jake Cronenworth", "2B", 85, 25, 2, 15, 70, 65, 5, 50),
@@ -171,12 +181,27 @@ HITTER_PROJECTIONS = [
     ("Rhys Hoskins", "1B", 60, 22, 1, 28, 75, 85, 2, 70),
     ("JD Martinez", "DH", 70, 28, 1, 25, 70, 85, 1, 55),
     ("Jorge Soler", "DH", 60, 22, 1, 30, 75, 85, 2, 60),
+    # Lowe: Signed with PIT Pirates (NL) -- WAS incorrectly removed
     ("Brandon Lowe", "2B", 60, 22, 2, 22, 70, 70, 5, 55),
     # Additional depth
     ("Jackson Chourio", "OF", 85, 25, 3, 22, 78, 72, 15, 42),
     ("Teoscar Hernandez", "OF", 78, 26, 2, 28, 82, 88, 6, 48),
     ("Randy Arozarena", "OF", 80, 25, 3, 22, 78, 72, 18, 52),
     ("Nick Castellanos", "DH", 85, 30, 1, 22, 75, 80, 3, 45),
+    # Players added after manager's projection sheet review
+    ("Jonathan India", "2B", 75, 22, 2, 18, 72, 62, 12, 52),  # Reds
+    # Suzuki: PCL sprain spring training, IL candidate to open season
+    ("Seiya Suzuki", "OF", 68, 22, 1, 19, 66, 65, 5, 44),  # Cubs
+    # Missing from original pool -- found in manager's projections
+    ("Bryan Reynolds", "OF", 80, 28, 3, 22, 82, 80, 8, 65),   # PIT
+    ("James Wood", "OF", 88, 28, 3, 25, 85, 82, 12, 65),       # WSH -- young star
+    ("Marcus Semien", "2B", 88, 26, 2, 20, 82, 72, 10, 55),    # NYM
+    ("Masyn Winn", "SS", 95, 22, 4, 12, 78, 60, 20, 42),       # STL
+    ("Eugenio Suarez", "DH", 68, 24, 1, 36, 82, 92, 3, 65),    # CIN
+    ("Christian Yelich", "DH", 75, 28, 3, 26, 80, 80, 6, 85),  # MIL
+    ("Nico Hoerner", "2B", 102, 24, 3, 15, 82, 65, 22, 55),    # CHC
+    ("Hunter Goodman", "C", 72, 25, 1, 26, 75, 80, 3, 35),     # COL (Coors inflated)
+    ("Drake Baldwin", "C", 72, 24, 1, 18, 68, 70, 5, 42),      # ATL
 ]
 
 # 2026 ATC Projections - Pitchers
@@ -185,15 +210,20 @@ PITCHER_PROJECTIONS = [
     ("Paul Skenes", "SP", 12, 8, 0, 221, 45, 184),
     ("Logan Webb", "SP", 13, 10, 0, 183, 44, 193),
     ("Cristopher Sanchez", "SP", 12, 7, 0, 179, 45, 185),
+    # Yamamoto: Healthy, named Opening Day starter
     ("Yoshinobu Yamamoto", "SP", 12, 7, 0, 175, 47, 160),
     ("Chris Sale", "SP", 11, 6, 0, 187, 39, 152),
     ("Jesus Luzardo", "SP", 12, 9, 0, 191, 53, 173),
     ("Hunter Greene", "SP", 10, 8, 0, 198, 53, 164),
-    ("Zack Wheeler", "SP", 9, 5, 0, 143, 33, 124),
+    # Wheeler: TOS surgery Sep 2025; won't return until ~late May/June; ~2 months lost
+    ("Zack Wheeler", "SP", 6, 3, 0, 110, 25, 95),
+    # Peralta: Traded to Mets; named Opening Day starter
     ("Freddy Peralta", "SP", 12, 9, 0, 183, 60, 164),
+    # Strider: First truly healthy spring in 3 years; high upside, still some risk
     ("Spencer Strider", "SP", 10, 6, 0, 180, 45, 145),
     ("Yu Darvish", "SP", 10, 8, 0, 165, 45, 160),
-    ("Blake Snell", "SP", 10, 8, 0, 175, 70, 150),
+    # Snell: Shoulder lingering; starting 2026 ON IL, "probably zero" chance OD; ~6-8 weeks lost
+    ("Blake Snell", "SP", 7, 6, 0, 120, 48, 100),
     ("Ranger Suarez", "SP", 11, 7, 0, 145, 45, 170),
     ("Dylan Cease", "SP", 10, 9, 0, 190, 75, 175),
     ("Miles Mikolas", "SP", 9, 9, 0, 130, 35, 175),
@@ -201,14 +231,22 @@ PITCHER_PROJECTIONS = [
     ("Shota Imanaga", "SP", 10, 7, 0, 155, 40, 155),
     ("Mitch Keller", "SP", 10, 8, 0, 165, 55, 175),
     ("Zac Gallen", "SP", 11, 7, 0, 170, 45, 175),
-    ("Tyler Glasnow", "SP", 10, 6, 0, 185, 50, 145),
+    # Glasnow: Shoulder inflammation limited him to 90 IP in 2025; still fragile
+    ("Tyler Glasnow", "SP", 8, 5, 0, 155, 42, 120),
     ("Joe Musgrove", "SP", 9, 8, 0, 145, 40, 155),
     ("MacKenzie Gore", "SP", 9, 7, 0, 155, 55, 150),
     ("Merrill Kelly", "SP", 10, 9, 0, 140, 40, 175),
     # Relievers
-    ("Ryan Helsley", "RP", 4, 3, 38, 85, 20, 65),
+    # Helsley: NOT on manager's NL sheet -- likely moved to AL or injured; REMOVED
+    # Diaz: Now with LAD (not Mets) per manager's sheet
     ("Edwin Diaz", "RP", 4, 3, 32, 95, 25, 60),
     ("Josh Hader", "RP", 4, 3, 35, 90, 22, 62),
+    # Duran: Signed with PHI from Twins (AL) -- top-tier closer, new to NL
+    ("Jhoan Duran", "RP", 6, 7, 28, 76, 19, 62),
+    # Miller: Signed with SD from A's (AL) -- elite K closer
+    ("Mason Miller", "RP", 2, 2, 22, 93, 25, 58),
+    # Fairbanks: Signed with MIA from Rays (AL)
+    ("Pete Fairbanks", "RP", 3, 4, 25, 56, 18, 55),
     ("Camilo Doval", "RP", 4, 4, 30, 75, 28, 60),
     ("Alexis Diaz", "RP", 3, 3, 28, 80, 25, 58),
     ("Robert Suarez", "RP", 4, 3, 32, 70, 20, 60),
