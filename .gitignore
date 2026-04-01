@@ -1,8 +1,11 @@
 # Credentials — never commit
 .env
 
-# Local data logs — live in the cloud repo instead
-data/
+# Local data logs — exclude debug/volatile files but keep standings history
+data/debug/
+data/scraper.log
+data/roster_log.csv
+data/alerts_log.csv
 
 # Python
 __pycache__/

@@ -1,0 +1,41 @@
+name: Daily Standings
+
+on:
+  schedule:
+    # Runs at 11:00 UTC = 7:00am Eastern. Adjust if you want a different time.
+    - cron: '0 11 * * *'
+  workflow_dispatch:  # adds a manual "Run workflow" button in the GitHub UI
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 python-dotenv
+
+      - name: Run standings scraper
+        env:
+          ONROTO_USERNAME:   ${{ secrets.ONROTO_USERNAME }}
+          ONROTO_PASSWORD:   ${{ secrets.ONROTO_PASSWORD }}
+          ALERT_FROM_EMAIL:  ${{ secrets.ALERT_FROM_EMAIL }}
+          ALERT_APP_PASSWORD: ${{ secrets.ALERT_APP_PASSWORD }}
+          ALERT_TO_EMAIL:    ${{ secrets.ALERT_TO_EMAIL }}
+        run: python daily_standings.py
+
+      - name: Commit updated standings log
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/standings_log.csv
+          # Only commit if the file actually changed
+          git diff --staged --quiet || git commit -m "standings: $(date -u '+%Y-%m-%d')"
+          git push
