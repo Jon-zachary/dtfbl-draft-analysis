@@ -9,6 +9,8 @@ on:
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # needed to commit standings_log.csv back to the repo
 
     steps:
       - name: Check out repo
