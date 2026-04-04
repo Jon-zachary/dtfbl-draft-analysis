@@ -112,6 +112,18 @@ def login() -> tuple[requests.Session, str]:
     if not session_id:
         sys.exit("ERROR: Login failed — check credentials")
 
+    # Follow the DTFBL team_home link — this establishes full league session context,
+    # which is required for the message board to render correctly.
+    soup2 = BeautifulSoup(resp.text, "html.parser")
+    dtfbl_link = next(
+        (a["href"] for a in soup2.find_all("a", href=True) if "dtfbl" in a["href"]),
+        None,
+    )
+    if dtfbl_link:
+        session.headers["Referer"] = resp.url
+        resp2 = session.get(dtfbl_link, timeout=30)
+        session_id = extract_session_id(resp2.text) or session_id
+
     print(f"Logged in. session_id={session_id[:8]}…")
     return session, session_id
 
@@ -185,9 +197,77 @@ def append_standings_log(standings: dict):
     print(f"Standings logged → {STANDINGS_LOG}")
 
 
+# ── Message Board / Trade Block ───────────────────────────────────────────────
+
+def fetch_message_board(session: requests.Session, session_id: str) -> tuple[str, str]:
+    url  = f"{BASE_URL}/team_message_board.pl?{LEAGUE_ID}+{JON_TEAM_ID}&session_id={session_id}"
+    resp = session.get(url, timeout=30)
+    resp.raise_for_status()
+    new_sid = extract_session_id(resp.text) or session_id
+    return resp.text, new_sid
+
+
+def parse_trade_block(html: str) -> list[dict]:
+    """
+    Parse the message board for current-season trade block posts.
+    Returns list of dicts: {team, date, offering, wanting}
+    where offering/wanting are lists of player strings.
+
+    Matches messages whose content starts with 'on the block' or 'also on the block'.
+    Filters to current year only so old posts don't show up.
+    """
+    soup = BeautifulSoup(html, "html.parser")
+    mb   = soup.find(class_="message_board")
+    if not mb:
+        return []
+
+    current_year = str(date.today().year)
+    posts = []
+
+    for td in mb.find_all("td"):
+        sender_tag  = td.find("font", class_="msg_sender")
+        content_tag = td.find("font", class_="msg_content")
+        date_tag    = td.find("font", class_="msg_date")
+        if not (sender_tag and content_tag and date_tag):
+            continue
+
+        msg_date = date_tag.get_text(strip=True)
+        if current_year not in msg_date:
+            continue
+
+        content = content_tag.get_text(separator="\n", strip=True)
+        if not re.match(r"(?i)(also\s+)?on\s+the\s+block", content):
+            continue
+
+        lines = [l.strip() for l in content.splitlines() if l.strip()]
+
+        # Split on "to replace" (case-insensitive)
+        split_idx = next(
+            (i for i, l in enumerate(lines) if re.match(r"(?i)to\s+replace", l)),
+            None,
+        )
+
+        # First line is the "On the block MM/DD" header — skip it
+        if split_idx is not None:
+            offering = [l for l in lines[1:split_idx] if not re.match(r"(?i)to\s+replace", l)]
+            wanting  = [l for l in lines[split_idx+1:]]
+        else:
+            offering = lines[1:]
+            wanting  = []
+
+        posts.append({
+            "team":     sender_tag.get_text(strip=True),
+            "date":     msg_date,
+            "offering": offering,
+            "wanting":  wanting,
+        })
+
+    return posts
+
+
 # ── Email ─────────────────────────────────────────────────────────────────────
 
-def send_standings_email(standings: dict):
+def send_standings_email(standings: dict, trade_block: list[dict]):
     from_addr = os.getenv("ALERT_FROM_EMAIL")
     app_pw    = os.getenv("ALERT_APP_PASSWORD")
     to_addr   = os.getenv("ALERT_TO_EMAIL")
@@ -212,7 +292,20 @@ def send_standings_email(standings: dict):
             f"{i:<3} {team:<22} {data['total']:>+8.1f}  {week_pts:>+7.1f}{marker}"
         )
 
-    lines += ["", "Full history: github.com/Jon-zachary/dtfbl-draft-analysis"]
+    if trade_block:
+        lines += ["", "─" * 46, "ON THE BLOCK", ""]
+        for post in trade_block:
+            lines.append(f"{post['team']}  ({post['date']})")
+            lines.append("  Offering:")
+            for p in post["offering"]:
+                lines.append(f"    {p}")
+            if post["wanting"]:
+                lines.append("  For:")
+                for p in post["wanting"]:
+                    lines.append(f"    {p}")
+            lines.append("")
+
+    lines += ["Full history: github.com/Jon-zachary/dtfbl-draft-analysis"]
     body = "\n".join(lines)
     print(body)
 
@@ -248,8 +341,12 @@ def main():
 
     print(f"Fetched standings for {len(season)} teams")
 
+    html_mb, session_id = fetch_message_board(session, session_id)
+    trade_block = parse_trade_block(html_mb)
+    print(f"Trade block posts this season: {len(trade_block)}")
+
     append_standings_log(standings)
-    send_standings_email(standings)
+    send_standings_email(standings, trade_block)
 
 
 if __name__ == "__main__":
