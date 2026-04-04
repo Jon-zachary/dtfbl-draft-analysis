@@ -88,6 +88,10 @@ INJURY_KEYWORDS = [
 # How far below pace triggers an alert (fraction of projected pts)
 UNDERPERFORM_THRESHOLD = 0.70   # below 70% of expected pace = alert
 
+# How much better a FA must be (PTS/G) to trigger an upgrade alert
+FA_OVERPERFORM_THRESHOLD = 0.05  # FA beats roster spot by 5% → alert
+MIN_GAMES_FOR_COMPARISON = 3     # ignore players with fewer games than this
+
 # ── Logging ───────────────────────────────────────────────────────────────────
 
 DATA_DIR.mkdir(exist_ok=True)
@@ -485,6 +489,119 @@ def check_underperformance(players: list[dict], games_played: int) -> list[str]:
     return alerts
 
 
+# ── Roster vs FA comparison ───────────────────────────────────────────────────
+
+def _ppg(player: dict, pts_key: str = "PTS") -> float | None:
+    """Return points-per-game for a player, or None if too few games."""
+    try:
+        pts = float(player.get(pts_key, 0) or 0)
+        g   = float(player.get("G", 0) or 0)
+        if g < MIN_GAMES_FOR_COMPARISON:
+            return None
+        return pts / g
+    except (ValueError, TypeError):
+        return None
+
+
+def check_roster_vs_fa(
+    hitters: list[dict],
+    pitchers: list[dict],
+    fa_hitters: list[dict],
+    fa_pitchers: list[dict],
+    threshold: float = FA_OVERPERFORM_THRESHOLD,
+) -> list[dict]:
+    """
+    For each of Jon's roster spots, find available FAs at the same position
+    outperforming the rostered player by more than `threshold` on a PTS/G basis.
+
+    Returns list of dicts, one per roster spot where an upgrade exists:
+      {player, slot, my_ppg, top_fa: [{name, team, elig_pos, ppg, pct_better}]}
+
+    Roster spots with < MIN_GAMES_FOR_COMPARISON games are skipped.
+    FA candidates on the DL are skipped.
+    """
+    results = []
+
+    def find_upgrades(roster_player: dict, fa_pool: list[dict], slot: str) -> dict | None:
+        my_ppg = _ppg(roster_player)
+        if my_ppg is None:
+            return None
+
+        upgrades = []
+        for fa in fa_pool:
+            if fa.get("on_dl"):
+                continue
+            fa_ppg = _ppg(fa, pts_key="site_pts")
+            if fa_ppg is None:
+                continue
+            # Position check: slot must appear somewhere in FA's elig_pos string
+            fa_pos = fa.get("elig_pos", "")
+            eligible = any(slot == p.strip() for p in re.split(r"[/,\s]+", fa_pos)) \
+                       or slot in fa_pos
+            if not eligible:
+                continue
+            if fa_ppg > my_ppg * (1 + threshold):
+                pct = int((fa_ppg / my_ppg - 1) * 100)
+                upgrades.append({"name": fa["name"], "team": fa["team"],
+                                 "elig_pos": fa_pos, "ppg": fa_ppg, "pct_better": pct})
+
+        if not upgrades:
+            return None
+
+        upgrades.sort(key=lambda x: -x["ppg"])
+        return {
+            "player": roster_player.get("Name", "?"),
+            "slot":   slot,
+            "team":   roster_player.get("Tm", "?"),
+            "my_ppg": my_ppg,
+            "my_g":   int(float(roster_player.get("G", 0) or 0)),
+            "top_fa": upgrades[:3],
+        }
+
+    for p in hitters:
+        slot = p.get("Pos", "")
+        result = find_upgrades(p, fa_hitters, slot)
+        if result:
+            results.append(result)
+
+    for p in pitchers:
+        slot = p.get("Pos", "")
+        result = find_upgrades(p, fa_pitchers, slot)
+        if result:
+            results.append(result)
+
+    return results
+
+
+def format_roster_vs_fa(upgrades: list[dict], full_report: bool = False) -> list[str]:
+    """
+    Format upgrade alerts for the email body.
+    full_report=True produces a more verbose Sunday layout.
+    """
+    if not upgrades:
+        return []
+
+    lines = []
+    if full_report:
+        lines += ["", "📊 WEEKLY ROSTER REVIEW — upgrade opportunities:"]
+    else:
+        lines += ["", "📊 UPGRADE OPPORTUNITIES (FAs outperforming your roster):"]
+
+    for u in upgrades:
+        g_note = f"{u['my_g']}G"
+        lines.append(
+            f"\n  {u['slot']:<4} {u['player']:<22} ({u['team']})  "
+            f"{u['my_ppg']:.1f} pts/G ({g_note})"
+        )
+        for fa in u["top_fa"]:
+            lines.append(
+                f"       → {fa['name']:<26} {fa['team']:<5} "
+                f"{fa['elig_pos']:<10} {fa['ppg']:.1f} pts/G  (+{fa['pct_better']}%)"
+            )
+
+    return lines
+
+
 # ── Logging to CSV ────────────────────────────────────────────────────────────
 
 def append_standings_log(standings: dict):
@@ -778,6 +895,7 @@ def parse_free_agents(html: str, player_type: str) -> list[dict]:
         pts_col  = headers.index("PTS")
         team_col = headers.index("Team")     if "Team"     in headers else None
         pos_col  = headers.index("Elig Pos") if "Elig Pos" in headers else None
+        g_col    = headers.index("G")        if "G"        in headers else None
 
         for tr in table.find_all("tr")[1:]:
             # Get raw text per cell, preserving newlines for dual-value splitting
@@ -808,12 +926,17 @@ def parse_free_agents(html: str, player_type: str) -> list[dict]:
 
             team     = first_val(cells[team_col]) if team_col is not None else "?"
             elig_pos = first_val(cells[pos_col])  if pos_col  is not None else ""
+            try:
+                g = int(first_val(cells[g_col])) if g_col is not None else 0
+            except (ValueError, IndexError):
+                g = 0
 
             players.append({
                 "name":     clean_name,
                 "team":     team,
                 "elig_pos": elig_pos,
                 "site_pts": pts,
+                "G":        g,
                 "on_dl":    on_dl,
                 "type":     player_type,
             })
@@ -1053,13 +1176,26 @@ def main():
         alerts.append("\n📉 UNDERPERFORMING vs ATC pace:")
         alerts.extend(underperform)
 
+    # Roster vs FA — daily alert if any FA beats a roster spot by FA_OVERPERFORM_THRESHOLD
+    is_sunday   = date.today().weekday() == 6
+    upgrades    = check_roster_vs_fa(jon["hitters"], jon["pitchers"], fa_hitters, fa_pitchers)
+    upgrade_lines = format_roster_vs_fa(upgrades, full_report=is_sunday)
+    if upgrade_lines:
+        alerts.extend(upgrade_lines)
+
+    # On Sundays, include the full report even if no individual alert fired
+    if is_sunday and not upgrade_lines:
+        # Still want the section header so Jon knows the check ran
+        alerts.append("\n📊 WEEKLY ROSTER REVIEW: no FA upgrades found above threshold.")
+
     # ── 6. Send email if any alerts ───────────────────────────────────────────
     jon_season = season.get("Jon's Generals", {}).get("total", 0)
     jon_week   = week.get("Jon's Generals", {}).get("total", 0)
 
-    if alerts:
+    # Force a Sunday email even without other alerts
+    if alerts or is_sunday:
         body = f"DTFBL Daily Report — {today}\n\n"
-        body += "\n".join(alerts)
+        body += "\n".join(alerts) if alerts else "(no alerts)"
         body += f"\n\n---\n"
         body += f"Jon's Generals: {jon_season:+.1f} pts (season)  {jon_week:+.1f} pts (this week)\n"
         body += "\nSeason Standings:\n"
