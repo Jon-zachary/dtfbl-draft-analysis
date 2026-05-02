@@ -273,7 +273,7 @@ def civ_chart(df: pd.DataFrame, out: Path = VIZ_DIR / "civ_chart.html"):
                         args=[
                             None,   # None = play all frames from beginning
                             dict(
-                                frame=dict(duration=1800, redraw=True),
+                                frame=dict(duration=1200, redraw=True),
                                 fromcurrent=False,
                                 mode="immediate",
                             ),
@@ -434,7 +434,7 @@ def gap_chart(df: pd.DataFrame, out: Path = VIZ_DIR / "gap_chart.html"):
                         args=[
                             None,
                             dict(
-                                frame=dict(duration=1800, redraw=True),
+                                frame=dict(duration=1200, redraw=True),
                                 fromcurrent=False,
                                 mode="immediate",
                             ),
@@ -1127,16 +1127,16 @@ def generate_newsletter_html(
   </section>
 
   <section>
-    <h2>Points Race — Civilization Style</h2>
+    <h2>Points Behind Leader</h2>
     <div class="chart-wrap">
-{civ_div}
+{gap_div}
     </div>
   </section>
 
   <section>
-    <h2>Points Behind Leader</h2>
+    <h2>Points Race — Civilization Style</h2>
     <div class="chart-wrap">
-{gap_div}
+{civ_div}
     </div>
   </section>
 
