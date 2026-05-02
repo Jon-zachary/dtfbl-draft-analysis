@@ -1,0 +1,48 @@
+name: Sunday Report
+
+on:
+  schedule:
+    # Runs at 12:00 UTC = 8:00am Eastern on Sundays.
+    - cron: '0 12 * * 0'
+  workflow_dispatch:  # manual "Run workflow" button for testing
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install requests beautifulsoup4 python-dotenv pandas plotly openpyxl numpy
+
+      - name: Run Sunday report
+        env:
+          ONROTO_USERNAME:    ${{ secrets.ONROTO_USERNAME }}
+          ONROTO_PASSWORD:    ${{ secrets.ONROTO_PASSWORD }}
+          ALERT_FROM_EMAIL:   ${{ secrets.ALERT_FROM_EMAIL }}
+          ALERT_APP_PASSWORD: ${{ secrets.ALERT_APP_PASSWORD }}
+          ALERT_TO_EMAIL:     ${{ secrets.ALERT_TO_EMAIL }}
+        run: python onroto_scraper.py
+
+      - name: Refresh player stats + rebuild newsletter
+        env:
+          ONROTO_USERNAME: ${{ secrets.ONROTO_USERNAME }}
+          ONROTO_PASSWORD: ${{ secrets.ONROTO_PASSWORD }}
+        run: python newsletter.py --fetch
+
+      - name: Commit updated player stats + newsletter
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/player_stats.json visualizations/index.html visualizations/value_chart.html
+          git diff --staged --quiet || git commit -m "newsletter: Sunday refresh $(date -u '+%Y-%m-%d')"
+          git push

@@ -22,7 +22,7 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4 python-dotenv
+        run: pip install requests beautifulsoup4 python-dotenv pandas plotly openpyxl numpy
 
       - name: Run standings scraper
         env:
@@ -33,11 +33,14 @@ jobs:
           ALERT_TO_EMAIL:    ${{ secrets.ALERT_TO_EMAIL }}
         run: python daily_standings.py
 
-      - name: Commit updated standings log
+      - name: Generate newsletter
+        run: python newsletter.py
+
+      - name: Commit updated files
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/standings_log.csv
-          # Only commit if the file actually changed
-          git diff --staged --quiet || git commit -m "standings: $(date -u '+%Y-%m-%d')"
+          git add data/standings_log.csv visualizations/index.html
+          # Only commit if something actually changed
+          git diff --staged --quiet || git commit -m "standings+newsletter: $(date -u '+%Y-%m-%d')"
           git push

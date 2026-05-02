@@ -509,6 +509,7 @@ def check_roster_vs_fa(
     fa_hitters: list[dict],
     fa_pitchers: list[dict],
     threshold: float = FA_OVERPERFORM_THRESHOLD,
+    league_pos_lookup: dict | None = None,
 ) -> list[dict]:
     """
     For each of Jon's roster spots, find available FAs at the same position
@@ -534,10 +535,22 @@ def check_roster_vs_fa(
             fa_ppg = _ppg(fa, pts_key="site_pts")
             if fa_ppg is None:
                 continue
-            # Position check: slot must appear somewhere in FA's elig_pos string
-            fa_pos = fa.get("elig_pos", "")
-            eligible = any(slot == p.strip() for p in re.split(r"[/,\s]+", fa_pos)) \
-                       or slot in fa_pos
+            # Position check: use league's single assigned position (from
+            # display_elig_pos.pl) for hitters so multi-pos FA pages don't
+            # inflate eligibility (e.g. Hicks is C, not also 1B and DH).
+            # Fall back to FA page elig_pos if not found in lookup.
+            fa_name_key = normalize_name(fa["name"])
+            if league_pos_lookup:
+                league_pos = league_pos_lookup.get(fa_name_key)
+                if league_pos:
+                    eligible = (league_pos == slot)
+                else:
+                    fa_pos   = fa.get("elig_pos", "")
+                    eligible = any(slot == p.strip() for p in re.split(r"[/,\s]+", fa_pos))
+            else:
+                fa_pos   = fa.get("elig_pos", "")
+                eligible = any(slot == p.strip() for p in re.split(r"[/,\s]+", fa_pos)) \
+                           or slot in fa_pos
             if not eligible:
                 continue
             if fa_ppg > my_ppg * (1 + threshold):
@@ -852,6 +865,39 @@ def atc_to_available(all_drafted: set[str], atc: dict) -> tuple[list[dict], list
     return hitters, pitchers
 
 
+def fetch_elig_pos(session: requests.Session, session_id: str) -> tuple[str, str]:
+    """Fetch display_elig_pos.pl — shows every NL player's single league-assigned position."""
+    return fetch(session, "display_elig_pos.pl", session_id)
+
+
+def build_league_pos_lookup(html: str) -> dict[str, str]:
+    """
+    Parse display_elig_pos.pl.
+    Returns {normalized_name: league_pos} — the single position the league assigns
+    to each hitter (e.g. 'C' for Liam Hicks, not 'C,1B,DH').
+    Pitchers (Pos='P') are excluded; they're handled via the FA page's elig_pos.
+    """
+    soup         = BeautifulSoup(html, "html.parser")
+    lookup       = {}
+    valid_pos    = {"C", "1B", "2B", "SS", "3B", "OF", "DH"}
+
+    for table in soup.find_all("table"):
+        for tr in table.find_all("tr"):
+            cells = [td.get_text(strip=True) for td in tr.find_all("td")]
+            if len(cells) < 2:
+                continue
+            pos  = cells[0].strip()
+            name = cells[1].strip()
+            if pos not in valid_pos:
+                continue
+            # Strip DL marker: "Liam Hicks|(DL)" → "Liam Hicks"
+            name = name.split("|")[0].replace("(DL)", "").replace("*", "").strip()
+            if name and len(name) >= 3:
+                lookup[normalize_name(name)] = pos
+
+    return lookup
+
+
 def fetch_free_agents(session: requests.Session, session_id: str,
                       player_type: str) -> tuple[str, str]:
     """
@@ -1104,6 +1150,17 @@ def main():
     cs_elig  = build_cheat_sheet_eligibility()
     log.info("Cheat sheet eligibility loaded — %d players", len(cs_elig))
 
+    # Fetch league position lookup (single assigned pos per player)
+    league_pos_lookup = {}
+    try:
+        html, session_id = fetch_elig_pos(session, session_id)
+        if args.debug:
+            dump_html("elig_pos", html)
+        league_pos_lookup = build_league_pos_lookup(html)
+        log.info("League pos lookup built — %d hitter entries", len(league_pos_lookup))
+    except Exception as e:
+        log.warning("Could not fetch elig_pos: %s", e)
+
     fa_hitters  = []
     fa_pitchers = []
     try:
@@ -1178,7 +1235,8 @@ def main():
 
     # Roster vs FA — daily alert if any FA beats a roster spot by FA_OVERPERFORM_THRESHOLD
     is_sunday   = date.today().weekday() == 6
-    upgrades    = check_roster_vs_fa(jon["hitters"], jon["pitchers"], fa_hitters, fa_pitchers)
+    upgrades    = check_roster_vs_fa(jon["hitters"], jon["pitchers"], fa_hitters, fa_pitchers,
+                                     league_pos_lookup=league_pos_lookup)
     upgrade_lines = format_roster_vs_fa(upgrades, full_report=is_sunday)
     if upgrade_lines:
         alerts.extend(upgrade_lines)

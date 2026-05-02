@@ -16,7 +16,7 @@ import os
 import re
 import smtplib
 import sys
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from pathlib import Path
@@ -207,21 +207,41 @@ def fetch_message_board(session: requests.Session, session_id: str) -> tuple[str
     return resp.text, new_sid
 
 
+def _current_block_start() -> datetime:
+    """Return the datetime when the current block window opened (last Tuesday at noon)."""
+    now = datetime.now()
+    days_back = (now.weekday() - 1) % 7   # 0 on Tuesday, 1 on Wednesday, …
+    last_tuesday = now - timedelta(days=days_back)
+    return last_tuesday.replace(hour=12, minute=0, second=0, microsecond=0)
+
+
+def _parse_post_dt(msg_date: str) -> datetime | None:
+    """Parse OnRoto message date like 'On 04-30-2026 at 8:24:46 AM' → datetime."""
+    cleaned = re.sub(r"^[Oo]n\s+", "", msg_date.strip())
+    for fmt in ("%m-%d-%Y at %I:%M:%S %p", "%m-%d-%Y at %I:%M %p"):
+        try:
+            return datetime.strptime(cleaned, fmt)
+        except ValueError:
+            continue
+    return None
+
+
 def parse_trade_block(html: str) -> list[dict]:
     """
-    Parse the message board for current-season trade block posts.
+    Parse the message board for this week's trade block posts.
     Returns list of dicts: {team, date, offering, wanting}
     where offering/wanting are lists of player strings.
 
     Matches messages whose content starts with 'on the block' or 'also on the block'.
-    Filters to current year only so old posts don't show up.
+    Filters to the current block window (since last Tuesday at noon) so old posts
+    don't accumulate.
     """
     soup = BeautifulSoup(html, "html.parser")
     mb   = soup.find(class_="message_board")
     if not mb:
         return []
 
-    current_year = str(date.today().year)
+    block_start = _current_block_start()
     posts = []
 
     for td in mb.find_all("td"):
@@ -232,7 +252,8 @@ def parse_trade_block(html: str) -> list[dict]:
             continue
 
         msg_date = date_tag.get_text(strip=True)
-        if current_year not in msg_date:
+        post_dt  = _parse_post_dt(msg_date)
+        if post_dt is None or post_dt < block_start:
             continue
 
         content = content_tag.get_text(separator="\n", strip=True)
