@@ -721,6 +721,7 @@ def fetch_all_player_stats() -> list[dict]:
 
     DATA_DIR.mkdir(exist_ok=True)
     PLAYER_STATS_CACHE.write_text(json.dumps(all_players, indent=2))
+    (DATA_DIR / "player_stats_fetched.txt").write_text(date.today().isoformat())
     print(f"  Cached {len(all_players)} total players → {PLAYER_STATS_CACHE}")
     return all_players
 
@@ -872,13 +873,18 @@ def value_chart(
         for p, v in sorted(pos_avg.items())
     )
 
-    snap_date = date.today().strftime("%B %d")
+    fetched_file = DATA_DIR / "player_stats_fetched.txt"
+    stats_date = (
+        fetched_file.read_text().strip()
+        if fetched_file.exists()
+        else "unknown"
+    )
 
     fig.update_layout(
         title=dict(
             text=(
                 "DTFBL 2026 — Draft Price vs VORP<br>"
-                f"<sup>As of {snap_date} · VORP = season PTS above position avg among all drafted starters · "
+                f"<sup>Stats as of {stats_date} · VORP = season PTS above position avg among all drafted starters · "
                 f"all {len(merged)} picks shown · 0 = replacement level</sup>"
             ),
             font=dict(size=22, color="white"),
