@@ -19,7 +19,7 @@ It includes:
 ## League Format
 
 - 7 teams, $260 auction budget, 14-player rosters
-- NL-only, rotisserie-style scoring
+- NL-only, custom points-based scoring
 - Positions: C, 1B, 2B, SS, 3B, 3×OF, DH, 3×SP, 2×RP
 
 ## How It Works
