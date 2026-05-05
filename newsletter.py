@@ -1211,8 +1211,14 @@ if __name__ == "__main__":
     # Fetch or load player stats for the value chart
     if args.fetch:
         print("\nFetching player stats from OnRoto...")
-        raw_stats = fetch_all_player_stats()
-        player_stats = pd.DataFrame(raw_stats)
+        try:
+            raw_stats = fetch_all_player_stats()
+            player_stats = pd.DataFrame(raw_stats)
+        except Exception as e:
+            print(f"  WARNING: fetch failed ({e}) — falling back to cached stats")
+            player_stats = load_player_stats()
+            if player_stats is not None:
+                print(f"  Using cached stats ({len(player_stats)} players)")
     else:
         player_stats = load_player_stats()
         if player_stats is None:
