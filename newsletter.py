@@ -675,6 +675,11 @@ def fetch_all_player_stats() -> list[dict]:
             g_col     = headers.index("G") if "G" in headers else None
             owner_col = headers.index("Owner") if "Owner" in headers else None
             team_col  = headers.index("Team")  if "Team"  in headers else None
+            pos_col   = next(
+                (headers.index(h) for h in headers
+                 if h.lower() in ("elig pos", "pos", "position")),
+                None,
+            )
 
             for tr in table.find_all("tr")[1:]:
                 cells = [td.get_text(separator="\n", strip=True) for td in tr.find_all("td")]
@@ -701,6 +706,7 @@ def fetch_all_player_stats() -> list[dict]:
 
                 owner = first_val(cells[owner_col]).strip() if owner_col is not None else ""
                 mlb   = first_val(cells[team_col]).strip()  if team_col  is not None else "?"
+                pos   = first_val(cells[pos_col]).strip()   if pos_col   is not None and len(cells) > pos_col else ""
 
                 norm = _normalize(clean_name)
                 entry = {
@@ -709,6 +715,7 @@ def fetch_all_player_stats() -> list[dict]:
                     "owner": owner,
                     "mlb":   mlb,
                     "type":  ptype,
+                    "pos":   pos,
                     "G":     g,
                     "PTS":   pts,
                 }
@@ -771,17 +778,49 @@ def value_chart(
 
     rng = np.random.default_rng(42)   # fixed seed → jitter is stable between runs
 
-    # ── Compute VORP: PTS above position-average among all drafted starters ──
-    # Pitchers lumped together (SP + RP sample too small to split at 2 weeks)
+    # ── Compute VORP ──────────────────────────────────────────────────────────
     POS_GROUP = {
         "C": "C", "1B": "1B", "2B": "2B", "SS": "SS",
         "3B": "3B", "OF": "OF", "DH": "DH",
         "SP": "P", "RP": "P", "SP / RP": "P",
     }
     merged["pos_group"] = merged["position"].map(POS_GROUP).fillna("P")
-    pos_avg   = merged.groupby("pos_group")["PTS"].mean().to_dict()
+
+    # Proper replacement level: best free agent (owner == "") at each position.
+    # Falls back to worst drafted player if position data isn't in the cache yet
+    # (added to the Sunday fetch; will be populated after next refetch).
+    def _fa_repl(stats_df: pd.DataFrame, pos_group: str) -> float | None:
+        if "pos" not in stats_df.columns:
+            return None
+        fa = stats_df[stats_df["owner"] == ""].copy()
+        if pos_group == "P":
+            fa_pool = fa[fa["type"] == "pitchers"]
+        else:
+            def matches(pos_str):
+                return any(
+                    pos_group == p.strip().upper()
+                    for p in re.split(r"[/,\s]+", str(pos_str))
+                )
+            fa_pool = fa[fa["pos"].apply(matches)]
+        if fa_pool.empty:
+            return None
+        return float(fa_pool["PTS"].max())
+
+    # Build replacement level per position group
+    # Exclude injured zeros so a $39 Chourio on IL doesn't make every OF look like a star
+    worst_drafted = (
+        merged[merged["PTS"] > 0]
+        .groupby("pos_group")["PTS"].min()
+        .to_dict()
+    )
+    repl_map = {}
+    for pg in merged["pos_group"].unique():
+        fa_level = _fa_repl(stats, pg)
+        repl_map[pg] = fa_level if fa_level is not None else worst_drafted.get(pg, 0.0)
+
+    using_fa_repl = "pos" in stats.columns and stats["pos"].ne("").any()
     pos_count = merged.groupby("pos_group")["PTS"].count().to_dict()
-    merged["repl"] = merged["pos_group"].map(pos_avg)
+    merged["repl"] = merged["pos_group"].map(repl_map)
     merged["vorp"] = merged["PTS"] - merged["repl"]
 
     qualified  = merged   # all 98 picks now have a VORP value
@@ -791,7 +830,9 @@ def value_chart(
 
     fig = go.Figure()
 
-    # ── Zero line (position average = replacement level) ─────────────────────
+    repl_method = "best available FA" if using_fa_repl else "worst drafted player"
+
+    # ── Zero line (replacement level) ────────────────────────────────────────
     fig.add_shape(
         type="line",
         x0=0.9, x1=price_max + 10,
@@ -802,7 +843,7 @@ def value_chart(
         x=np.log10(price_max) * 0.55,
         y=0,
         xref="x", yref="y",
-        text="position average (replacement level)",
+        text=f"{repl_method} (replacement level)",
         showarrow=False,
         font=dict(color="rgba(255,255,255,0.45)", size=9),
         yshift=8,
@@ -869,8 +910,8 @@ def value_chart(
 
     # ── Position replacement levels in legend area ────────────────────────────
     pos_note = "  ".join(
-        f"{p}: {v:.1f} PTS avg (n={pos_count[p]})"
-        for p, v in sorted(pos_avg.items())
+        f"{p}: {repl_map[p]:.0f} PTS repl (n={pos_count[p]})"
+        for p in sorted(repl_map)
     )
 
     fetched_file = DATA_DIR / "player_stats_fetched.txt"
@@ -884,7 +925,7 @@ def value_chart(
         title=dict(
             text=(
                 "DTFBL 2026 — Draft Price vs VORP<br>"
-                f"<sup>Stats as of {stats_date} · VORP = season PTS above position avg among all drafted starters · "
+                f"<sup>Stats as of {stats_date} · VORP = PTS above {repl_method} at each position · "
                 f"all {len(merged)} picks shown · 0 = replacement level</sup>"
             ),
             font=dict(size=22, color="white"),
