@@ -31,7 +31,7 @@ jobs:
           ALERT_FROM_EMAIL:   ${{ secrets.ALERT_FROM_EMAIL }}
           ALERT_APP_PASSWORD: ${{ secrets.ALERT_APP_PASSWORD }}
           ALERT_TO_EMAIL:     ${{ secrets.ALERT_TO_EMAIL }}
-        run: python onroto_scraper.py
+        run: python onroto_scraper.py --force
 
       - name: Refresh player stats + rebuild newsletter
         env:

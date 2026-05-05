@@ -1077,6 +1077,10 @@ def main():
         "--debug", action="store_true",
         help="Dump raw HTML pages to data/debug/ and print table structure for every page fetched",
     )
+    parser.add_argument(
+        "--force", action="store_true",
+        help="Force the full Sunday report email regardless of what day it is",
+    )
     args = parser.parse_args()
 
     log.info("=" * 60)
@@ -1234,7 +1238,7 @@ def main():
         alerts.extend(underperform)
 
     # Roster vs FA — daily alert if any FA beats a roster spot by FA_OVERPERFORM_THRESHOLD
-    is_sunday   = date.today().weekday() == 6
+    is_sunday   = date.today().weekday() == 6 or args.force
     upgrades    = check_roster_vs_fa(jon["hitters"], jon["pitchers"], fa_hitters, fa_pitchers,
                                      league_pos_lookup=league_pos_lookup)
     upgrade_lines = format_roster_vs_fa(upgrades, full_report=is_sunday)
