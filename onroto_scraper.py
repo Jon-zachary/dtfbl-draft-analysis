@@ -167,9 +167,7 @@ def login() -> tuple[requests.Session, str]:
                            "Chrome/123.0.0.0 Safari/537.36",
         "Accept":          "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
         "Accept-Language": "en-US,en;q=0.5",
-        "Accept-Encoding": "gzip, deflate, br",
         "Connection":      "keep-alive",
-        "Upgrade-Insecure-Requests": "1",
     })
 
     # Login page is at the root index, not under /baseball/webnew/
@@ -1092,6 +1090,23 @@ def main():
         session, session_id = login()
     except Exception as e:
         log.error("Login failed: %s", e)
+        if args.force or args.debug:
+            # Send a minimal standings-only email from the CSV so Sunday report
+            # still delivers something even when OnRoto login is blocked.
+            standings_csv = DATA_DIR / "standings_log.csv"
+            if standings_csv.exists():
+                import csv as _csv
+                rows = list(_csv.reader(open(standings_csv)))
+                last = rows[-1] if len(rows) > 1 else []
+                header = rows[0] if rows else []
+                body = f"DTFBL Report — {today}\n\n"
+                body += "(OnRoto login unavailable — standings from last CSV snapshot)\n\n"
+                if header and last:
+                    pairs = sorted(zip(header[1:], last[1:]), key=lambda x: -float(x[1] or 0))
+                    for team, pts in pairs:
+                        marker = " ← you" if team == "Jon's Generals" else ""
+                        body += f"  {team:<22} {float(pts):+.1f}{marker}\n"
+                send_alert_email(f"⚾ DTFBL Report (standings only) — {today}", body)
         return
 
     # ── 1. Pull live standings (single fetch, all 7 teams) ───────────────────
