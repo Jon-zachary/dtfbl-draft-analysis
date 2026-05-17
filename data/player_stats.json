@@ -6,8 +6,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 39,
-    "PTS": 154.0
+    "G": 45,
+    "PTS": 173.0
   },
   {
     "name": "Acuna, Ronald",
@@ -26,8 +26,8 @@
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 38,
-    "PTS": 71.0
+    "G": 45,
+    "PTS": 96.0
   },
   {
     "name": "Albies, Ozzie",
@@ -36,8 +36,8 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,2B",
-    "G": 40,
-    "PTS": 148.0
+    "G": 46,
+    "PTS": 149.0
   },
   {
     "name": "Alvarez, Francisco",
@@ -46,8 +46,8 @@
     "mlb": "NYM",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 36,
-    "PTS": 71.0
+    "G": 37,
+    "PTS": 75.0
   },
   {
     "name": "Amaya, Miguel",
@@ -56,8 +56,8 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,1B,C",
-    "G": 23,
-    "PTS": 48.0
+    "G": 25,
+    "PTS": 56.0
   },
   {
     "name": "Andujar, Miguel",
@@ -66,8 +66,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,1B,3B,OF",
-    "G": 28,
-    "PTS": 71.0
+    "G": 34,
+    "PTS": 91.0
   },
   {
     "name": "Arenado, Nolan",
@@ -76,8 +76,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,3B",
-    "G": 36,
-    "PTS": 97.0
+    "G": 42,
+    "PTS": 120.0
   },
   {
     "name": "Arraez, Luis",
@@ -86,8 +86,8 @@
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,1B,2B",
-    "G": 36,
-    "PTS": 94.0
+    "G": 43,
+    "PTS": 121.0
   },
   {
     "name": "Austin, Tyler",
@@ -98,6 +98,16 @@
     "pos": "DH,OF",
     "G": 0,
     "PTS": 0.0
+  },
+  {
+    "name": "Azocar, Jose",
+    "norm": "joseazocar",
+    "owner": "(Free",
+    "mlb": "Atl",
+    "type": "hitters",
+    "pos": "DH,OF",
+    "G": 6,
+    "PTS": 8.0
   },
   {
     "name": "Baddoo, Akil",
@@ -116,8 +126,8 @@
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 15,
-    "PTS": 19.0
+    "G": 19,
+    "PTS": 34.0
   },
   {
     "name": "Baldwin, Drake",
@@ -126,8 +136,8 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 40,
-    "PTS": 165.0
+    "G": 46,
+    "PTS": 197.0
   },
   {
     "name": "Ballesteros, Moises",
@@ -136,8 +146,8 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,1B,C",
-    "G": 35,
-    "PTS": 92.0
+    "G": 39,
+    "PTS": 94.0
   },
   {
     "name": "Barrosa, Jorge",
@@ -146,8 +156,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 29,
-    "PTS": 51.0
+    "G": 33,
+    "PTS": 54.0
   },
   {
     "name": "Bart, Joey",
@@ -166,8 +176,8 @@
     "mlb": "NYM",
     "type": "hitters",
     "pos": "DH,1B,2B,3B,OF",
-    "G": 36,
-    "PTS": 73.0
+    "G": 42,
+    "PTS": 93.0
   },
   {
     "name": "Bauers, Jake",
@@ -176,8 +186,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,1B,OF",
-    "G": 34,
-    "PTS": 112.0
+    "G": 37,
+    "PTS": 124.0
   },
   {
     "name": "Beck, Jordan",
@@ -186,8 +196,8 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 27,
-    "PTS": 43.0
+    "G": 30,
+    "PTS": 49.0
   },
   {
     "name": "Benge, Carson",
@@ -196,8 +206,8 @@
     "mlb": "NYM",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 36,
-    "PTS": 77.0
+    "G": 42,
+    "PTS": 97.0
   },
   {
     "name": "Benson, Will",
@@ -206,8 +216,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 31,
-    "PTS": 49.0
+    "G": 37,
+    "PTS": 53.0
   },
   {
     "name": "Betts, Mookie",
@@ -216,8 +226,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 8,
-    "PTS": 29.0
+    "G": 13,
+    "PTS": 45.0
   },
   {
     "name": "Bichette, Bo",
@@ -226,18 +236,8 @@
     "mlb": "NYM",
     "type": "hitters",
     "pos": "DH,SS,3B",
-    "G": 39,
-    "PTS": 87.0
-  },
-  {
-    "name": "Black, Tyler",
-    "norm": "tylerblack",
-    "owner": "(Free",
-    "mlb": "Mil",
-    "type": "hitters",
-    "pos": "DH,1B,OF",
-    "G": 9,
-    "PTS": 23.0
+    "G": 45,
+    "PTS": 98.0
   },
   {
     "name": "Bleday, J.J.",
@@ -246,8 +246,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 12,
-    "PTS": 44.0
+    "G": 18,
+    "PTS": 91.0
   },
   {
     "name": "Bogaerts, Xander",
@@ -256,8 +256,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 38,
-    "PTS": 118.0
+    "G": 44,
+    "PTS": 130.0
   },
   {
     "name": "Bohm, Alec",
@@ -266,8 +266,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,1B,3B",
-    "G": 36,
-    "PTS": 73.0
+    "G": 42,
+    "PTS": 86.0
   },
   {
     "name": "Bregman, Alex",
@@ -276,8 +276,18 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,3B",
-    "G": 40,
-    "PTS": 103.0
+    "G": 45,
+    "PTS": 123.0
+  },
+  {
+    "name": "Brennan, Will",
+    "norm": "willbrennan",
+    "owner": "(Free",
+    "mlb": "SF",
+    "type": "hitters",
+    "pos": "DH,OF",
+    "G": 5,
+    "PTS": 0.0
   },
   {
     "name": "Brujan, Vidal",
@@ -306,8 +316,8 @@
     "mlb": "StL",
     "type": "hitters",
     "pos": "DH,1B,OF",
-    "G": 38,
-    "PTS": 135.0
+    "G": 44,
+    "PTS": 149.0
   },
   {
     "name": "Busch, Michael",
@@ -316,8 +326,8 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,1B",
-    "G": 39,
-    "PTS": 118.0
+    "G": 45,
+    "PTS": 131.0
   },
   {
     "name": "Caissie, Owen",
@@ -326,8 +336,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 35,
-    "PTS": 69.0
+    "G": 39,
+    "PTS": 80.0
   },
   {
     "name": "Call, Alex",
@@ -336,8 +346,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 17,
-    "PTS": 35.0
+    "G": 21,
+    "PTS": 46.0
   },
   {
     "name": "Campusano, Luis",
@@ -356,8 +366,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 36,
-    "PTS": 132.0
+    "G": 42,
+    "PTS": 157.0
   },
   {
     "name": "Castellanos, Nicholas",
@@ -366,8 +376,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,1B,OF",
-    "G": 24,
-    "PTS": 40.0
+    "G": 29,
+    "PTS": 62.0
   },
   {
     "name": "Castro, Willi",
@@ -376,8 +386,8 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,1B,2B,SS,3B,OF",
-    "G": 31,
-    "PTS": 78.0
+    "G": 37,
+    "PTS": 84.0
   },
   {
     "name": "Chapman, Matt",
@@ -386,8 +396,8 @@
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,3B",
-    "G": 38,
-    "PTS": 83.0
+    "G": 45,
+    "PTS": 94.0
   },
   {
     "name": "Chourio, Jackson",
@@ -396,8 +406,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 4,
-    "PTS": 16.0
+    "G": 10,
+    "PTS": 34.0
   },
   {
     "name": "Church, Nathan",
@@ -406,8 +416,8 @@
     "mlb": "StL",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 36,
-    "PTS": 89.0
+    "G": 42,
+    "PTS": 100.0
   },
   {
     "name": "Conforto, Michael",
@@ -416,8 +426,8 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 23,
-    "PTS": 56.0
+    "G": 26,
+    "PTS": 60.0
   },
   {
     "name": "Conine, Griffin",
@@ -436,8 +446,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 35,
-    "PTS": 118.0
+    "G": 41,
+    "PTS": 131.0
   },
   {
     "name": "Cook, Billy",
@@ -446,8 +456,8 @@
     "mlb": "Pit",
     "type": "hitters",
     "pos": "DH,1B,OF",
-    "G": 27,
-    "PTS": 11.0
+    "G": 31,
+    "PTS": 12.0
   },
   {
     "name": "Crawford, Justin",
@@ -456,8 +466,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 35,
-    "PTS": 79.0
+    "G": 41,
+    "PTS": 95.0
   },
   {
     "name": "Cronenworth, Jake",
@@ -476,8 +486,8 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 40,
-    "PTS": 121.0
+    "G": 46,
+    "PTS": 136.0
   },
   {
     "name": "Cruz, Oneil",
@@ -486,8 +496,8 @@
     "mlb": "Pit",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 38,
-    "PTS": 157.0
+    "G": 44,
+    "PTS": 185.0
   },
   {
     "name": "Davis, Henry",
@@ -496,8 +506,8 @@
     "mlb": "Pit",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 29,
-    "PTS": 46.0
+    "G": 33,
+    "PTS": 51.0
   },
   {
     "name": "De La Cruz, Elly",
@@ -506,8 +516,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 40,
-    "PTS": 160.0
+    "G": 46,
+    "PTS": 184.0
   },
   {
     "name": "Del Castillo, Adrian",
@@ -516,8 +526,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,1B,C",
-    "G": 23,
-    "PTS": 57.0
+    "G": 27,
+    "PTS": 58.0
   },
   {
     "name": "Devers, Rafael",
@@ -526,8 +536,8 @@
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,1B",
-    "G": 39,
-    "PTS": 86.0
+    "G": 46,
+    "PTS": 113.0
   },
   {
     "name": "Doyle, Brenton",
@@ -536,8 +546,8 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 36,
-    "PTS": 62.0
+    "G": 41,
+    "PTS": 69.0
   },
   {
     "name": "Dubon, Mauricio",
@@ -546,8 +556,8 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,2B,SS,3B,OF",
-    "G": 38,
-    "PTS": 106.0
+    "G": 44,
+    "PTS": 119.0
   },
   {
     "name": "Dunn, Blake",
@@ -556,8 +566,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 4,
-    "PTS": 10.0
+    "G": 8,
+    "PTS": 19.0
   },
   {
     "name": "Duran, Rodolfo",
@@ -566,8 +576,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 1,
-    "PTS": 0.0
+    "G": 4,
+    "PTS": 7.0
   },
   {
     "name": "Edman, Tommy",
@@ -586,8 +596,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,2B,SS",
-    "G": 40,
-    "PTS": 136.0
+    "G": 46,
+    "PTS": 154.0
   },
   {
     "name": "Eldridge, Bryce",
@@ -596,8 +606,8 @@
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,1B",
-    "G": 4,
-    "PTS": 8.0
+    "G": 8,
+    "PTS": 10.0
   },
   {
     "name": "Espinal, Santiago",
@@ -606,8 +616,18 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,1B,2B,3B,OF",
-    "G": 20,
-    "PTS": 13.0
+    "G": 23,
+    "PTS": 20.0
+  },
+  {
+    "name": "Ewing, A.J.",
+    "norm": "ajewing",
+    "owner": "(Free",
+    "mlb": "NYM",
+    "type": "hitters",
+    "pos": "DH,OF",
+    "G": 5,
+    "PTS": 22.0
   },
   {
     "name": "Farmer, Kyle",
@@ -616,7 +636,7 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,1B,2B,SS,3B",
-    "G": 9,
+    "G": 10,
     "PTS": 10.0
   },
   {
@@ -626,8 +646,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 29,
-    "PTS": 34.0
+    "G": 34,
+    "PTS": 35.0
   },
   {
     "name": "Fermin, Jose",
@@ -635,9 +655,9 @@
     "owner": "(Free",
     "mlb": "StL",
     "type": "hitters",
-    "pos": "DH,2B,OF",
-    "G": 16,
-    "PTS": 25.0
+    "pos": "DH,1B,2B,3B,OF",
+    "G": 22,
+    "PTS": 34.0
   },
   {
     "name": "Fernandez, Jose",
@@ -646,8 +666,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,1B,SS,3B",
-    "G": 31,
-    "PTS": 76.0
+    "G": 37,
+    "PTS": 84.0
   },
   {
     "name": "France, Ty",
@@ -656,18 +676,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,1B,3B",
-    "G": 22,
-    "PTS": 59.0
-  },
-  {
-    "name": "Freeland, Alex",
-    "norm": "alexfreeland",
-    "owner": "(Free",
-    "mlb": "LAD",
-    "type": "hitters",
-    "pos": "DH,2B,3B",
-    "G": 32,
-    "PTS": 61.0
+    "G": 27,
+    "PTS": 60.0
   },
   {
     "name": "Freeman, Freddie",
@@ -676,8 +686,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,1B",
-    "G": 37,
-    "PTS": 112.0
+    "G": 43,
+    "PTS": 125.0
   },
   {
     "name": "Freeman, Tyler",
@@ -686,7 +696,7 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,2B,OF",
-    "G": 24,
+    "G": 27,
     "PTS": 57.0
   },
   {
@@ -696,8 +706,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 36,
-    "PTS": 79.0
+    "G": 42,
+    "PTS": 89.0
   },
   {
     "name": "Friedl, TJ",
@@ -706,8 +716,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 37,
-    "PTS": 73.0
+    "G": 39,
+    "PTS": 75.0
   },
   {
     "name": "Garcia Jr., Luis",
@@ -716,8 +726,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,1B,2B",
-    "G": 35,
-    "PTS": 77.0
+    "G": 41,
+    "PTS": 105.0
   },
   {
     "name": "Garcia, Adolis",
@@ -726,8 +736,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 39,
-    "PTS": 97.0
+    "G": 45,
+    "PTS": 100.0
   },
   {
     "name": "Gilbert, Drew",
@@ -736,8 +746,8 @@
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 21,
-    "PTS": 39.0
+    "G": 27,
+    "PTS": 50.0
   },
   {
     "name": "Gonzales, Nick",
@@ -746,8 +756,8 @@
     "mlb": "Pit",
     "type": "hitters",
     "pos": "DH,2B,SS,3B",
-    "G": 36,
-    "PTS": 92.0
+    "G": 41,
+    "PTS": 103.0
   },
   {
     "name": "Goodman, Hunter",
@@ -756,8 +766,8 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 36,
-    "PTS": 123.0
+    "G": 41,
+    "PTS": 135.0
   },
   {
     "name": "Gorman, Nolan",
@@ -766,8 +776,8 @@
     "mlb": "StL",
     "type": "hitters",
     "pos": "DH,2B,3B",
-    "G": 38,
-    "PTS": 97.0
+    "G": 43,
+    "PTS": 109.0
   },
   {
     "name": "Griffin, Konnor",
@@ -776,8 +786,8 @@
     "mlb": "Pit",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 34,
-    "PTS": 95.0
+    "G": 40,
+    "PTS": 115.0
   },
   {
     "name": "Gurriel, Lourdes",
@@ -786,8 +796,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 15,
-    "PTS": 28.0
+    "G": 20,
+    "PTS": 42.0
   },
   {
     "name": "Haase, Eric",
@@ -796,8 +806,8 @@
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 5,
-    "PTS": 10.0
+    "G": 7,
+    "PTS": 24.0
   },
   {
     "name": "Hamilton, David",
@@ -806,8 +816,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,2B,SS,3B",
-    "G": 31,
-    "PTS": 61.0
+    "G": 36,
+    "PTS": 68.0
   },
   {
     "name": "Happ, Ian",
@@ -816,8 +826,8 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 38,
-    "PTS": 149.0
+    "G": 44,
+    "PTS": 167.0
   },
   {
     "name": "Harper, Bryce",
@@ -826,8 +836,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,1B",
-    "G": 40,
-    "PTS": 150.0
+    "G": 46,
+    "PTS": 175.0
   },
   {
     "name": "Harris, Michael",
@@ -836,8 +846,8 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 37,
-    "PTS": 110.0
+    "G": 43,
+    "PTS": 123.0
   },
   {
     "name": "Hayes, Ke'Bryan",
@@ -846,8 +856,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,3B",
-    "G": 36,
-    "PTS": 38.0
+    "G": 41,
+    "PTS": 50.0
   },
   {
     "name": "Hernandez, Heriberto",
@@ -856,8 +866,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 24,
-    "PTS": 40.0
+    "G": 27,
+    "PTS": 50.0
   },
   {
     "name": "Hernandez, Kike",
@@ -876,8 +886,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 35,
-    "PTS": 95.0
+    "G": 41,
+    "PTS": 121.0
   },
   {
     "name": "Herrera, Ivan",
@@ -886,8 +896,8 @@
     "mlb": "StL",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 39,
-    "PTS": 130.0
+    "G": 45,
+    "PTS": 143.0
   },
   {
     "name": "Hicks, Liam",
@@ -896,8 +906,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,1B,C",
-    "G": 37,
-    "PTS": 130.0
+    "G": 43,
+    "PTS": 144.0
   },
   {
     "name": "Hoerner, Nico",
@@ -906,8 +916,8 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,2B,SS",
-    "G": 39,
-    "PTS": 136.0
+    "G": 45,
+    "PTS": 147.0
   },
   {
     "name": "Horwitz, Spencer",
@@ -916,8 +926,8 @@
     "mlb": "Pit",
     "type": "hitters",
     "pos": "DH,1B",
-    "G": 36,
-    "PTS": 93.0
+    "G": 41,
+    "PTS": 111.0
   },
   {
     "name": "House, Brady",
@@ -926,28 +936,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,3B",
-    "G": 36,
-    "PTS": 94.0
-  },
-  {
-    "name": "Ibanez, Andy",
-    "norm": "andyibanez",
-    "owner": "(Free",
-    "mlb": "NYM",
-    "type": "hitters",
-    "pos": "DH,1B,2B,3B,OF",
-    "G": 13,
-    "PTS": 8.0
-  },
-  {
-    "name": "Jarvis, Jim",
-    "norm": "jimjarvis",
-    "owner": "(Free",
-    "mlb": "Atl",
-    "type": "hitters",
-    "pos": "DH,SS",
-    "G": 2,
-    "PTS": 0.0
+    "G": 42,
+    "PTS": 115.0
   },
   {
     "name": "Jimenez, Leo",
@@ -956,8 +946,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,2B,SS,3B",
-    "G": 12,
-    "PTS": 12.0
+    "G": 14,
+    "PTS": 19.0
   },
   {
     "name": "Johnson, Bryce",
@@ -966,8 +956,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 19,
-    "PTS": 19.0
+    "G": 22,
+    "PTS": 21.0
   },
   {
     "name": "Johnston, Troy",
@@ -976,8 +966,8 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,1B,OF",
-    "G": 36,
-    "PTS": 95.0
+    "G": 42,
+    "PTS": 103.0
   },
   {
     "name": "Julien, Edouard",
@@ -986,7 +976,7 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,1B,2B",
-    "G": 34,
+    "G": 39,
     "PTS": 81.0
   },
   {
@@ -996,8 +986,8 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,3B",
-    "G": 38,
-    "PTS": 79.0
+    "G": 43,
+    "PTS": 86.0
   },
   {
     "name": "Kelly, Carson",
@@ -1006,8 +996,8 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,1B,C",
-    "G": 29,
-    "PTS": 77.0
+    "G": 32,
+    "PTS": 87.0
   },
   {
     "name": "Kim, Ha-Seong",
@@ -1016,8 +1006,8 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 0,
-    "PTS": 0.0
+    "G": 5,
+    "PTS": 2.0
   },
   {
     "name": "Kim, Hye-Seong",
@@ -1026,18 +1016,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,2B,SS,OF",
-    "G": 28,
-    "PTS": 58.0
-  },
-  {
-    "name": "Koss, Christian",
-    "norm": "christiankoss",
-    "owner": "(Free",
-    "mlb": "SF",
-    "type": "hitters",
-    "pos": "DH,2B,SS,3B",
-    "G": 9,
-    "PTS": 2.0
+    "G": 34,
+    "PTS": 63.0
   },
   {
     "name": "Laureano, Ramon",
@@ -1046,8 +1026,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 36,
-    "PTS": 109.0
+    "G": 42,
+    "PTS": 117.0
   },
   {
     "name": "Lawlar, Jordan",
@@ -1066,8 +1046,18 @@
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 39,
-    "PTS": 91.0
+    "G": 46,
+    "PTS": 112.0
+  },
+  {
+    "name": "Leon, Sandy",
+    "norm": "sandyleon",
+    "owner": "(Free",
+    "mlb": "Atl",
+    "type": "hitters",
+    "pos": "DH,C",
+    "G": 3,
+    "PTS": 2.0
   },
   {
     "name": "Lile, Daylen",
@@ -1076,8 +1066,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 39,
-    "PTS": 113.0
+    "G": 45,
+    "PTS": 154.0
   },
   {
     "name": "Lindor, Francisco",
@@ -1112,12 +1102,12 @@
   {
     "name": "Lopez, Otto",
     "norm": "ottolopez",
-    "owner": "David's",
+    "owner": "(Free",
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,2B,SS",
-    "G": 39,
-    "PTS": 131.0
+    "G": 45,
+    "PTS": 143.0
   },
   {
     "name": "Lowe, Brandon",
@@ -1126,8 +1116,8 @@
     "mlb": "Pit",
     "type": "hitters",
     "pos": "DH,2B",
-    "G": 34,
-    "PTS": 147.0
+    "G": 40,
+    "PTS": 165.0
   },
   {
     "name": "Lowe, Nate",
@@ -1136,8 +1126,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,1B",
-    "G": 29,
-    "PTS": 78.0
+    "G": 33,
+    "PTS": 82.0
   },
   {
     "name": "Machado, Manny",
@@ -1146,8 +1136,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,3B",
-    "G": 37,
-    "PTS": 109.0
+    "G": 43,
+    "PTS": 114.0
   },
   {
     "name": "Mack, Joe",
@@ -1156,8 +1146,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 6,
-    "PTS": 10.0
+    "G": 11,
+    "PTS": 15.0
   },
   {
     "name": "Mangum, Jake",
@@ -1176,8 +1166,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 17,
-    "PTS": 13.0
+    "G": 18,
+    "PTS": 16.0
   },
   {
     "name": "Marsee, Jakob",
@@ -1186,8 +1176,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 39,
-    "PTS": 108.0
+    "G": 45,
+    "PTS": 133.0
   },
   {
     "name": "Marsh, Brandon",
@@ -1196,8 +1186,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 36,
-    "PTS": 115.0
+    "G": 42,
+    "PTS": 128.0
   },
   {
     "name": "Marte, Ketel",
@@ -1206,8 +1196,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,2B",
-    "G": 36,
-    "PTS": 94.0
+    "G": 42,
+    "PTS": 112.0
   },
   {
     "name": "Mateo, Jorge",
@@ -1216,8 +1206,8 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,SS,OF",
-    "G": 25,
-    "PTS": 47.0
+    "G": 27,
+    "PTS": 53.0
   },
   {
     "name": "Mauricio, Ronny",
@@ -1236,8 +1226,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,1B,C",
-    "G": 19,
-    "PTS": 22.0
+    "G": 21,
+    "PTS": 23.0
   },
   {
     "name": "McCarthy, Jake",
@@ -1246,8 +1236,8 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 30,
-    "PTS": 77.0
+    "G": 35,
+    "PTS": 85.0
   },
   {
     "name": "McLain, Matt",
@@ -1256,8 +1246,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,2B,SS",
-    "G": 40,
-    "PTS": 95.0
+    "G": 46,
+    "PTS": 125.0
   },
   {
     "name": "Mead, Curtis",
@@ -1266,8 +1256,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,1B,2B,3B",
-    "G": 30,
-    "PTS": 80.0
+    "G": 34,
+    "PTS": 88.0
   },
   {
     "name": "Melendez, MJ",
@@ -1276,8 +1266,8 @@
     "mlb": "NYM",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 19,
-    "PTS": 40.0
+    "G": 25,
+    "PTS": 47.0
   },
   {
     "name": "Merrill, Jackson",
@@ -1286,8 +1276,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 38,
-    "PTS": 112.0
+    "G": 43,
+    "PTS": 117.0
   },
   {
     "name": "Millas, Drew",
@@ -1296,8 +1286,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 27,
-    "PTS": 36.0
+    "G": 30,
+    "PTS": 39.0
   },
   {
     "name": "Mitchell, Garrett",
@@ -1306,8 +1296,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 34,
-    "PTS": 96.0
+    "G": 39,
+    "PTS": 106.0
   },
   {
     "name": "Moniak, Mickey",
@@ -1316,8 +1306,8 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 32,
-    "PTS": 128.0
+    "G": 38,
+    "PTS": 152.0
   },
   {
     "name": "l, Christopher",
@@ -1326,8 +1316,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,1B,OF",
-    "G": 8,
-    "PTS": 6.0
+    "G": 12,
+    "PTS": 12.0
   },
   {
     "name": "no, Gabriel",
@@ -1336,8 +1326,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 20,
-    "PTS": 43.0
+    "G": 24,
+    "PTS": 54.0
   },
   {
     "name": "Muncy, Max",
@@ -1346,8 +1336,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,3B",
-    "G": 37,
-    "PTS": 123.0
+    "G": 43,
+    "PTS": 156.0
   },
   {
     "name": "Murphy, Sean",
@@ -1356,7 +1346,7 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 3,
+    "G": 4,
     "PTS": 1.0
   },
   {
@@ -1366,8 +1356,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 33,
-    "PTS": 43.0
+    "G": 37,
+    "PTS": 60.0
   },
   {
     "name": "Nootbaar, Lars",
@@ -1386,8 +1376,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,1B,3B",
-    "G": 37,
-    "PTS": 84.0
+    "G": 41,
+    "PTS": 96.0
   },
   {
     "name": "Nunez, Nasim",
@@ -1396,8 +1386,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,2B,SS",
-    "G": 37,
-    "PTS": 87.0
+    "G": 43,
+    "PTS": 97.0
   },
   {
     "name": "O'Hearn, Ryan",
@@ -1406,8 +1396,8 @@
     "mlb": "Pit",
     "type": "hitters",
     "pos": "DH,1B,OF",
-    "G": 38,
-    "PTS": 125.0
+    "G": 44,
+    "PTS": 148.0
   },
   {
     "name": "Ohtani-Hitter, Shohei",
@@ -1416,8 +1406,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 39,
-    "PTS": 131.0
+    "G": 45,
+    "PTS": 159.0
   },
   {
     "name": "Oliva, Jared",
@@ -1436,8 +1426,8 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,1B",
-    "G": 40,
-    "PTS": 191.0
+    "G": 46,
+    "PTS": 201.0
   },
   {
     "name": "Ortiz, Joey",
@@ -1446,8 +1436,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 30,
-    "PTS": 48.0
+    "G": 36,
+    "PTS": 57.0
   },
   {
     "name": "Ozuna, Marcell",
@@ -1456,8 +1446,8 @@
     "mlb": "Pit",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 33,
-    "PTS": 78.0
+    "G": 39,
+    "PTS": 93.0
   },
   {
     "name": "Pages, Andy",
@@ -1466,8 +1456,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 39,
-    "PTS": 156.0
+    "G": 46,
+    "PTS": 173.0
   },
   {
     "name": "Pages, Pedro",
@@ -1476,8 +1466,8 @@
     "mlb": "StL",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 26,
-    "PTS": 49.0
+    "G": 30,
+    "PTS": 57.0
   },
   {
     "name": "Perdomo, Geraldo",
@@ -1486,8 +1476,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 35,
-    "PTS": 100.0
+    "G": 41,
+    "PTS": 110.0
   },
   {
     "name": "Perkins, Blake",
@@ -1496,8 +1486,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 20,
-    "PTS": 25.0
+    "G": 24,
+    "PTS": 30.0
   },
   {
     "name": "Polanco, Jorge",
@@ -1510,24 +1500,14 @@
     "PTS": 26.0
   },
   {
-    "name": "Porter, Logan",
-    "norm": "loganporter",
-    "owner": "(Free",
-    "mlb": "SF",
-    "type": "hitters",
-    "pos": "DH,C",
-    "G": 1,
-    "PTS": 1.0
-  },
-  {
     "name": "Pozo, Yohel",
     "norm": "yohelpozo",
     "owner": "(Free",
     "mlb": "StL",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 10,
-    "PTS": 6.0
+    "G": 13,
+    "PTS": 13.0
   },
   {
     "name": "Prieto, Cesar",
@@ -1556,8 +1536,8 @@
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 38,
-    "PTS": 97.0
+    "G": 44,
+    "PTS": 120.0
   },
   {
     "name": "Realmuto, J.T.",
@@ -1566,8 +1546,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 23,
-    "PTS": 46.0
+    "G": 28,
+    "PTS": 48.0
   },
   {
     "name": "Rengifo, Luis",
@@ -1576,8 +1556,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,1B,2B,3B,OF",
-    "G": 32,
-    "PTS": 60.0
+    "G": 37,
+    "PTS": 71.0
   },
   {
     "name": "Reyes, Felix",
@@ -1586,8 +1566,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,1B,3B,OF",
-    "G": 11,
-    "PTS": 13.0
+    "G": 12,
+    "PTS": 14.0
   },
   {
     "name": "Reynolds, Bryan",
@@ -1596,8 +1576,8 @@
     "mlb": "Pit",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 40,
-    "PTS": 142.0
+    "G": 46,
+    "PTS": 157.0
   },
   {
     "name": "Riley, Austin",
@@ -1606,8 +1586,8 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,3B",
-    "G": 40,
-    "PTS": 112.0
+    "G": 46,
+    "PTS": 122.0
   },
   {
     "name": "Robert, Luis",
@@ -1620,14 +1600,24 @@
     "PTS": 61.0
   },
   {
+    "name": "Rodriguez, Endy",
+    "norm": "endyrodriguez",
+    "owner": "(Free",
+    "mlb": "Pit",
+    "type": "hitters",
+    "pos": "DH,1B,C",
+    "G": 2,
+    "PTS": 8.0
+  },
+  {
     "name": "Rodriguez, Jesus",
     "norm": "jesusrodriguez",
     "owner": "(Free",
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,OF,C",
-    "G": 4,
-    "PTS": 10.0
+    "G": 8,
+    "PTS": 14.0
   },
   {
     "name": "Rojas, Miguel",
@@ -1636,8 +1626,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,1B,2B,SS,3B",
-    "G": 25,
-    "PTS": 35.0
+    "G": 28,
+    "PTS": 40.0
   },
   {
     "name": "Ruiz, Esteury",
@@ -1646,8 +1636,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 12,
-    "PTS": 27.0
+    "G": 17,
+    "PTS": 32.0
   },
   {
     "name": "Ruiz, Keibert",
@@ -1656,8 +1646,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 25,
-    "PTS": 46.0
+    "G": 28,
+    "PTS": 70.0
   },
   {
     "name": "Rumfield, T.J.",
@@ -1666,8 +1656,8 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,1B",
-    "G": 40,
-    "PTS": 113.0
+    "G": 45,
+    "PTS": 130.0
   },
   {
     "name": "Rushing, Dalton",
@@ -1676,8 +1666,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,1B,C",
-    "G": 20,
-    "PTS": 77.0
+    "G": 24,
+    "PTS": 78.0
   },
   {
     "name": "Saggese, Thomas",
@@ -1686,8 +1676,8 @@
     "mlb": "StL",
     "type": "hitters",
     "pos": "DH,2B,SS,3B,OF",
-    "G": 19,
-    "PTS": 22.0
+    "G": 24,
+    "PTS": 26.0
   },
   {
     "name": "Sanchez, Gary",
@@ -1696,8 +1686,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,1B,C",
-    "G": 26,
-    "PTS": 78.0
+    "G": 30,
+    "PTS": 87.0
   },
   {
     "name": "Sanoja, Javier",
@@ -1706,8 +1696,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,2B,SS,3B,OF",
-    "G": 31,
-    "PTS": 46.0
+    "G": 34,
+    "PTS": 54.0
   },
   {
     "name": "Santana, Carlos",
@@ -1725,9 +1715,9 @@
     "owner": "David's",
     "mlb": "SF",
     "type": "hitters",
-    "pos": "DH,1B,2B,3B",
-    "G": 32,
-    "PTS": 102.0
+    "pos": "DH,1B,2B,3B,OF",
+    "G": 38,
+    "PTS": 124.0
   },
   {
     "name": "Schwarber, Kyle",
@@ -1736,8 +1726,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,1B,OF",
-    "G": 40,
-    "PTS": 161.0
+    "G": 46,
+    "PTS": 213.0
   },
   {
     "name": "Scott, Victor",
@@ -1746,8 +1736,8 @@
     "mlb": "StL",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 37,
-    "PTS": 54.0
+    "G": 43,
+    "PTS": 63.0
   },
   {
     "name": "Semien, Marcus",
@@ -1756,8 +1746,18 @@
     "mlb": "NYM",
     "type": "hitters",
     "pos": "DH,2B",
-    "G": 39,
-    "PTS": 85.0
+    "G": 45,
+    "PTS": 98.0
+  },
+  {
+    "name": "Senger, Hayden",
+    "norm": "haydensenger",
+    "owner": "(Free",
+    "mlb": "NYM",
+    "type": "hitters",
+    "pos": "DH,C",
+    "G": 1,
+    "PTS": 1.0
   },
   {
     "name": "Shaw, Matt",
@@ -1766,8 +1766,8 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,1B,2B,3B,OF",
-    "G": 34,
-    "PTS": 64.0
+    "G": 39,
+    "PTS": 68.0
   },
   {
     "name": "Sheets, Gavin",
@@ -1776,8 +1776,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,1B,OF",
-    "G": 35,
-    "PTS": 81.0
+    "G": 41,
+    "PTS": 109.0
   },
   {
     "name": "Slater, Austin",
@@ -1786,18 +1786,18 @@
     "mlb": "NYM",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 18,
-    "PTS": 19.0
+    "G": 21,
+    "PTS": 22.0
   },
   {
     "name": "Smith, Dominic",
     "norm": "dominicsmith",
-    "owner": "Forest",
+    "owner": "(Free",
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,1B",
-    "G": 30,
-    "PTS": 72.0
+    "G": 35,
+    "PTS": 80.0
   },
   {
     "name": "Smith, Pavin",
@@ -1816,8 +1816,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 33,
-    "PTS": 78.0
+    "G": 39,
+    "PTS": 96.0
   },
   {
     "name": "Song, Sung-Mun",
@@ -1826,8 +1826,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,2B,SS",
-    "G": 5,
-    "PTS": 10.0
+    "G": 10,
+    "PTS": 17.0
   },
   {
     "name": "Sosa, Edmundo",
@@ -1836,8 +1836,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,2B,SS,3B,OF",
-    "G": 22,
-    "PTS": 40.0
+    "G": 25,
+    "PTS": 42.0
   },
   {
     "name": "Soto, Juan",
@@ -1846,8 +1846,8 @@
     "mlb": "NYM",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 24,
-    "PTS": 78.0
+    "G": 30,
+    "PTS": 106.0
   },
   {
     "name": "Steer, Spencer",
@@ -1855,9 +1855,9 @@
     "owner": "(Free",
     "mlb": "Cin",
     "type": "hitters",
-    "pos": "DH,1B,3B,OF",
-    "G": 38,
-    "PTS": 95.0
+    "pos": "DH,1B,2B,3B,OF",
+    "G": 44,
+    "PTS": 125.0
   },
   {
     "name": "Stephenson, Tyler",
@@ -1866,8 +1866,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 32,
-    "PTS": 54.0
+    "G": 37,
+    "PTS": 68.0
   },
   {
     "name": "Stewart, Sal",
@@ -1876,8 +1876,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,1B,2B,3B",
-    "G": 40,
-    "PTS": 153.0
+    "G": 46,
+    "PTS": 171.0
   },
   {
     "name": "Stott, Bryson",
@@ -1886,8 +1886,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,2B,SS",
-    "G": 34,
-    "PTS": 82.0
+    "G": 40,
+    "PTS": 98.0
   },
   {
     "name": "Stowers, Kyle",
@@ -1896,8 +1896,8 @@
     "mlb": "Mia",
     "type": "hitters",
     "pos": "DH,1B,OF",
-    "G": 18,
-    "PTS": 42.0
+    "G": 24,
+    "PTS": 49.0
   },
   {
     "name": "Stubbs, Garrett",
@@ -1906,7 +1906,7 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,3B,OF,C",
-    "G": 7,
+    "G": 8,
     "PTS": 8.0
   },
   {
@@ -1926,8 +1926,8 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 22,
-    "PTS": 32.0
+    "G": 23,
+    "PTS": 33.0
   },
   {
     "name": "Susac, Daniel",
@@ -1936,7 +1936,7 @@
     "mlb": "SF",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 11,
+    "G": 12,
     "PTS": 23.0
   },
   {
@@ -1946,8 +1946,8 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 26,
-    "PTS": 105.0
+    "G": 32,
+    "PTS": 113.0
   },
   {
     "name": "Swanson, Dansby",
@@ -1956,8 +1956,8 @@
     "mlb": "ChC",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 39,
-    "PTS": 123.0
+    "G": 44,
+    "PTS": 127.0
   },
   {
     "name": "Tatis Jr., Fernando",
@@ -1966,8 +1966,8 @@
     "mlb": "SD",
     "type": "hitters",
     "pos": "DH,2B,OF",
-    "G": 38,
-    "PTS": 95.0
+    "G": 44,
+    "PTS": 104.0
   },
   {
     "name": "Tawa, Tim",
@@ -1976,8 +1976,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,1B,2B,3B,OF",
-    "G": 20,
-    "PTS": 26.0
+    "G": 22,
+    "PTS": 28.0
   },
   {
     "name": "Taylor, Tyrone",
@@ -1986,8 +1986,8 @@
     "mlb": "NYM",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 31,
-    "PTS": 37.0
+    "G": 35,
+    "PTS": 38.0
   },
   {
     "name": "Tena, Jose",
@@ -1996,8 +1996,18 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,2B,3B,OF",
-    "G": 30,
-    "PTS": 63.0
+    "G": 34,
+    "PTS": 66.0
+  },
+  {
+    "name": "Thompson, Sterlin",
+    "norm": "sterlinthompson",
+    "owner": "(Free",
+    "mlb": "Col",
+    "type": "hitters",
+    "pos": "DH,OF",
+    "G": 2,
+    "PTS": 0.0
   },
   {
     "name": "Torrens, Luis",
@@ -2006,8 +2016,8 @@
     "mlb": "NYM",
     "type": "hitters",
     "pos": "DH,1B,C",
-    "G": 17,
-    "PTS": 21.0
+    "G": 22,
+    "PTS": 31.0
   },
   {
     "name": "Tovar, Ezequiel",
@@ -2016,8 +2026,8 @@
     "mlb": "Col",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 39,
-    "PTS": 63.0
+    "G": 45,
+    "PTS": 74.0
   },
   {
     "name": "Trevino, Jose",
@@ -2026,8 +2036,8 @@
     "mlb": "Cin",
     "type": "hitters",
     "pos": "DH,C",
-    "G": 12,
-    "PTS": 6.0
+    "G": 14,
+    "PTS": 8.0
   },
   {
     "name": "Triolo, Jared",
@@ -2035,9 +2045,9 @@
     "owner": "(Free",
     "mlb": "Pit",
     "type": "hitters",
-    "pos": "DH,1B,2B,SS,3B",
-    "G": 12,
-    "PTS": 14.0
+    "pos": "DH,1B,2B,SS,3B,OF",
+    "G": 17,
+    "PTS": 20.0
   },
   {
     "name": "Tucker, Kyle",
@@ -2046,8 +2056,8 @@
     "mlb": "LAD",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 38,
-    "PTS": 125.0
+    "G": 44,
+    "PTS": 142.0
   },
   {
     "name": "Turang, Brice",
@@ -2056,8 +2066,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,2B",
-    "G": 34,
-    "PTS": 150.0
+    "G": 40,
+    "PTS": 175.0
   },
   {
     "name": "Turner, Trea",
@@ -2066,8 +2076,8 @@
     "mlb": "Phi",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 39,
-    "PTS": 106.0
+    "G": 45,
+    "PTS": 122.0
   },
   {
     "name": "Urias, Ramon",
@@ -2086,8 +2096,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,1B,2B,SS,3B,OF",
-    "G": 31,
-    "PTS": 119.0
+    "G": 37,
+    "PTS": 143.0
   },
   {
     "name": "Vaughn, Andrew",
@@ -2096,8 +2106,8 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,1B",
-    "G": 5,
-    "PTS": 17.0
+    "G": 10,
+    "PTS": 29.0
   },
   {
     "name": "Vientos, Mark",
@@ -2106,8 +2116,8 @@
     "mlb": "NYM",
     "type": "hitters",
     "pos": "DH,1B,3B",
-    "G": 31,
-    "PTS": 77.0
+    "G": 37,
+    "PTS": 95.0
   },
   {
     "name": "Vivas, Jorbit",
@@ -2116,8 +2126,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,2B,3B",
-    "G": 30,
-    "PTS": 38.0
+    "G": 35,
+    "PTS": 44.0
   },
   {
     "name": "Waldschmidt, Ryan",
@@ -2126,8 +2136,8 @@
     "mlb": "Ari",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 2,
-    "PTS": 1.0
+    "G": 8,
+    "PTS": 18.0
   },
   {
     "name": "Walker, Jordan",
@@ -2136,8 +2146,8 @@
     "mlb": "StL",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 38,
-    "PTS": 162.0
+    "G": 44,
+    "PTS": 193.0
   },
   {
     "name": "Wetherholt, JJ",
@@ -2146,8 +2156,8 @@
     "mlb": "StL",
     "type": "hitters",
     "pos": "DH,2B",
-    "G": 39,
-    "PTS": 134.0
+    "G": 44,
+    "PTS": 150.0
   },
   {
     "name": "White, Eli",
@@ -2156,8 +2166,8 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 25,
-    "PTS": 43.0
+    "G": 26,
+    "PTS": 45.0
   },
   {
     "name": "Wiemer, Joey",
@@ -2166,8 +2176,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 27,
-    "PTS": 64.0
+    "G": 30,
+    "PTS": 71.0
   },
   {
     "name": "Winn, Masyn",
@@ -2176,8 +2186,8 @@
     "mlb": "StL",
     "type": "hitters",
     "pos": "DH,SS",
-    "G": 34,
-    "PTS": 92.0
+    "G": 40,
+    "PTS": 104.0
   },
   {
     "name": "Wood, James",
@@ -2186,8 +2196,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 40,
-    "PTS": 184.0
+    "G": 46,
+    "PTS": 200.0
   },
   {
     "name": "Yastrzemski, Mike",
@@ -2196,8 +2206,8 @@
     "mlb": "Atl",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 37,
-    "PTS": 57.0
+    "G": 42,
+    "PTS": 75.0
   },
   {
     "name": "Yelich, Christian",
@@ -2206,7 +2216,7 @@
     "mlb": "Mil",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 15,
+    "G": 16,
     "PTS": 52.0
   },
   {
@@ -2216,7 +2226,7 @@
     "mlb": "Pit",
     "type": "hitters",
     "pos": "DH,1B,2B,3B,OF",
-    "G": 25,
+    "G": 27,
     "PTS": 38.0
   },
   {
@@ -2226,8 +2236,8 @@
     "mlb": "Was",
     "type": "hitters",
     "pos": "DH,OF",
-    "G": 38,
-    "PTS": 84.0
+    "G": 44,
+    "PTS": 101.0
   },
   {
     "name": "Young, Jared",
@@ -2246,8 +2256,8 @@
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 19.0
+    "G": 10,
+    "PTS": 48.0
   },
   {
     "name": "Adam, Jason",
@@ -2256,8 +2266,8 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 13,
-    "PTS": 22.0
+    "G": 16,
+    "PTS": 35.0
   },
   {
     "name": "Agnos, Zach",
@@ -2266,8 +2276,8 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 11,
-    "PTS": 24.0
+    "G": 13,
+    "PTS": 26.0
   },
   {
     "name": "Alcantara, Sandy",
@@ -2276,8 +2286,8 @@
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 68.0
+    "G": 10,
+    "PTS": 79.0
   },
   {
     "name": "Alvarado, Jose",
@@ -2286,8 +2296,18 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 8.0
+    "G": 21,
+    "PTS": 25.0
+  },
+  {
+    "name": "Alvarez, Andrew",
+    "norm": "andrewalvarez",
+    "owner": "(Free",
+    "mlb": "Was",
+    "type": "pitchers",
+    "pos": "P,SP,RP",
+    "G": 2,
+    "PTS": 21.0
   },
   {
     "name": "Anderson, Grant",
@@ -2296,8 +2316,8 @@
     "mlb": "Mil",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 18.0
+    "G": 19,
+    "PTS": 17.0
   },
   {
     "name": "Antone, Tejay",
@@ -2306,8 +2326,8 @@
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 2,
-    "PTS": 2.0
+    "G": 5,
+    "PTS": 14.0
   },
   {
     "name": "Ashby, Aaron",
@@ -2316,8 +2336,8 @@
     "mlb": "Mil",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 107.0
+    "G": 21,
+    "PTS": 125.0
   },
   {
     "name": "Ashcraft, Braxton",
@@ -2326,8 +2346,8 @@
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 65.0
+    "G": 9,
+    "PTS": 70.0
   },
   {
     "name": "Ashcraft, Graham",
@@ -2336,8 +2356,8 @@
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 19,
-    "PTS": 30.0
+    "G": 22,
+    "PTS": 29.0
   },
   {
     "name": "Assad, Javier",
@@ -2346,8 +2366,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 39.0
+    "G": 8,
+    "PTS": 40.0
   },
   {
     "name": "Bachar, Lake",
@@ -2356,8 +2376,8 @@
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 11,
-    "PTS": 15.0
+    "G": 14,
+    "PTS": 16.0
   },
   {
     "name": "Backhus, Kyle",
@@ -2376,8 +2396,18 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 6.0
+    "G": 17,
+    "PTS": 4.0
+  },
+  {
+    "name": "Barnes, Charlie",
+    "norm": "charliebarnes",
+    "owner": "(Free",
+    "mlb": "LAD",
+    "type": "pitchers",
+    "pos": "P,SP,RP",
+    "G": 3,
+    "PTS": -2.0
   },
   {
     "name": "Beeter, Clayton",
@@ -2396,8 +2426,8 @@
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 29.0
+    "G": 19,
+    "PTS": 31.0
   },
   {
     "name": "Bernardino, Brennan",
@@ -2406,8 +2436,18 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
+    "G": 20,
     "PTS": 30.0
+  },
+  {
+    "name": "Bidois, Brandan",
+    "norm": "brandanbidois",
+    "owner": "(Free",
+    "mlb": "Pit",
+    "type": "pitchers",
+    "pos": "P,SP,RP",
+    "G": 3,
+    "PTS": 1.0
   },
   {
     "name": "Birdsong, Hayden",
@@ -2426,8 +2466,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 14,
-    "PTS": 2.0
+    "G": 17,
+    "PTS": 14.0
   },
   {
     "name": "Bowlan, Jonathan",
@@ -2436,8 +2476,8 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 11,
-    "PTS": 20.0
+    "G": 13,
+    "PTS": 23.0
   },
   {
     "name": "Boyd, Matthew",
@@ -2456,8 +2496,8 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 33.0
+    "G": 19,
+    "PTS": 31.0
   },
   {
     "name": "Brito, Jhony",
@@ -2476,8 +2516,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 13,
-    "PTS": 35.0
+    "G": 14,
+    "PTS": 41.0
   },
   {
     "name": "Brown, McCade",
@@ -2496,8 +2536,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 13,
-    "PTS": 3.0
+    "G": 15,
+    "PTS": 4.0
   },
   {
     "name": "Bruihl, Justin",
@@ -2506,7 +2546,7 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 19,
+    "G": 21,
     "PTS": -1.0
   },
   {
@@ -2516,8 +2556,8 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 37.0
+    "G": 9,
+    "PTS": 57.0
   },
   {
     "name": "Bummer, Aaron",
@@ -2526,8 +2566,8 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 15.0
+    "G": 18,
+    "PTS": 16.0
   },
   {
     "name": "Burke, Brock",
@@ -2536,7 +2576,7 @@
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 19,
+    "G": 21,
     "PTS": 25.0
   },
   {
@@ -2552,12 +2592,12 @@
   {
     "name": "Burns, Chase",
     "norm": "chaseburns",
-    "owner": "(Free",
+    "owner": "Bert's",
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 87.0
+    "G": 9,
+    "PTS": 106.0
   },
   {
     "name": "Butto, Jose",
@@ -2576,8 +2616,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 69.0
+    "G": 9,
+    "PTS": 68.0
   },
   {
     "name": "Canning, Griffin",
@@ -2586,8 +2626,8 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 2,
-    "PTS": 4.0
+    "G": 3,
+    "PTS": -1.0
   },
   {
     "name": "Casparius, Ben",
@@ -2606,8 +2646,8 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 33.0
+    "G": 10,
+    "PTS": 58.0
   },
   {
     "name": "Chandler, Bubba",
@@ -2616,8 +2656,8 @@
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 7.0
+    "G": 9,
+    "PTS": 4.0
   },
   {
     "name": "Clarke, Taylor",
@@ -2626,7 +2666,7 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
+    "G": 20,
     "PTS": 16.0
   },
   {
@@ -2686,8 +2726,8 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 9,
-    "PTS": 62.0
+    "G": 10,
+    "PTS": 58.0
   },
   {
     "name": "Dreyer, Jack",
@@ -2696,8 +2736,8 @@
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 36.0
+    "G": 20,
+    "PTS": 39.0
   },
   {
     "name": "Drohan, Shane",
@@ -2706,8 +2746,8 @@
     "mlb": "Mil",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 6,
-    "PTS": 24.0
+    "G": 7,
+    "PTS": 26.0
   },
   {
     "name": "Duran, Jhoan",
@@ -2716,18 +2756,8 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 9,
-    "PTS": 58.0
-  },
-  {
-    "name": "Ekness, Josh",
-    "norm": "joshekness",
-    "owner": "(Free",
-    "mlb": "Mia",
-    "type": "pitchers",
-    "pos": "P,SP,RP",
-    "G": 3,
-    "PTS": 1.0
+    "G": 12,
+    "PTS": 79.0
   },
   {
     "name": "Elder, Bryce",
@@ -2736,8 +2766,8 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 74.0
+    "G": 10,
+    "PTS": 92.0
   },
   {
     "name": "Estrada, Jeremiah",
@@ -2746,18 +2776,18 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 10,
-    "PTS": 18.0
+    "G": 13,
+    "PTS": 26.0
   },
   {
     "name": "Fairbanks, Peter",
     "norm": "peterfairbanks",
-    "owner": "Charlie's",
+    "owner": "(Free",
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 10,
-    "PTS": 43.0
+    "G": 11,
+    "PTS": 56.0
   },
   {
     "name": "Faucher, Calvin",
@@ -2766,8 +2796,8 @@
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 42.0
+    "G": 18,
+    "PTS": 54.0
   },
   {
     "name": "Feltner, Ryan",
@@ -2790,16 +2820,6 @@
     "PTS": 0.0
   },
   {
-    "name": "Fitzpatrick, Brian",
-    "norm": "brianfitzpatrick",
-    "owner": "(Free",
-    "mlb": "Mil",
-    "type": "pitchers",
-    "pos": "P,SP,RP",
-    "G": 3,
-    "PTS": 0.0
-  },
-  {
     "name": "Foley, Jason",
     "norm": "jasonfoley",
     "owner": "(Free",
@@ -2816,8 +2836,8 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 22.0
+    "G": 8,
+    "PTS": 18.0
   },
   {
     "name": "Fuentes, Didier",
@@ -2826,8 +2846,8 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 6,
-    "PTS": 24.0
+    "G": 8,
+    "PTS": 51.0
   },
   {
     "name": "Gage, Matt",
@@ -2836,8 +2856,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 19,
-    "PTS": 21.0
+    "G": 23,
+    "PTS": 43.0
   },
   {
     "name": "Gallen, Zac",
@@ -2846,8 +2866,8 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 18.0
+    "G": 9,
+    "PTS": 17.0
   },
   {
     "name": "Garcia, Brandyn",
@@ -2856,8 +2876,18 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 4,
+    "G": 6,
     "PTS": 5.0
+  },
+  {
+    "name": "Garrett, Braxton",
+    "norm": "braxtongarrett",
+    "owner": "(Free",
+    "mlb": "Mia",
+    "type": "pitchers",
+    "pos": "P,SP",
+    "G": 1,
+    "PTS": -5.0
   },
   {
     "name": "Garrett, Reed",
@@ -2880,24 +2910,14 @@
     "PTS": 4.0
   },
   {
-    "name": "Gervase, Paul",
-    "norm": "paulgervase",
-    "owner": "(Free",
-    "mlb": "LAD",
-    "type": "pitchers",
-    "pos": "P,SP,RP",
-    "G": 1,
-    "PTS": 4.0
-  },
-  {
     "name": "Ginkel, Kevin",
     "norm": "kevinginkel",
     "owner": "(Free",
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 21.0
+    "G": 19,
+    "PTS": 23.0
   },
   {
     "name": "Glasnow, Tyler",
@@ -2916,8 +2936,8 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 5,
-    "PTS": 16.0
+    "G": 6,
+    "PTS": 20.0
   },
   {
     "name": "Graceffo, Gordon",
@@ -2926,8 +2946,8 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 35.0
+    "G": 20,
+    "PTS": 41.0
   },
   {
     "name": "Graterol, Brusdar",
@@ -2966,8 +2986,8 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 80.0
+    "G": 9,
+    "PTS": 81.0
   },
   {
     "name": "Hagenman, Justin",
@@ -2986,8 +3006,8 @@
     "mlb": "Mil",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 9.0
+    "G": 18,
+    "PTS": 7.0
   },
   {
     "name": "Halvorsen, Seth",
@@ -2996,18 +3016,18 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 2,
+    "G": 5,
     "PTS": 0.0
   },
   {
     "name": "Harrison, Kyle",
     "norm": "kyleharrison",
-    "owner": "(Free",
+    "owner": "Bert's",
     "mlb": "Mil",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 65.0
+    "G": 8,
+    "PTS": 84.0
   },
   {
     "name": "Harvey, Hunter",
@@ -3026,8 +3046,8 @@
     "mlb": "Mil",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 2,
-    "PTS": 9.0
+    "G": 4,
+    "PTS": 31.0
   },
   {
     "name": "Henriquez, Edgardo",
@@ -3036,8 +3056,8 @@
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 13,
-    "PTS": 17.0
+    "G": 16,
+    "PTS": 33.0
   },
   {
     "name": "Henriquez, Ronny",
@@ -3065,8 +3085,8 @@
     "owner": "(Free",
     "mlb": "SF",
     "type": "pitchers",
-    "pos": "RP",
-    "G": 0,
+    "pos": "P,SP,RP",
+    "G": 3,
     "PTS": 0.0
   },
   {
@@ -3076,7 +3096,7 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 14,
+    "G": 15,
     "PTS": 18.0
   },
   {
@@ -3096,8 +3116,8 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 3.0
+    "G": 19,
+    "PTS": 6.0
   },
   {
     "name": "Hodge, Porter",
@@ -3126,8 +3146,8 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 68.0
+    "G": 9,
+    "PTS": 71.0
   },
   {
     "name": "Holmes, Grant",
@@ -3136,8 +3156,8 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 39.0
+    "G": 8,
+    "PTS": 40.0
   },
   {
     "name": "Horton, Cade",
@@ -3156,8 +3176,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 7,
-    "PTS": -2.0
+    "G": 8,
+    "PTS": 11.0
   },
   {
     "name": "Hurt, Kyle",
@@ -3166,8 +3186,8 @@
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 10,
-    "PTS": 13.0
+    "G": 12,
+    "PTS": 14.0
   },
   {
     "name": "Iglesias, Raisel",
@@ -3176,8 +3196,8 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 9,
-    "PTS": 60.0
+    "G": 13,
+    "PTS": 78.0
   },
   {
     "name": "Imanaga, Shota",
@@ -3186,8 +3206,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 92.0
+    "G": 9,
+    "PTS": 97.0
   },
   {
     "name": "Irvin, Jake",
@@ -3196,8 +3216,18 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
+    "G": 9,
     "PTS": 25.0
+  },
+  {
+    "name": "Jacob, Alek",
+    "norm": "alekjacob",
+    "owner": "(Free",
+    "mlb": "SD",
+    "type": "pitchers",
+    "pos": "P,SP,RP",
+    "G": 2,
+    "PTS": 13.0
   },
   {
     "name": "Jimenez, Joe",
@@ -3216,7 +3246,7 @@
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
+    "G": 21,
     "PTS": 27.0
   },
   {
@@ -3236,8 +3266,8 @@
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 42.0
+    "G": 9,
+    "PTS": 40.0
   },
   {
     "name": "Keller, Brad",
@@ -3246,8 +3276,8 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 45.0
+    "G": 19,
+    "PTS": 62.0
   },
   {
     "name": "Keller, Mitch",
@@ -3256,8 +3286,8 @@
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 78.0
+    "G": 9,
+    "PTS": 77.0
   },
   {
     "name": "Kelly, Merrill",
@@ -3266,18 +3296,8 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 5,
-    "PTS": 19.0
-  },
-  {
-    "name": "Kent, Zak",
-    "norm": "zakkent",
-    "owner": "(Free",
-    "mlb": "Was",
-    "type": "pitchers",
-    "pos": "P,SP,RP",
-    "G": 4,
-    "PTS": -2.0
+    "G": 6,
+    "PTS": 41.0
   },
   {
     "name": "Kerkering, Orion",
@@ -3286,8 +3306,8 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 17.0
+    "G": 18,
+    "PTS": 25.0
   },
   {
     "name": "Kilian, Caleb",
@@ -3296,8 +3316,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 25.0
+    "G": 19,
+    "PTS": 34.0
   },
   {
     "name": "Kimbrel, Craig",
@@ -3306,8 +3326,8 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 10,
-    "PTS": 0.0
+    "G": 12,
+    "PTS": 1.0
   },
   {
     "name": "King, John",
@@ -3316,18 +3336,18 @@
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 19,
+    "G": 21,
     "PTS": 29.0
   },
   {
     "name": "King, Mike",
     "norm": "mikeking",
-    "owner": "(Free",
+    "owner": "Charlie's",
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 63.0
+    "G": 9,
+    "PTS": 66.0
   },
   {
     "name": "Kinley, Tyler",
@@ -3336,7 +3356,7 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
+    "G": 21,
     "PTS": 40.0
   },
   {
@@ -3346,8 +3366,8 @@
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 11,
-    "PTS": 16.0
+    "G": 13,
+    "PTS": 19.0
   },
   {
     "name": "Knack, Landon",
@@ -3386,8 +3406,8 @@
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 8.0
+    "G": 19,
+    "PTS": 4.0
   },
   {
     "name": "Lazar, Max",
@@ -3406,8 +3426,8 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 53.0
+    "G": 9,
+    "PTS": 67.0
   },
   {
     "name": "Lee, Dylan",
@@ -3416,8 +3436,8 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 19,
-    "PTS": 33.0
+    "G": 22,
+    "PTS": 36.0
   },
   {
     "name": "Liberatore, Matthew",
@@ -3426,7 +3446,7 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
+    "G": 9,
     "PTS": 40.0
   },
   {
@@ -3436,8 +3456,8 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 4.0
+    "G": 9,
+    "PTS": 17.0
   },
   {
     "name": "Loaisiga, Jonathan",
@@ -3446,7 +3466,7 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
+    "G": 19,
     "PTS": 14.0
   },
   {
@@ -3456,8 +3476,8 @@
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 1,
-    "PTS": -2.0
+    "G": 2,
+    "PTS": 1.0
   },
   {
     "name": "Lopez, Reynaldo",
@@ -3466,7 +3486,7 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
+    "G": 9,
     "PTS": 34.0
   },
   {
@@ -3476,8 +3496,8 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 12,
-    "PTS": 24.0
+    "G": 13,
+    "PTS": 39.0
   },
   {
     "name": "Lorenzen, Michael",
@@ -3486,7 +3506,7 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 9,
+    "G": 10,
     "PTS": 28.0
   },
   {
@@ -3496,8 +3516,8 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 15,
-    "PTS": 34.0
+    "G": 17,
+    "PTS": 41.0
   },
   {
     "name": "Lowder, Rhett",
@@ -3516,8 +3536,8 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 78.0
+    "G": 9,
+    "PTS": 83.0
   },
   {
     "name": "Mahle, Tyler",
@@ -3526,8 +3546,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 7,
-    "PTS": 18.0
+    "G": 9,
+    "PTS": 26.0
   },
   {
     "name": "Manaea, Sean",
@@ -3536,8 +3556,8 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 14.0
+    "G": 9,
+    "PTS": 15.0
   },
   {
     "name": "Marinaccio, Ron",
@@ -3546,8 +3566,8 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 14,
-    "PTS": 22.0
+    "G": 16,
+    "PTS": 25.0
   },
   {
     "name": "Marquez, German",
@@ -3586,8 +3606,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 10,
-    "PTS": 3.0
+    "G": 13,
+    "PTS": 8.0
   },
   {
     "name": "Matsui, Yuki",
@@ -3596,8 +3616,8 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 1,
-    "PTS": 1.0
+    "G": 3,
+    "PTS": 6.0
   },
   {
     "name": "Mattson, Isaac",
@@ -3606,8 +3626,8 @@
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 4.0
+    "G": 20,
+    "PTS": 5.0
   },
   {
     "name": "May, Dustin",
@@ -3616,8 +3636,8 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 55.0
+    "G": 9,
+    "PTS": 56.0
   },
   {
     "name": "Mayza, Tim",
@@ -3626,8 +3646,8 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 23.0
+    "G": 20,
+    "PTS": 25.0
   },
   {
     "name": "Mazur, Adam",
@@ -3646,8 +3666,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 1,
-    "PTS": 22.0
+    "G": 3,
+    "PTS": 42.0
   },
   {
     "name": "McGreevy, Michael",
@@ -3656,8 +3676,8 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 63.0
+    "G": 9,
+    "PTS": 67.0
   },
   {
     "name": "McLean, Nolan",
@@ -3666,8 +3686,8 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 59.0
+    "G": 9,
+    "PTS": 77.0
   },
   {
     "name": "Megill, Trevor",
@@ -3676,8 +3696,8 @@
     "mlb": "Mil",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 14,
-    "PTS": 36.0
+    "G": 17,
+    "PTS": 48.0
   },
   {
     "name": "Megill, Tylor",
@@ -3696,8 +3716,8 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 23.0
+    "G": 18,
+    "PTS": 22.0
   },
   {
     "name": "Mena, Cristian",
@@ -3716,8 +3736,8 @@
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 56.0
+    "G": 9,
+    "PTS": 75.0
   },
   {
     "name": "Mey, Luis",
@@ -3726,8 +3746,8 @@
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 3,
-    "PTS": 3.0
+    "G": 6,
+    "PTS": 7.0
   },
   {
     "name": "Mikolas, Miles",
@@ -3736,7 +3756,7 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
+    "G": 9,
     "PTS": 14.0
   },
   {
@@ -3756,8 +3776,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 12,
-    "PTS": 27.0
+    "G": 13,
+    "PTS": 26.0
   },
   {
     "name": "Miller, Mason",
@@ -3766,8 +3786,8 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 141.0
+    "G": 20,
+    "PTS": 162.0
   },
   {
     "name": "Miller, Shelby",
@@ -3780,14 +3800,24 @@
     "PTS": 0.0
   },
   {
+    "name": "Mills, Wyatt",
+    "norm": "wyattmills",
+    "owner": "(Free",
+    "mlb": "LAD",
+    "type": "pitchers",
+    "pos": "P,SP,RP",
+    "G": 4,
+    "PTS": -6.0
+  },
+  {
     "name": "Milner, Hoby",
     "norm": "hobymilner",
     "owner": "(Free",
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 8.0
+    "G": 20,
+    "PTS": 21.0
   },
   {
     "name": "Minter, A.J.",
@@ -3806,8 +3836,8 @@
     "mlb": "Mil",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 89.0
+    "G": 9,
+    "PTS": 101.0
   },
   {
     "name": "Mlodzinski, Carmen",
@@ -3816,8 +3846,8 @@
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 45.0
+    "G": 9,
+    "PTS": 56.0
   },
   {
     "name": "Moll, Sam",
@@ -3826,8 +3856,8 @@
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 11.0
+    "G": 21,
+    "PTS": 10.0
   },
   {
     "name": "Montgomery, Mason",
@@ -3836,8 +3866,8 @@
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 15,
-    "PTS": 26.0
+    "G": 18,
+    "PTS": 30.0
   },
   {
     "name": "jon, Adrian",
@@ -3846,8 +3876,8 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 50.0
+    "G": 20,
+    "PTS": 63.0
   },
   {
     "name": "Morillo, Juan",
@@ -3856,8 +3886,8 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 34.0
+    "G": 20,
+    "PTS": 33.0
   },
   {
     "name": "Musgrove, Joe",
@@ -3876,8 +3906,8 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 12,
-    "PTS": 19.0
+    "G": 15,
+    "PTS": 22.0
   },
   {
     "name": "Nardi, Andrew",
@@ -3886,8 +3916,8 @@
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 34.0
+    "G": 20,
+    "PTS": 38.0
   },
   {
     "name": "Nelson, Ryne",
@@ -3896,8 +3926,8 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 26.0
+    "G": 9,
+    "PTS": 36.0
   },
   {
     "name": "Nola, Aaron",
@@ -3906,8 +3936,8 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 50.0
+    "G": 9,
+    "PTS": 49.0
   },
   {
     "name": "Nunez, Dedniel",
@@ -3926,8 +3956,8 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 140.0
+    "G": 22,
+    "PTS": 160.0
   },
   {
     "name": "Ohl, Pierson",
@@ -3946,8 +3976,18 @@
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 6,
-    "PTS": 63.0
+    "G": 7,
+    "PTS": 83.0
+  },
+  {
+    "name": "Paddack, Chris",
+    "norm": "chrispaddack",
+    "owner": "(Free",
+    "mlb": "Cin",
+    "type": "pitchers",
+    "pos": "P,SP,RP",
+    "G": 8,
+    "PTS": 6.0
   },
   {
     "name": "Pagan, Emilio",
@@ -3966,8 +4006,8 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 18.0
+    "G": 8,
+    "PTS": 22.0
   },
   {
     "name": "Palencia, Daniel",
@@ -3976,8 +4016,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 32.0
+    "G": 9,
+    "PTS": 43.0
   },
   {
     "name": "Pallante, Andre",
@@ -3986,8 +4026,8 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 7,
-    "PTS": 42.0
+    "G": 8,
+    "PTS": 55.0
   },
   {
     "name": "Parker, Mitchell",
@@ -3996,8 +4036,8 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 31.0
+    "G": 9,
+    "PTS": 32.0
   },
   {
     "name": "Patrick, Chad",
@@ -4006,8 +4046,8 @@
     "mlb": "Mil",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 28.0
+    "G": 10,
+    "PTS": 40.0
   },
   {
     "name": "Peguero, Joel",
@@ -4016,8 +4056,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 2,
-    "PTS": 1.0
+    "G": 5,
+    "PTS": -1.0
   },
   {
     "name": "Peralta, Freddy",
@@ -4026,8 +4066,18 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 44.0
+    "G": 9,
+    "PTS": 64.0
+  },
+  {
+    "name": "Peralta, Sammy",
+    "norm": "sammyperalta",
+    "owner": "(Free",
+    "mlb": "Col",
+    "type": "pitchers",
+    "pos": "P,SP,RP",
+    "G": 0,
+    "PTS": 0.0
   },
   {
     "name": "Peralta, Wandy",
@@ -4036,8 +4086,8 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 6.0
+    "G": 19,
+    "PTS": 9.0
   },
   {
     "name": "Perez, Eury",
@@ -4046,8 +4096,8 @@
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 40.0
+    "G": 9,
+    "PTS": 44.0
   },
   {
     "name": "Perez, Martin",
@@ -4056,8 +4106,8 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 33.0
+    "G": 9,
+    "PTS": 37.0
   },
   {
     "name": "Petersen, Michael",
@@ -4066,8 +4116,8 @@
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 14,
-    "PTS": 28.0
+    "G": 15,
+    "PTS": 29.0
   },
   {
     "name": "Peterson, David",
@@ -4076,8 +4126,8 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 21.0
+    "G": 10,
+    "PTS": 41.0
   },
   {
     "name": "Pfaadt, Brandon",
@@ -4086,8 +4136,8 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 7.0
+    "G": 8,
+    "PTS": 12.0
   },
   {
     "name": "Phillips, Connor",
@@ -4096,8 +4146,8 @@
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 19,
-    "PTS": 20.0
+    "G": 22,
+    "PTS": 21.0
   },
   {
     "name": "Phillips, Evan",
@@ -4116,13 +4166,13 @@
     "mlb": "Mia",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 12,
-    "PTS": 27.0
+    "G": 13,
+    "PTS": 28.0
   },
   {
     "name": "Pivetta, Nick",
     "norm": "nickpivetta",
-    "owner": "Bert's",
+    "owner": "(Free",
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP",
@@ -4146,8 +4196,8 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 19,
-    "PTS": 47.0
+    "G": 22,
+    "PTS": 54.0
   },
   {
     "name": "Priester, Quinn",
@@ -4186,8 +4236,8 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 6,
-    "PTS": 9.0
+    "G": 7,
+    "PTS": 8.0
   },
   {
     "name": "Raley, Brooks",
@@ -4196,8 +4246,8 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 10.0
+    "G": 19,
+    "PTS": 24.0
   },
   {
     "name": "Ramirez, Yohan",
@@ -4206,8 +4256,8 @@
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 42.0
+    "G": 19,
+    "PTS": 44.0
   },
   {
     "name": "Ray, Robbie",
@@ -4216,8 +4266,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 61.0
+    "G": 9,
+    "PTS": 58.0
   },
   {
     "name": "Rea, Colin",
@@ -4226,8 +4276,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 78.0
+    "G": 9,
+    "PTS": 75.0
   },
   {
     "name": "Ribalta, Orlando",
@@ -4236,8 +4286,8 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 5,
-    "PTS": 10.0
+    "G": 8,
+    "PTS": 14.0
   },
   {
     "name": "Ritchie, JR",
@@ -4246,8 +4296,8 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 3,
-    "PTS": 15.0
+    "G": 4,
+    "PTS": 16.0
   },
   {
     "name": "Roberts, Ethan",
@@ -4256,8 +4306,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 5,
-    "PTS": -1.0
+    "G": 6,
+    "PTS": 1.0
   },
   {
     "name": "Rodriguez, Bradgley",
@@ -4266,8 +4316,8 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 3.0
+    "G": 18,
+    "PTS": 4.0
   },
   {
     "name": "Rodriguez, Eduardo",
@@ -4276,8 +4326,8 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 7,
-    "PTS": 52.0
+    "G": 9,
+    "PTS": 70.0
   },
   {
     "name": "Rodriguez, Randy",
@@ -4296,8 +4346,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 42.0
+    "G": 10,
+    "PTS": 43.0
   },
   {
     "name": "Romero, Jojo",
@@ -4306,8 +4356,8 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 4.0
+    "G": 22,
+    "PTS": 7.0
   },
   {
     "name": "Roupp, Landen",
@@ -4316,8 +4366,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 91.0
+    "G": 9,
+    "PTS": 93.0
   },
   {
     "name": "Saalfrank, Andrew",
@@ -4336,8 +4386,8 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 124.0
+    "G": 9,
+    "PTS": 129.0
   },
   {
     "name": "Sanchez, Cristopher",
@@ -4346,18 +4396,8 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 86.0
-  },
-  {
-    "name": "Sanders, Cam",
-    "norm": "camsanders",
-    "owner": "(Free",
-    "mlb": "Pit",
-    "type": "pitchers",
-    "pos": "P,SP,RP",
-    "G": 5,
-    "PTS": 2.0
+    "G": 10,
+    "PTS": 144.0
   },
   {
     "name": "Sanmartin, Reiver",
@@ -4376,8 +4416,8 @@
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 35.0
+    "G": 20,
+    "PTS": 32.0
   },
   {
     "name": "Santillan, Tony",
@@ -4386,18 +4426,8 @@
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 24.0
-  },
-  {
-    "name": "Santos, Gregory",
-    "norm": "gregorysantos",
-    "owner": "(Free",
-    "mlb": "SF",
-    "type": "pitchers",
-    "pos": "P,SP,RP",
-    "G": 3,
-    "PTS": -2.0
+    "G": 20,
+    "PTS": 23.0
   },
   {
     "name": "Sasaki, Roki",
@@ -4406,8 +4436,8 @@
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 6,
-    "PTS": 16.0
+    "G": 7,
+    "PTS": 20.0
   },
   {
     "name": "Schultz, Paxton",
@@ -4416,8 +4446,8 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 9,
-    "PTS": 18.0
+    "G": 12,
+    "PTS": 22.0
   },
   {
     "name": "Schwellenbach, Spencer",
@@ -4436,8 +4466,8 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 3,
-    "PTS": 8.0
+    "G": 4,
+    "PTS": 11.0
   },
   {
     "name": "Scott, Tanner",
@@ -4446,8 +4476,8 @@
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 35.0
+    "G": 20,
+    "PTS": 45.0
   },
   {
     "name": "Senga, Kodai",
@@ -4466,8 +4496,8 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 11,
-    "PTS": 55.0
+    "G": 13,
+    "PTS": 77.0
   },
   {
     "name": "Sewald, Paul",
@@ -4476,8 +4506,8 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 68.0
+    "G": 18,
+    "PTS": 74.0
   },
   {
     "name": "Sheehan, Emmet",
@@ -4486,8 +4516,8 @@
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 58.0
+    "G": 8,
+    "PTS": 76.0
   },
   {
     "name": "Shugart, Chase",
@@ -4496,18 +4526,8 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 12,
-    "PTS": 35.0
-  },
-  {
-    "name": "Shuster, Jared",
-    "norm": "jaredshuster",
-    "owner": "(Free",
-    "mlb": "StL",
-    "type": "pitchers",
-    "pos": "P,SP,RP",
-    "G": 4,
-    "PTS": -1.0
+    "G": 13,
+    "PTS": 36.0
   },
   {
     "name": "Singer, Brady",
@@ -4516,8 +4536,8 @@
     "mlb": "Cin",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 38.0
+    "G": 9,
+    "PTS": 36.0
   },
   {
     "name": "Sisk, Evan",
@@ -4526,8 +4546,8 @@
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 12,
-    "PTS": 14.0
+    "G": 15,
+    "PTS": 19.0
   },
   {
     "name": "Skenes, Paul",
@@ -4536,8 +4556,8 @@
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 8,
-    "PTS": 101.0
+    "G": 9,
+    "PTS": 125.0
   },
   {
     "name": "Smith-Shawver, AJ",
@@ -4576,8 +4596,8 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 25.0
+    "G": 21,
+    "PTS": 34.0
   },
   {
     "name": "Soroka, Mike",
@@ -4586,18 +4606,18 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 77.0
+    "G": 8,
+    "PTS": 95.0
   },
   {
     "name": "Soto, Gregory",
     "norm": "gregorysoto",
-    "owner": "(Free",
+    "owner": "Bert's",
     "mlb": "Pit",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 19,
-    "PTS": 78.0
+    "G": 22,
+    "PTS": 85.0
   },
   {
     "name": "Sproat, Brandon",
@@ -4606,8 +4626,8 @@
     "mlb": "Mil",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 8.0
+    "G": 8,
+    "PTS": 24.0
   },
   {
     "name": "Stanek, Ryne",
@@ -4616,8 +4636,8 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 28.0
+    "G": 22,
+    "PTS": 31.0
   },
   {
     "name": "Steele, Justin",
@@ -4656,18 +4676,28 @@
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 2,
-    "PTS": 21.0
+    "G": 3,
+    "PTS": 22.0
+  },
+  {
+    "name": "Strzelecki, Peter",
+    "norm": "peterstrzelecki",
+    "owner": "(Free",
+    "mlb": "Mil",
+    "type": "pitchers",
+    "pos": "RP",
+    "G": 0,
+    "PTS": 0.0
   },
   {
     "name": "Suarez, Robert",
     "norm": "robertsuarez",
-    "owner": "Bert's",
+    "owner": "(Free",
     "mlb": "Atl",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 82.0
+    "G": 19,
+    "PTS": 95.0
   },
   {
     "name": "Sugano, Tomoyuki",
@@ -4676,8 +4706,8 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 7,
-    "PTS": 45.0
+    "G": 9,
+    "PTS": 54.0
   },
   {
     "name": "Svanson, Matt",
@@ -4686,8 +4716,8 @@
     "mlb": "StL",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 18,
-    "PTS": 3.0
+    "G": 20,
+    "PTS": 18.0
   },
   {
     "name": "Taillon, Jameson",
@@ -4696,8 +4726,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 7,
-    "PTS": 49.0
+    "G": 9,
+    "PTS": 46.0
   },
   {
     "name": "Thielbar, Caleb",
@@ -4716,8 +4746,8 @@
     "mlb": "Ari",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 19,
-    "PTS": 27.0
+    "G": 20,
+    "PTS": 28.0
   },
   {
     "name": "Thornton, Trent",
@@ -4726,8 +4756,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 2,
-    "PTS": 11.0
+    "G": 4,
+    "PTS": 26.0
   },
   {
     "name": "Treinen, Blake",
@@ -4736,7 +4766,7 @@
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 14,
+    "G": 18,
     "PTS": 18.0
   },
   {
@@ -4746,8 +4776,8 @@
     "mlb": "Mil",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 15,
-    "PTS": 44.0
+    "G": 19,
+    "PTS": 61.0
   },
   {
     "name": "Varland, Gus",
@@ -4756,8 +4786,8 @@
     "mlb": "Was",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 15,
-    "PTS": 45.0
+    "G": 18,
+    "PTS": 53.0
   },
   {
     "name": "Vasquez, Randy",
@@ -4766,8 +4796,8 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 8,
-    "PTS": 80.0
+    "G": 9,
+    "PTS": 97.0
   },
   {
     "name": "Vesia, Alex",
@@ -4776,7 +4806,7 @@
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
+    "G": 19,
     "PTS": 38.0
   },
   {
@@ -4786,8 +4816,8 @@
     "mlb": "Col",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 14,
-    "PTS": 43.0
+    "G": 16,
+    "PTS": 42.0
   },
   {
     "name": "Waldichuk, Ken",
@@ -4816,18 +4846,8 @@
     "mlb": "SD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 4,
-    "PTS": 19.0
-  },
-  {
-    "name": "Walker, Ryan",
-    "norm": "ryanwalker",
-    "owner": "(Free",
-    "mlb": "SF",
-    "type": "pitchers",
-    "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 25.0
+    "G": 6,
+    "PTS": 21.0
   },
   {
     "name": "Walston, Blake",
@@ -4846,8 +4866,8 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 7,
-    "PTS": 4.0
+    "G": 9,
+    "PTS": 6.0
   },
   {
     "name": "Weaver, Luke",
@@ -4856,8 +4876,8 @@
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 16,
-    "PTS": 31.0
+    "G": 18,
+    "PTS": 33.0
   },
   {
     "name": "Webb, Jacob",
@@ -4866,8 +4886,8 @@
     "mlb": "ChC",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 15.0
+    "G": 19,
+    "PTS": 17.0
   },
   {
     "name": "Webb, Logan",
@@ -4896,8 +4916,8 @@
     "mlb": "Phi",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 3,
-    "PTS": 28.0
+    "G": 4,
+    "PTS": 46.0
   },
   {
     "name": "Wick, Rowan",
@@ -4910,24 +4930,14 @@
     "PTS": 0.0
   },
   {
-    "name": "Wicks, Jordan",
-    "norm": "jordanwicks",
-    "owner": "(Free",
-    "mlb": "ChC",
-    "type": "pitchers",
-    "pos": "P,SP,RP",
-    "G": 0,
-    "PTS": 0.0
-  },
-  {
     "name": "Williams, Devin",
     "norm": "devinwilliams",
     "owner": "Jon's",
     "mlb": "NYM",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 15,
-    "PTS": 76.0
+    "G": 17,
+    "PTS": 85.0
   },
   {
     "name": "Williamson, Brandon",
@@ -4956,8 +4966,8 @@
     "mlb": "SF",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 17,
-    "PTS": 5.0
+    "G": 19,
+    "PTS": 6.0
   },
   {
     "name": "Woodford, Jake",
@@ -4982,12 +4992,12 @@
   {
     "name": "Wrobleski, Justin",
     "norm": "justinwrobleski",
-    "owner": "Bert's",
+    "owner": "(Free",
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP,RP",
-    "G": 6,
-    "PTS": 73.0
+    "G": 8,
+    "PTS": 94.0
   },
   {
     "name": "Yamamoto, Yoshinobu",
@@ -4996,8 +5006,8 @@
     "mlb": "LAD",
     "type": "pitchers",
     "pos": "P,SP",
-    "G": 7,
-    "PTS": 72.0
+    "G": 8,
+    "PTS": 77.0
   },
   {
     "name": "Young, Danny",
