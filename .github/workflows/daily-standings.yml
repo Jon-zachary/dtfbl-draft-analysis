@@ -22,18 +22,16 @@ jobs:
           python-version: '3.12'
 
       - name: Install dependencies
-        run: pip install playwright requests beautifulsoup4 python-dotenv pandas plotly openpyxl numpy
-
-      - name: Install Playwright browser
-        run: playwright install chromium
+        run: pip install requests beautifulsoup4 python-dotenv pandas plotly openpyxl numpy
 
       - name: Run standings scraper
         env:
-          ONROTO_USERNAME:   ${{ secrets.ONROTO_USERNAME }}
-          ONROTO_PASSWORD:   ${{ secrets.ONROTO_PASSWORD }}
-          ALERT_FROM_EMAIL:  ${{ secrets.ALERT_FROM_EMAIL }}
-          ALERT_APP_PASSWORD: ${{ secrets.ALERT_APP_PASSWORD }}
-          ALERT_TO_EMAIL:    ${{ secrets.ALERT_TO_EMAIL }}
+          ONROTO_USERNAME:      ${{ secrets.ONROTO_USERNAME }}
+          ONROTO_PASSWORD:      ${{ secrets.ONROTO_PASSWORD }}
+          ONROTO_CF_CLEARANCE:  ${{ secrets.ONROTO_CF_CLEARANCE }}
+          ALERT_FROM_EMAIL:     ${{ secrets.ALERT_FROM_EMAIL }}
+          ALERT_APP_PASSWORD:   ${{ secrets.ALERT_APP_PASSWORD }}
+          ALERT_TO_EMAIL:       ${{ secrets.ALERT_TO_EMAIL }}
         run: python daily_standings.py
 
       - name: Generate newsletter

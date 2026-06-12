@@ -63,45 +63,6 @@ def login() -> tuple[requests.Session, str]:
     if not username or not password:
         sys.exit("ERROR: Set ONROTO_USERNAME and ONROTO_PASSWORD")
 
-    from playwright.sync_api import sync_playwright
-
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=True)
-        context = browser.new_context()
-        page = context.new_page()
-
-        page.goto("https://onroto.fangraphs.com/index.pl", wait_until="load", timeout=60000)
-        # Wait for Cloudflare challenge to pass and login form to appear
-        page.wait_for_selector('input[type="password"]', timeout=60000)
-
-        # Fill and submit the login form
-        page.locator('input[type="text"], input[type="email"]').first.fill(username)
-        page.locator('input[type="password"]').first.fill(password)
-        page.locator('input[type="submit"], button[type="submit"]').first.click()
-        page.wait_for_load_state("load", timeout=60000)
-        page.wait_for_selector("a", timeout=60000)  # wait for post-login page to render
-
-        html = page.content()
-        session_id = extract_session_id(html)
-
-        # Follow the DTFBL link to establish full league session context
-        if session_id:
-            soup2 = BeautifulSoup(html, "html.parser")
-            dtfbl_link = next(
-                (a["href"] for a in soup2.find_all("a", href=True) if "dtfbl" in a["href"]),
-                None,
-            )
-            if dtfbl_link:
-                page.goto(dtfbl_link, wait_until="load", timeout=60000)
-                session_id = extract_session_id(page.content()) or session_id
-
-        pw_cookies = context.cookies()
-        browser.close()
-
-    if not session_id:
-        raise RuntimeError("Login failed — session_id not found after login")
-
-    # Transfer Playwright cookies (including cf_clearance) to a requests session
     session = requests.Session()
     session.headers.update({
         "User-Agent": (
@@ -109,9 +70,71 @@ def login() -> tuple[requests.Session, str]:
             "AppleWebKit/537.36 (KHTML, like Gecko) "
             "Chrome/136.0.0.0 Safari/537.36"
         ),
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
     })
-    for c in pw_cookies:
-        session.cookies.set(c["name"], c["value"], domain=c["domain"])
+
+    # cf_clearance is a Cloudflare cookie obtained from a real browser login.
+    # It lasts ~30 days and lets requests bypass the JS challenge from the same IP.
+    cf_clearance = os.getenv("ONROTO_CF_CLEARANCE", "")
+    if cf_clearance:
+        session.cookies.set("cf_clearance", cf_clearance, domain="onroto.fangraphs.com")
+    else:
+        raise RuntimeError(
+            "ONROTO_CF_CLEARANCE secret not set. "
+            "Log in to OnRoto in Chrome, open DevTools → Application → Cookies → "
+            "onroto.fangraphs.com, copy the cf_clearance value, and add it as a GitHub secret."
+        )
+
+    resp = session.get("https://onroto.fangraphs.com/index.pl", timeout=30)
+    if resp.status_code != 200:
+        snippet = resp.text[:400].replace("\n", " ").strip()
+        raise RuntimeError(f"HTTP {resp.status_code} fetching login page: {snippet}")
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    form = soup.find("form")
+    if not form:
+        raise RuntimeError("Could not find login form — cf_clearance may be expired")
+
+    action = form.get("action", "/index.pl")
+    if not action.startswith("http"):
+        action = "https://onroto.fangraphs.com" + action
+
+    payload = {inp.get("name"): inp.get("value", "")
+               for inp in form.find_all("input") if inp.get("name")}
+
+    email_field = next(
+        (inp.get("name") for inp in form.find_all("input")
+         if inp.get("type") in ("text", "email")
+         or any(kw in (inp.get("name") or "").lower()
+                for kw in ("mail", "user", "login", "id"))),
+        "email",
+    )
+    pass_field = next(
+        (inp.get("name") for inp in form.find_all("input")
+         if inp.get("type") == "password"),
+        "password",
+    )
+    payload[email_field] = username
+    payload[pass_field]  = password
+
+    session.headers["Referer"] = resp.url
+    resp = session.post(action, data=payload, timeout=30, allow_redirects=True)
+    resp.raise_for_status()
+
+    session_id = extract_session_id(resp.text)
+    if not session_id:
+        raise RuntimeError("Login failed — check credentials")
+
+    soup2 = BeautifulSoup(resp.text, "html.parser")
+    dtfbl_link = next(
+        (a["href"] for a in soup2.find_all("a", href=True) if "dtfbl" in a["href"]),
+        None,
+    )
+    if dtfbl_link:
+        session.headers["Referer"] = resp.url
+        resp2 = session.get(dtfbl_link, timeout=30)
+        session_id = extract_session_id(resp2.text) or session_id
 
     print(f"Logged in. session_id={session_id[:8]}…")
     return session, session_id
