@@ -26,7 +26,8 @@ jobs:
 
       - name: Run standings scraper
         env:
-          ONROTO_CGISESSID:     ${{ secrets.ONROTO_CGISESSID }}
+          ONROTO_USERNAME:      ${{ secrets.ONROTO_USERNAME }}
+          ONROTO_PASSWORD:      ${{ secrets.ONROTO_PASSWORD }}
           ALERT_FROM_EMAIL:     ${{ secrets.ALERT_FROM_EMAIL }}
           ALERT_APP_PASSWORD:   ${{ secrets.ALERT_APP_PASSWORD }}
           ALERT_TO_EMAIL:       ${{ secrets.ALERT_TO_EMAIL }}

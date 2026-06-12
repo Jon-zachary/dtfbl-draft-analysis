@@ -58,33 +58,66 @@ def extract_session_id(html: str) -> str | None:
 
 
 def login() -> tuple[requests.Session, str]:
-    cgisessid = os.getenv("ONROTO_CGISESSID", "")
-    if not cgisessid:
-        raise RuntimeError(
-            "ONROTO_CGISESSID secret not set. "
-            "In Chrome, open DevTools → Application → Cookies → onroto.fangraphs.com, "
-            "copy the CGISESSID value, and add it as a GitHub secret."
-        )
+    username = os.getenv("ONROTO_USERNAME")
+    password = os.getenv("ONROTO_PASSWORD")
+    if not username or not password:
+        sys.exit("ERROR: Set ONROTO_USERNAME and ONROTO_PASSWORD")
 
-    # curl_cffi impersonates Chrome's TLS fingerprint, bypassing Cloudflare's bot detection.
-    session = curl_requests.Session(impersonate="chrome136")
-    session.cookies.set("CGISESSID", cgisessid, domain="onroto.fangraphs.com")
+    # firefox135 TLS fingerprint bypasses Cloudflare's bot detection on onroto.fangraphs.com
+    session = curl_requests.Session(impersonate="firefox135")
 
-    # Navigate directly to standings — CGISESSID means we're already authenticated.
-    url = f"{BASE_URL}/display_stand.pl?{LEAGUE_ID}+{JON_TEAM_ID}"
-    resp = session.get(url, timeout=30)
+    resp = session.get("https://onroto.fangraphs.com/index.pl", timeout=30)
     if resp.status_code != 200:
         snippet = resp.text[:400].replace("\n", " ").strip()
-        raise RuntimeError(f"HTTP {resp.status_code} fetching standings: {snippet}")
+        raise RuntimeError(f"HTTP {resp.status_code} fetching login page: {snippet}")
+
+    soup = BeautifulSoup(resp.text, "html.parser")
+    form = soup.find("form")
+    if not form:
+        raise RuntimeError("Could not find login form")
+
+    action = form.get("action", "/index.pl")
+    if not action:
+        action = "/index.pl"
+    if not action.startswith("http"):
+        action = "https://onroto.fangraphs.com" + action
+
+    payload = {inp.get("name"): inp.get("value", "")
+               for inp in form.find_all("input") if inp.get("name")}
+
+    email_field = next(
+        (inp.get("name") for inp in form.find_all("input")
+         if inp.get("type") in ("text", "email")
+         or any(kw in (inp.get("name") or "").lower()
+                for kw in ("mail", "user", "login", "id"))),
+        "user",
+    )
+    pass_field = next(
+        (inp.get("name") for inp in form.find_all("input")
+         if inp.get("type") == "password"),
+        "pass",
+    )
+    payload[email_field] = username
+    payload[pass_field]  = password
+
+    resp = session.post(action, data=payload, timeout=30)
+    if resp.status_code != 200:
+        raise RuntimeError(f"HTTP {resp.status_code} on login POST")
 
     session_id = extract_session_id(resp.text)
     if not session_id:
-        raise RuntimeError(
-            "Could not extract session_id — CGISESSID may be expired. "
-            "Refresh it from Chrome DevTools."
-        )
+        raise RuntimeError("Login failed — check credentials")
 
-    print(f"Logged in via CGISESSID. session_id={session_id[:8]}…")
+    soup2 = BeautifulSoup(resp.text, "html.parser")
+    dtfbl_link = next(
+        (a["href"] for a in soup2.find_all("a", href=True) if "dtfbl" in a["href"]),
+        None,
+    )
+    if dtfbl_link:
+        resp2 = session.get(dtfbl_link, timeout=30)
+        session_id = extract_session_id(resp2.text) or session_id
+
+    print(f"Logged in. session_id={session_id[:8]}…")
     return session, session_id
 
 
