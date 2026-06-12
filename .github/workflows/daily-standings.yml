@@ -8,7 +8,7 @@ on:
 
 jobs:
   scrape:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
     permissions:
       contents: write  # needed to commit standings_log.csv back to the repo
 
