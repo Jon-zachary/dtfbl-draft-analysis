@@ -23,7 +23,7 @@ from pathlib import Path
 import argparse
 import json
 
-import requests
+import cloudscraper
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 
@@ -159,23 +159,7 @@ def login() -> tuple[requests.Session, str]:
     if not username or not password:
         raise ValueError("Set ONROTO_USERNAME and ONROTO_PASSWORD in your .env file")
 
-    session = requests.Session()
-    session.headers.update({
-        "User-Agent":      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                           "AppleWebKit/537.36 (KHTML, like Gecko) "
-                           "Chrome/136.0.0.0 Safari/537.36",
-        "Accept":          "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Connection":      "keep-alive",
-        "Upgrade-Insecure-Requests": "1",
-        "Sec-Fetch-Site":  "none",
-        "Sec-Fetch-Mode":  "navigate",
-        "Sec-Fetch-User":  "?1",
-        "Sec-Fetch-Dest":  "document",
-        "sec-ch-ua":       '"Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"',
-        "sec-ch-ua-mobile": "?0",
-        "sec-ch-ua-platform": '"Windows"',
-    })
+    session = cloudscraper.create_scraper()
 
     # Login page is at the root index, not under /baseball/webnew/
     login_url = "https://onroto.fangraphs.com/index.pl"
