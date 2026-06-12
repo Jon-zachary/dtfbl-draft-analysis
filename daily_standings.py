@@ -67,11 +67,19 @@ def login() -> tuple[requests.Session, str]:
         "User-Agent": (
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
             "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/123.0.0.0 Safari/537.36"
+            "Chrome/136.0.0.0 Safari/537.36"
         ),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
         "Connection": "keep-alive",
+        "Upgrade-Insecure-Requests": "1",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-User": "?1",
+        "Sec-Fetch-Dest": "document",
+        "sec-ch-ua": '"Chromium";v="136", "Google Chrome";v="136", "Not.A/Brand";v="99"',
+        "sec-ch-ua-mobile": "?0",
+        "sec-ch-ua-platform": '"Windows"',
     })
 
     resp = session.get("https://onroto.fangraphs.com/index.pl", timeout=30)
@@ -348,10 +356,35 @@ def send_standings_email(standings: dict, trade_block: list[dict]):
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+def _send_scraper_error_email(error: str) -> None:
+    from_addr = os.getenv("ALERT_FROM_EMAIL")
+    app_pw    = os.getenv("ALERT_APP_PASSWORD")
+    to_addr   = os.getenv("ALERT_TO_EMAIL")
+    if not all([from_addr, app_pw, to_addr]):
+        print("Cannot send error email — email secrets not set", file=sys.stderr)
+        return
+    msg = MIMEText(f"DTFBL scraper could not log in to OnRoto:\n\n{error}\n\nNo standings recorded today.")
+    msg["Subject"] = "DTFBL scraper login failed"
+    msg["From"] = from_addr
+    msg["To"] = to_addr
+    try:
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465) as server:
+            server.login(from_addr, app_pw)
+            server.sendmail(from_addr, to_addr, msg.as_string())
+        print("Error notification sent.")
+    except Exception as e:
+        print(f"Could not send error email: {e}", file=sys.stderr)
+
+
 def main():
     print(f"DTFBL daily standings — {datetime.now().strftime('%Y-%m-%d %H:%M UTC')}")
 
-    session, session_id = login()
+    try:
+        session, session_id = login()
+    except Exception as e:
+        print(f"Login failed: {e}", file=sys.stderr)
+        _send_scraper_error_email(str(e))
+        sys.exit(0)  # exit cleanly so the workflow doesn't fail
 
     html, _ = fetch(session, "display_stand.pl", session_id)
     standings = parse_standings(html)
