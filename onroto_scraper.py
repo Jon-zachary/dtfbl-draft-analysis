@@ -23,6 +23,7 @@ from pathlib import Path
 import argparse
 import json
 
+import requests
 import cloudscraper
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv

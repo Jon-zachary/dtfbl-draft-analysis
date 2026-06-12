@@ -21,6 +21,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from pathlib import Path
 
+import requests
 import cloudscraper
 from bs4 import BeautifulSoup
 from dotenv import load_dotenv
