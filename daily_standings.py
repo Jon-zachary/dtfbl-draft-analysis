@@ -63,62 +63,52 @@ def login() -> tuple[requests.Session, str]:
     if not username or not password:
         sys.exit("ERROR: Set ONROTO_USERNAME and ONROTO_PASSWORD")
 
-    session = cloudscraper.create_scraper()
+    from playwright.sync_api import sync_playwright
 
-    resp = session.get("https://onroto.fangraphs.com/index.pl", timeout=30)
-    if resp.status_code != 200:
-        snippet = resp.text[:800].replace("\n", " ").strip()
-        raise RuntimeError(
-            f"HTTP {resp.status_code} fetching login page. "
-            f"Response snippet: {snippet}"
-        )
+    with sync_playwright() as p:
+        browser = p.chromium.launch(headless=True)
+        context = browser.new_context()
+        page = context.new_page()
 
-    soup = BeautifulSoup(resp.text, "html.parser")
-    form = soup.find("form")
-    if not form:
-        sys.exit("ERROR: Could not find login form")
+        page.goto("https://onroto.fangraphs.com/index.pl", wait_until="networkidle", timeout=30000)
 
-    action = form.get("action", "/index.pl")
-    if not action.startswith("http"):
-        action = "https://onroto.fangraphs.com" + action
+        # Fill and submit the login form
+        page.locator('input[type="text"], input[type="email"]').first.fill(username)
+        page.locator('input[type="password"]').first.fill(password)
+        page.locator('input[type="submit"], button[type="submit"]').first.click()
+        page.wait_for_load_state("networkidle", timeout=30000)
 
-    payload = {inp.get("name"): inp.get("value", "")
-               for inp in form.find_all("input") if inp.get("name")}
+        html = page.content()
+        session_id = extract_session_id(html)
 
-    email_field = next(
-        (inp.get("name") for inp in form.find_all("input")
-         if inp.get("type") in ("text", "email")
-         or any(kw in (inp.get("name") or "").lower()
-                for kw in ("mail", "user", "login", "id"))),
-        "email",
-    )
-    pass_field = next(
-        (inp.get("name") for inp in form.find_all("input")
-         if inp.get("type") == "password"),
-        "password",
-    )
-    payload[email_field] = username
-    payload[pass_field]  = password
+        # Follow the DTFBL link to establish full league session context
+        if session_id:
+            soup2 = BeautifulSoup(html, "html.parser")
+            dtfbl_link = next(
+                (a["href"] for a in soup2.find_all("a", href=True) if "dtfbl" in a["href"]),
+                None,
+            )
+            if dtfbl_link:
+                page.goto(dtfbl_link, wait_until="networkidle", timeout=30000)
+                session_id = extract_session_id(page.content()) or session_id
 
-    session.headers["Referer"] = resp.url
-    resp = session.post(action, data=payload, timeout=30, allow_redirects=True)
-    resp.raise_for_status()
+        pw_cookies = context.cookies()
+        browser.close()
 
-    session_id = extract_session_id(resp.text)
     if not session_id:
-        sys.exit("ERROR: Login failed — check credentials")
+        raise RuntimeError("Login failed — session_id not found after login")
 
-    # Follow the DTFBL team_home link — this establishes full league session context,
-    # which is required for the message board to render correctly.
-    soup2 = BeautifulSoup(resp.text, "html.parser")
-    dtfbl_link = next(
-        (a["href"] for a in soup2.find_all("a", href=True) if "dtfbl" in a["href"]),
-        None,
-    )
-    if dtfbl_link:
-        session.headers["Referer"] = resp.url
-        resp2 = session.get(dtfbl_link, timeout=30)
-        session_id = extract_session_id(resp2.text) or session_id
+    # Transfer Playwright cookies (including cf_clearance) to a requests session
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/136.0.0.0 Safari/537.36"
+        ),
+    })
+    for c in pw_cookies:
+        session.cookies.set(c["name"], c["value"], domain=c["domain"])
 
     print(f"Logged in. session_id={session_id[:8]}…")
     return session, session_id
