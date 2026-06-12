@@ -83,7 +83,12 @@ def login() -> tuple[requests.Session, str]:
     })
 
     resp = session.get("https://onroto.fangraphs.com/index.pl", timeout=30)
-    resp.raise_for_status()
+    if resp.status_code != 200:
+        snippet = resp.text[:800].replace("\n", " ").strip()
+        raise RuntimeError(
+            f"HTTP {resp.status_code} fetching login page. "
+            f"Response snippet: {snippet}"
+        )
 
     soup = BeautifulSoup(resp.text, "html.parser")
     form = soup.find("form")
