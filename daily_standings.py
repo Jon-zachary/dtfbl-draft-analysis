@@ -70,13 +70,16 @@ def login() -> tuple[requests.Session, str]:
         context = browser.new_context()
         page = context.new_page()
 
-        page.goto("https://onroto.fangraphs.com/index.pl", wait_until="networkidle", timeout=30000)
+        page.goto("https://onroto.fangraphs.com/index.pl", wait_until="load", timeout=60000)
+        # Wait for Cloudflare challenge to pass and login form to appear
+        page.wait_for_selector('input[type="password"]', timeout=60000)
 
         # Fill and submit the login form
         page.locator('input[type="text"], input[type="email"]').first.fill(username)
         page.locator('input[type="password"]').first.fill(password)
         page.locator('input[type="submit"], button[type="submit"]').first.click()
-        page.wait_for_load_state("networkidle", timeout=30000)
+        page.wait_for_load_state("load", timeout=60000)
+        page.wait_for_selector("a", timeout=60000)  # wait for post-login page to render
 
         html = page.content()
         session_id = extract_session_id(html)
@@ -89,7 +92,7 @@ def login() -> tuple[requests.Session, str]:
                 None,
             )
             if dtfbl_link:
-                page.goto(dtfbl_link, wait_until="networkidle", timeout=30000)
+                page.goto(dtfbl_link, wait_until="load", timeout=60000)
                 session_id = extract_session_id(page.content()) or session_id
 
         pw_cookies = context.cookies()
